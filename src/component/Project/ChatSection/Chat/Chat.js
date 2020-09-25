@@ -5,32 +5,31 @@ import InputChat from './InputChat/InputChat'
 import './chat.css'
 
 const Chat = () => {
-  
-    const listMessages = useSelector (state => state.messageSlice)
-    console.log(listMessages)
-    // const fillMessage = () => {
-    //     return(
-    //         <div>
-    //             {
-    //                 listMessages.map((message) => {
-    //                     console.log(message)
-    //                     return (
-    //                         <div> </div>
-    //                     )
-    //                 })
-    //             }
-    //         </div>
 
-    //     )
-    // }
+    const messages = useSelector(state => state.messageSlice)
+    console.log(messages)
+    const fillMessage = () => {
+        return(
+            <div className="message-Content">
+                {messages.listMessage.map((message, i) => {
+                        console.log(message)
+                        return (
+                            <div key={i}>
+                                <MessageChat stateMessage={message} myMessage={false}/>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
+        )
+    }
 
     return (
-        <div className="mainChat"> 
+        <div className="chatBlock">
             {/* <MessageChat myMessage={true}/> */}
 
-            {/* {listMessages ? fillMessage() : null} */}
-           
-            
+            { fillMessage() }
         </div>
     )
 };

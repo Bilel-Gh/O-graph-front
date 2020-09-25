@@ -1,7 +1,12 @@
-.mainChat {
+.chatBlock {
     display: flex;
     flex-direction: column;
     overflow: auto;
+    background-color: black;
+    height:100%;
 }
 
+.message-Content {
+    height: 100%;
+}
 
