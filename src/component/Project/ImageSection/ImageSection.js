@@ -1,19 +1,19 @@
-    import React from 'react';
-    import MakeStickers from './MakeStickers'
-    import ImageFeedBack from './ImageFeedBack'
-    import './imageSection.css'
+import React from 'react';
 
-    const ImageSection = () => {
 
-        return (
-            <div className="imageSection">
-               
-                <ImageFeedBack />
-                {/* <MakeStickers /> */}
-      
-            </div>
-        )
+import NewMessage from './newMessage/NewMessage'
+import ImageFeedBack from './imageFeedback/ImageFeedBack';
+import './imageSection.css'
 
-    };
+const ImageSection = () => {
 
-    export default ImageSection; 
+    return (
+        <div className="imageSection">
+            <ImageFeedBack />
+            <NewMessage/>
+        </div>
+    )
+
+};
+
+export default ImageSection;
