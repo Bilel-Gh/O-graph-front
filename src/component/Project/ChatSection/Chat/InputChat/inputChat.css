@@ -1,8 +1,28 @@
+    .input-Chat-Div {
+        width: 100%;
+        height: 8%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-Form {
+        display: block;
+        height: 100%;
+        width: 100%;
+        margin: 1vh;
+    }
+
     .input-Chat {
-        width: 80%;
+        margin: 1vh;
+        margin-left: 1vh;
+        margin-right: 0;
+        width: 70%;
+        height: 70%;
         border: none;
     }
 
     .button-Chat {
-
+        border: none;
+        height: 70%;
     }
