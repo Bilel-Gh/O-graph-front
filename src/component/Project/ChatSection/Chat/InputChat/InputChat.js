@@ -33,7 +33,7 @@ dispatch(sendMessage({
                 className="input-Chat"
                 type="text"
                 onChange={handleMessageText}
-                value= {message.messageText}
+                value= {message.modalIOFirstMessage? "":message.messageText}
                 >
 
                 </input>

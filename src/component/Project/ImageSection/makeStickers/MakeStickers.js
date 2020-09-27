@@ -21,7 +21,7 @@ const MakeStickers = () => {
     return (
         <div className="main-image">
           <div className='container-stickers-image'  ref={imgRef} >
-            <img className='image-comment' onLoad={handleImageLoaded}  src="https://intrld.com/wp-content/uploads/2020/05/one-piece-.png.webp" onClick={saveStickers} onContextMenu={(e)=>e.preventDefault()} />
+            <img className='image-comment' onLoad={handleImageLoaded}  src="https://www.muralswallpaper.com/app/uploads/Blue-Illustrated-Landscape-Mountains-Wallpaper-Mural-820x532.jpg" onClick={saveStickers} onContextMenu={(e)=>e.preventDefault()} />
             {createStickers()}
         </div>
        </div>

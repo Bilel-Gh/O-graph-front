@@ -1,11 +1,12 @@
 .main-image{
     /* position: relative; */
     display: flex;
-    margin: auto;
+    /* margin: auto; */
     justify-content: center;
     width: 80%;
     height: 600px;
     margin-right: 1rem;
+
     
   }
 
