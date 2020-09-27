@@ -28,7 +28,7 @@ dispatch(sendMessage({
     return (
 
         <div className="input-Chat-Div">
-            <form onSubmit={onSubmitMessage}>
+            <form className="input-Form" onSubmit={onSubmitMessage}>
                 <input
                 className="input-Chat"
                 type="text"

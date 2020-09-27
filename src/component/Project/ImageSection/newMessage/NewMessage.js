@@ -8,6 +8,7 @@ const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
     console.log(message)
+    
     const handleModalClose = (e) =>{
     dispatch(IOModalFirstMessage(false))
     };
