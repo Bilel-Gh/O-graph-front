@@ -1,23 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
-import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage } from '../../../../store/messageSlice';
+import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, validateTitleMessage } from '../../../../store/messageSlice';
 
 import MakeStickers from '../makeStickers/MakeStickers'
 import ListCommentCreated from './listCommentCreated/ListCommentCreated'
 
 import './NewMessage.css'
 
+
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
-    console.log(message)
+    const [rowTextArea, setRowTextArea] = useState(1)
     
+    // femer le modal new message en dispatchant dans le reducer messageSlice le sate IOModal à false
     const handleModalClose = (e) =>{
     dispatch(IOModalFirstMessage(false))
     };
 
+    // récupérer la valeur du titre du message qui est en train d"être tapper
     const handleTitleMessage = (e) =>{
         e.preventDefault()
         const title = e.target.value
@@ -26,26 +29,39 @@ const NewMessage = () => {
         ))
      }
 
-     const handleSubmitFirstMessage = (e) => {
-        e.preventDefault()
-    dispatch(sendMessage({
-        id : message.idUser ,
-        name : message.name,
-        img : message.img,
-        text : message.messageText
-    }))
-    dispatch(IOModalFirstMessage(false))
-
-    }
-
+     // récupérer la valeur du message qui est entré dans le input text du message. Le row s aggrandit lorsqu'on écrit jusqu'à
+     //une valeur max
     const handleMessageText= (e) =>{
         e.preventDefault()
         const text = e.target.value
+   
+        const rowsActual = parseInt(e.target.scrollHeight/30)
+        console.log(rowsActual, e.target.scrollHeight)
+        if(rowsActual>=4){
+            setRowTextArea(4)
+        }else{
+            setRowTextArea(rowsActual)
+        }
         dispatch(onMessageInput(
             text
         ))
 
      }
+
+     // valider le message en modifiant le state du sliceMessage et en fermant le modal
+     const handleSubmitFirstMessage = (e) => {
+        e.preventDefault()
+        dispatch(sendMessage({
+            id : message.idUser ,
+            name : message.name,
+            img : message.img,
+            text : message.messageText
+        }))
+        dispatch(validateTitleMessage())
+        dispatch(IOModalFirstMessage(false))
+    }
+
+    
 
     return (
         <div>
@@ -60,9 +76,9 @@ const NewMessage = () => {
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>Titre message</Form.Label>
 
-                        <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.titreMessage} />
+                        <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.newTitreMessage} />
                         <Form.Label>Texte</Form.Label>
-                        <Form.Control as="textarea" rows="3" className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
+                        <Form.Control as="textarea" rows={rowTextArea}  className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">

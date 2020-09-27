@@ -31,9 +31,9 @@ dispatch(sendMessage({
             <form className="input-Form" onSubmit={onSubmitMessage}>
                 <input
                 className="input-Chat"
-                type="text"
+                type="textarea"data-limit-rows="true" cols="60" rows="8"
                 onChange={handleMessageText}
-                value= {message.messageText}
+                value= {message.modalIOFirstMessage? "":message.messageText}
                 >
 
                 </input>

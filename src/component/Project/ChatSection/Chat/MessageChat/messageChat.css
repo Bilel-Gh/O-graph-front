@@ -21,6 +21,7 @@
     /* order:1; */
     flex: 1;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .messageChat-name {
@@ -35,5 +36,7 @@ hr {
 
 .messageChat-text{
     background-color: burlywood;
+    word-wrap: break-word;
+    width: 100%;
     margin: 0.25rem;
 }

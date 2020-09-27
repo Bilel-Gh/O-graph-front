@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import MessageChat from './MessageChat/MessageChat'
 import InputChat from './InputChat/InputChat'
 import './chat.css'
 
 const Chat = () => {
-
+    const scrollChat = useRef(null);
     const messages = useSelector(state => state.messageSlice)
     console.log(messages)
     const fillMessage = () => {
@@ -24,9 +24,19 @@ const Chat = () => {
 
         )
     }
+   // objDiv.scrollTop = objDiv.scrollHeight;
+
+    useEffect(()=>{
+        if (scrollChat.current){
+
+            console.log(scrollChat.current)
+            scrollChat.current.scrollTop = scrollChat.current.scrollHeight;
+        }
+    },[messages.listMessage])
+
 
     return (
-        <div className="chatBlock">
+        <div className="chatBlock" ref={scrollChat}>
             {/* <MessageChat myMessage={true}/> */}
 
             { fillMessage() }
