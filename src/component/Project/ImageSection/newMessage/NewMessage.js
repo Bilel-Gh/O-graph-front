@@ -4,6 +4,11 @@ import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage } from '../../../../store/messageSlice';
 
+import MakeStickers from '../makeStickers/MakeStickers'
+import ListCommentCreated from './listCommentCreated/ListCommentCreated'
+
+import './NewMessage.css'
+
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
@@ -19,7 +24,6 @@ const NewMessage = () => {
         dispatch(createTitleMessage(
             title
         ))
-
      }
 
      const handleSubmitFirstMessage = (e) => {
@@ -34,7 +38,6 @@ const NewMessage = () => {
 
     }
 
-
     const handleMessageText= (e) =>{
         e.preventDefault()
         const text = e.target.value
@@ -46,18 +49,20 @@ const NewMessage = () => {
 
     return (
         <div>
-
-            <Modal show={message.modalIOFirstMessage} onHide={handleModalClose}>
+            
+            <Modal show={message.modalIOFirstMessage} onHide={handleModalClose} className='modal-newMessage'size='xl'>
                     <Modal.Header>Créer un message</Modal.Header>
 
-                    <Modal.Body>
-                    <Form onSubmit={handleSubmitFirstMessage}>
+                    <Modal.Body className='modal-newMessage-body'>
+                    
+                    <MakeStickers />
+                    <Form onSubmit={handleSubmitFirstMessage} className='modal-form-new-message'>
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>Titre message</Form.Label>
 
                         <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.titreMessage} />
                         <Form.Label>Texte</Form.Label>
-                        <Form.Control type="text" placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
+                        <Form.Control as="textarea" rows="3" className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
