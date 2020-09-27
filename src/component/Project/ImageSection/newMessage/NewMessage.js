@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
@@ -13,6 +13,7 @@ import './NewMessage.css'
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
+    const [rowTextArea, setRowTextArea] = useState(1)
     
     // femer le modal new message en dispatchant dans le reducer messageSlice le sate IOModal à false
     const handleModalClose = (e) =>{
@@ -28,10 +29,19 @@ const NewMessage = () => {
         ))
      }
 
-     // récupérer la valeur du message qui est entré dans le input text du message
+     // récupérer la valeur du message qui est entré dans le input text du message. Le row s aggrandit lorsqu'on écrit jusqu'à
+     //une valeur max
     const handleMessageText= (e) =>{
         e.preventDefault()
         const text = e.target.value
+   
+        const rowsActual = parseInt(e.target.scrollHeight/30)
+        console.log(rowsActual, e.target.scrollHeight)
+        if(rowsActual>=4){
+            setRowTextArea(4)
+        }else{
+            setRowTextArea(rowsActual)
+        }
         dispatch(onMessageInput(
             text
         ))
@@ -68,7 +78,7 @@ const NewMessage = () => {
 
                         <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.newTitreMessage} />
                         <Form.Label>Texte</Form.Label>
-                        <Form.Control as="textarea" rows="3" className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
+                        <Form.Control as="textarea" rows={rowTextArea}  className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
