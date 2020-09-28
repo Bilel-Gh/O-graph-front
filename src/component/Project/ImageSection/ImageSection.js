@@ -9,6 +9,7 @@ import './imageSection.css'
 
 const ImageSection = () => {
     const dispatch = useDispatch()
+    
     const handleModalOpen = () => {
        dispatch(IOModalFirstMessage(true))
     }
@@ -16,11 +17,13 @@ const ImageSection = () => {
     return (
         <div className="imageSection">
             <div className="header-image-section">
-            <Button  onClick={handleModalOpen} variant="primary">
-                            ajouter un commentaire sur l'image
-                        </Button>
+            <Button  onClick={handleModalOpen} variant="secondary">
+                ajouter un commentaire sur l'image
+            </Button>
             </div>
+            -
             <ImageFeedBack />
+            +
             <NewMessage/>
         </div>
     )

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
 
 const messageSlice = createSlice ({
     name: 'Chat',
@@ -10,7 +9,7 @@ const messageSlice = createSlice ({
         img:"B",
         titreMessage:"",
         newTitreMessage:"",
-        modalIOFirstMessage:false,
+        modalIOFirstMessage:true,
         listMessage : []
     },
     reducers  : {
@@ -51,4 +50,4 @@ const messageSlice = createSlice ({
     }
 })
 export const { onMessageInput, sendMessage, IOModalFirstMessage, createTitleMessage, validateTitleMessage} = messageSlice.actions;
-export default messageSlice.reducer
+export default messageSlice.reducer;

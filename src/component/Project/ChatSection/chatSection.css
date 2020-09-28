@@ -1,6 +1,7 @@
 .chatSection{
     display: flex;
     flex-direction: column;
+    min-width: 37vh;
     width: 20%;
     height: 100%;
     background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
