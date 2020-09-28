@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, validateTitleMessage } from '../../../../store/messageSlice';
-
+import {createSticker, fillListStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
 import ListCommentCreated from './listCommentCreated/ListCommentCreated'
 
@@ -17,8 +17,10 @@ const NewMessage = () => {
     
     // femer le modal new message en dispatchant dans le reducer messageSlice le sate IOModal à false
     const handleModalClose = (e) =>{
-    dispatch(IOModalFirstMessage(false))
-    };
+        dispatch(onMessageInput(""))
+        dispatch(createTitleMessage(""))
+        dispatch(IOModalFirstMessage(false))
+        };
 
     // récupérer la valeur du titre du message qui est en train d"être tapper
     const handleTitleMessage = (e) =>{
@@ -34,9 +36,10 @@ const NewMessage = () => {
     const handleMessageText= (e) =>{
         e.preventDefault()
         const text = e.target.value
-   
+        // console.log(e.target.scrollHeight, "scroll height")
         const rowsActual = parseInt(e.target.scrollHeight/30)
-        console.log(rowsActual, e.target.scrollHeight)
+        //console.log(rowsActual, e.target.scrollHeight)
+
         if(rowsActual>=4){
             setRowTextArea(4)
         }else{
@@ -45,7 +48,6 @@ const NewMessage = () => {
         dispatch(onMessageInput(
             text
         ))
-
      }
 
      // valider le message en modifiant le state du sliceMessage et en fermant le modal
@@ -58,7 +60,8 @@ const NewMessage = () => {
             text : message.messageText
         }))
         dispatch(validateTitleMessage())
-        dispatch(IOModalFirstMessage(false))
+        dispatch(fillListStickers())
+        dispatch(createSticker(false))
     }
 
     
@@ -70,8 +73,9 @@ const NewMessage = () => {
                     <Modal.Header>Créer un message</Modal.Header>
 
                     <Modal.Body className='modal-newMessage-body'>
-                    
-                    <MakeStickers />
+
+                    <MakeStickers/>
+                
                     <Form onSubmit={handleSubmitFirstMessage} className='modal-form-new-message'>
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>Titre message</Form.Label>

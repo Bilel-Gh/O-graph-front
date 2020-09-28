@@ -1,12 +1,13 @@
 import React from 'react';
-import MakeStickers from '../makeStickers/MakeStickers'
+// import SwitchImages from '../switchImage/SwitchImages'
 import './imageFeedBack.css'
 
 const ImageFeedBack = () => {
 
     return (
         <div className="main-image-FeedBack">
-           <MakeStickers />
+           {/* <MakeStickers /> */}
+           {/* <SwitchImages/> */}
         </div>
     )
 }
