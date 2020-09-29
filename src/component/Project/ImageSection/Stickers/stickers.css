@@ -1,9 +1,13 @@
 .stickers {
     background-color: #a52a2a;
     border-radius: 25px;
+    border: solid 1px;
+    border-color: beige;
     position:absolute;
-    height: 15px;
-    width: 15px;
-    top: 10px;
-    left: 10px;
+    height: 16px;
+    width: 16px;
+    /* top: 10px;
+    left: 10px; */
+
+
 }

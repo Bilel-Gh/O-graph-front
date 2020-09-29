@@ -28,3 +28,7 @@
     font-size: 3.5em;
     line-height: 24px
 }
+
+.formError {
+    background: red;
+}

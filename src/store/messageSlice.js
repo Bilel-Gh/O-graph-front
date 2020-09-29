@@ -6,6 +6,8 @@ const messageSlice = createSlice ({
         idUser : 1,
         name: "Bradou",
         messageText:"" ,
+        errorTiltle : true,
+        errorText : true,
         img:"B",
         titreMessage:"",
         newTitreMessage:"",
@@ -42,6 +44,7 @@ const messageSlice = createSlice ({
         },
         validateTitleMessage:(state, action) =>{
             state.titreMessage=state.newTitreMessage;
+            state.newTitreMessage="";
             return (
                 state
             )

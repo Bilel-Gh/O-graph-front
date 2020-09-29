@@ -7,14 +7,14 @@ import './chat.css'
 const Chat = () => {
     const scrollChat = useRef(null);
     const messages = useSelector(state => state.messageSlice)
- 
+
     const fillMessage = () => {
         return(
-            <div className="message-Content">
+            <div className="message-master">
                 {messages.listMessage.map((message, i) => {
-       
+
                         return (
-                            <div key={i}>
+                            <div classname="chat-master" key={i}>
                                 <MessageChat stateMessage={message} myMessage={false}/>
                             </div>
                         )
@@ -24,7 +24,7 @@ const Chat = () => {
 
         )
     }
-  
+
 
     useEffect(()=>{
         if (scrollChat.current){
