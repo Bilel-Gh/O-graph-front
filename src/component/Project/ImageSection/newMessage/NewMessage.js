@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, validateTitleMessage } from '../../../../store/messageSlice';
 import {createSticker, fillListStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
-import ListCommentCreated from './listCommentCreated/ListCommentCreated'
+import ColorPicker from './ColorPicker/ColorPicker'
 
 import './NewMessage.css'
 
@@ -78,10 +78,16 @@ const NewMessage = () => {
                 
                     <Form onSubmit={handleSubmitFirstMessage} className='modal-form-new-message'>
                         <Form.Group controlId="formBasicEmail">
+                         <div className="colorPicker-Container">
+                             <p> Choisissez une couleur de sticker </p>
+                             <ColorPicker/>
+                        </div>
                         <Form.Label>Titre message</Form.Label>
-
+                        {<div className='newComment-message-error'>Vous devez mettre un titre </div>}
                         <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.newTitreMessage} />
                         <Form.Label>Texte</Form.Label>
+
+                        <div className='newComment-message-error'>Vous devez écrire un commentaire </div>
                         <Form.Control as="textarea" rows={rowTextArea}  className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 

@@ -3,19 +3,20 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const imageSlice = createSlice({
   name: 'Image',
   initialState: {
-    mousePosition: {
-     x:null,
-     y:null,
+    sticker: {
+    stickerColor : "",
+    x:null,
+    y:null,
    },
    creatingSticker : false,
    listStickers : []
   },
   reducers:{
     setMousePosition : (state, action) => {
-        state.mousePosition = {
+        state.sticker = {...state.sticker,
                               x:action.payload.x ,
                               y:action.payload.y
-                              };              
+                              };
         return (
             state
         )
@@ -26,9 +27,13 @@ const imageSlice = createSlice({
         state
         )
     },
+    setColorSticker :(state, action) =>{
+    state.sticker.stickerColor = action.payload
+    return (state)
+    },
     fillListStickers : (state, action) => {
-     
-      state.listStickers = [...state.listStickers, state.mousePosition]
+
+      state.listStickers = [...state.listStickers, state.sticker]
       return (
         state
       )
@@ -36,6 +41,6 @@ const imageSlice = createSlice({
   },
 })
 
-export const {setMousePosition, createSticker, fillListStickers } = imageSlice.actions;
+export const {setMousePosition, createSticker, fillListStickers, setColorSticker } = imageSlice.actions;
 export default imageSlice.reducer;
 

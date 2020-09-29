@@ -9,7 +9,7 @@ import './imageSection.css'
 
 const ImageSection = () => {
     const dispatch = useDispatch()
-    
+
     const handleModalOpen = () => {
        dispatch(IOModalFirstMessage(true))
     }

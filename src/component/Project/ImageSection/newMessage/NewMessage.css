@@ -13,7 +13,13 @@
 
 .modal-form-new-message{
     width: 25%;
-    
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6vh;
+    padding-right: 0;
+    padding-left: 0;
+    /* align-content: center; */
+    align-content: space-between;
 }
 
 .input-text-new-comment{
