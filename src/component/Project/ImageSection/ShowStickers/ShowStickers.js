@@ -6,23 +6,24 @@ import Stickers from '../Stickers/Stickers'
 
 const ShowStickers = () => {
     const imageState = useSelector(state => state.imageSlice);
-    
+
     const showAllStickers = () => {
         return (
-            <div> 
+            <div>
                 {imageState.listStickers.map(sticker=> {
-                  
-                    const position = {
+
+                    const stateSticker = {
                         left:sticker.x + "%",
-                        top:sticker.y + "%"
+                        top:sticker.y + "%",
+                        backgroundColor:sticker.stickerColor
                     }
-                    return <Stickers stickersList={true} position={position}/>
+                    return <Stickers stickersList={true} stateStickerInObject={stateSticker}/>
                 })}
             </div>
-         
+
         )
     }
-    
+
     return (
         <div >
             {showAllStickers()}

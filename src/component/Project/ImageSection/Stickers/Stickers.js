@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-const Stickers = ({stickersList, position}) => {
+const Stickers = ({stickersList, stateStickerInObject}) => {
     const imageState = useSelector(state => state.imageSlice);
-    const mousePosition = {
-        top: imageState.mousePosition.y +"%",
-        left: imageState.mousePosition.x +"%"
+    const defaultStateSticker = {
+        top: imageState.sticker.y +"%",
+        left: imageState.sticker.x +"%",
+        backgroundColor: imageState.sticker.stickerColor
     }
     return (
-        <div className="stickers" style={stickersList ? position : mousePosition }>
-            
+        <div className="stickers" style={stickersList ? stateStickerInObject : defaultStateSticker }>
+
         </div>
     )
 };

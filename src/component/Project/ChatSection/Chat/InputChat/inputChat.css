@@ -7,16 +7,18 @@
     }
 
     .input-Form {
-        display: block;
+        display: flex;
         height: 100%;
         width: 100%;
         margin: 1vh;
+        border-top: solid 2px #ffffff;
     }
 
     .input-Chat {
         margin: 1vh;
         margin-left: 1vh;
         margin-right: 0;
+        border-radius: 0;
         width: 70%;
         height: 70%;
         border: none;
@@ -25,4 +27,6 @@
     .button-Chat {
         border: none;
         height: 70%;
+        margin: 1vh 0;
+        background-color: #f3355b;
     }

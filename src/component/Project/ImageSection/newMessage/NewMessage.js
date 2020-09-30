@@ -3,9 +3,10 @@ import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, validateTitleMessage } from '../../../../store/messageSlice';
-import {createSticker, fillListStickers} from '../../../../store/imageSlice'
+import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
-import ListCommentCreated from './listCommentCreated/ListCommentCreated'
+import ColorPicker from './ColorPicker/ColorPicker'
+// import store from '../'
 
 import './NewMessage.css'
 
@@ -14,7 +15,7 @@ const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
     const [rowTextArea, setRowTextArea] = useState(1)
-    
+
     // femer le modal new message en dispatchant dans le reducer messageSlice le sate IOModal à false
     const handleModalClose = (e) =>{
         dispatch(onMessageInput(""))
@@ -53,36 +54,53 @@ const NewMessage = () => {
      // valider le message en modifiant le state du sliceMessage et en fermant le modal
      const handleSubmitFirstMessage = (e) => {
         e.preventDefault()
-        dispatch(sendMessage({
-            id : message.idUser ,
-            name : message.name,
-            img : message.img,
-            text : message.messageText
-        }))
-        dispatch(validateTitleMessage())
-        dispatch(fillListStickers())
-        dispatch(createSticker(false))
+
+        if (message.messageText && message.newTitreMessage){
+
+            dispatch(sendMessage({
+                id : message.idUser ,
+                name : message.name,
+                img : message.img,
+                text : message.messageText
+            }))
+            dispatch(validateTitleMessage())
+            dispatch(fillListStickers())
+            dispatch(createSticker(false))
+            dispatch(postStickers())
+        }else{
+            if(message.messageText){
+
+            }
+            if (message.newTitreMessage){
+
+            }
+        }
+
+
     }
 
-    
+
 
     return (
         <div>
-            
+
             <Modal show={message.modalIOFirstMessage} onHide={handleModalClose} className='modal-newMessage'size='xl'>
                     <Modal.Header>Créer un message</Modal.Header>
-
+                         <div className="colorPicker-Container">
+                             <p className="p-color"> Choisissez une couleur de sticker  et sélectionnez un point sur l'image</p>
+                    <ColorPicker />
+                        </div>
                     <Modal.Body className='modal-newMessage-body'>
-
                     <MakeStickers/>
-                
                     <Form onSubmit={handleSubmitFirstMessage} className='modal-form-new-message'>
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>Titre message</Form.Label>
-
-                        <Form.Control type="text" placeholder="Titre message" onChange= {handleTitleMessage} value={message.newTitreMessage} />
+                        {message.errorTiltle && <div className='newComment-message-error'>Vous devez mettre un titre </div>}
+                        <Form.Control  type="text" className={message.errorTiltle ? "formError" : "formTrue"}   placeholder="Ecrire un commentaire" onChange= {handleTitleMessage} value={message.newTitreMessage} />
                         <Form.Label>Texte</Form.Label>
-                        <Form.Control as="textarea" rows={rowTextArea}  className='input-text-new-comment' placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
+
+                        {message.errorText && <div className='newComment-message-error'>Vous devez écrire un commentaire </div>}
+                        <Form.Control as="textarea" rows={rowTextArea}  className={message.errorText ? "input-text-new-comment formError" : "input-text-new-comment formTrue"}  placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">

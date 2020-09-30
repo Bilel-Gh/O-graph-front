@@ -9,7 +9,7 @@ import './imageSection.css'
 
 const ImageSection = () => {
     const dispatch = useDispatch()
-    
+
     const handleModalOpen = () => {
        dispatch(IOModalFirstMessage(true))
     }
@@ -17,7 +17,7 @@ const ImageSection = () => {
     return (
         <div className="imageSection">
             <div className="header-image-section">
-            <Button  onClick={handleModalOpen} variant="secondary">
+            <Button  onClick={handleModalOpen} className="btn-primary" variant="primary">
                 ajouter un commentaire sur l'image
             </Button>
             </div>
