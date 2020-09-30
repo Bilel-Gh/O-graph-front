@@ -29,16 +29,15 @@ dispatch(sendMessage({
 
         <div className="input-Chat-Div">
             <form className="input-Form" onSubmit={onSubmitMessage}>
-                <input
+                <textarea
                 className="input-Chat"
                 type="textarea"data-limit-rows="true" cols="60" rows="8"
                 onChange={handleMessageText}
                 value= {message.modalIOFirstMessage? "":message.messageText}
                 >
-
-                </input>
-
+                </textarea>
                 <button className="button-Chat" type= "submit">Envoyer</button>
+
             </form>
         </div>
     )

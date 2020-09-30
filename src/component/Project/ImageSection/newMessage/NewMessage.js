@@ -6,6 +6,7 @@ import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, v
 import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
 import ColorPicker from './ColorPicker/ColorPicker'
+// import store from '../'
 
 import './NewMessage.css'
 
