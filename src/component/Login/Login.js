@@ -11,12 +11,9 @@ import{onLoginInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
 import {fetchUser} from '../../store/userSlice'
 import './login.css'
 
-
-
     const Login = () => {
         const LoginState = useSelector(state => state.loginSlice);
         const dispatch = useDispatch();
-
 
         const onSubmitLogin = (e) => {
             e.preventDefault()
@@ -44,7 +41,7 @@ import './login.css'
          }
          useEffect(()=>{
              console.log(fetchUser)
-            dispatch(fetchUser)
+            dispatch(fetchUser())
         },[])
 
         return (
