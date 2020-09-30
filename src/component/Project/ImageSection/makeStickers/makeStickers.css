@@ -3,11 +3,11 @@
     display: flex;
     /* margin: auto; */
     justify-content: center;
-    width: 80%;
-    height: 600px;
+    width: auto;
+    height: auto;
     margin-right: 1rem;
 
-    
+
   }
 
   .container-stickers-image {
@@ -22,5 +22,5 @@
     margin: auto;
     max-width:100%;
     height:auto;
-    
+
   }

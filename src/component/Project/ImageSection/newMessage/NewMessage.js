@@ -87,7 +87,7 @@ const NewMessage = () => {
             <Modal show={message.modalIOFirstMessage} onHide={handleModalClose} className='modal-newMessage'size='xl'>
                     <Modal.Header>Créer un message</Modal.Header>
                          <div className="colorPicker-Container">
-                             <p> Choisissez une couleur de sticker  et sélectionnez un point sur l'image</p>
+                             <p className="p-color"> Choisissez une couleur de sticker  et sélectionnez un point sur l'image</p>
                     <ColorPicker />
                         </div>
                     <Modal.Body className='modal-newMessage-body'>

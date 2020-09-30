@@ -1,13 +1,22 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import { Input } from 'semantic-ui-react';
 import {useSelector, useDispatch} from 'react-redux';
 import{onLoginInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
+import {fetchUser} from '../../store/userSlice'
 import './login.css'
+
 
 
     const Login = () => {
         const LoginState = useSelector(state => state.loginSlice);
         const dispatch = useDispatch();
+
 
         const onSubmitLogin = (e) => {
             e.preventDefault()
@@ -32,12 +41,15 @@ import './login.css'
             dispatch(onPasswordInput(
                 passwordInput
             ))
-
          }
+         useEffect(()=>{
+             console.log(fetchUser)
+            dispatch(fetchUser)
+        },[])
 
         return (
             <div className="loginPage">
-                   <div className="loginDiv">
+                  <div className="loginDiv">
 
                         <form className="login-Form" onSubmit={onSubmitLogin}>
                             <Input
@@ -56,7 +68,11 @@ import './login.css'
                             value= {LoginState.password}
                             >
                             </Input>
-                            <button className="button-Login" type= "submit">Se Connecter</button>
+
+                            <Link to="/project">
+                                <button className="button-Login" type= "submit" > se connecter  </button>
+                            </Link>
+
 
                         </form>
                    </div>
