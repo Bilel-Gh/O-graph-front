@@ -4,6 +4,7 @@
     height: 12vh;
     min-height: 80px;
     font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .nav-bar {
