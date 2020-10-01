@@ -6,7 +6,7 @@ import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, v
 import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
 import ColorPicker from './ColorPicker/ColorPicker'
-// import store from '../'
+import store from './../../../../store'
 
 import './NewMessage.css'
 
@@ -15,6 +15,7 @@ const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
     const dispatch= useDispatch()
     const [rowTextArea, setRowTextArea] = useState(1)
+    const states = store.getState()
 
     // femer le modal new message en dispatchant dans le reducer messageSlice le sate IOModal à false
     const handleModalClose = (e) =>{
@@ -66,7 +67,7 @@ const NewMessage = () => {
             dispatch(validateTitleMessage())
             dispatch(fillListStickers())
             dispatch(createSticker(false))
-            dispatch(postStickers())
+            dispatch(postStickers(states))
         }else{
             if(message.messageText){
 
@@ -87,7 +88,8 @@ const NewMessage = () => {
             <Modal show={message.modalIOFirstMessage} onHide={handleModalClose} className='modal-newMessage'size='xl'>
                     <Modal.Header>Créer un message</Modal.Header>
                          <div className="colorPicker-Container">
-                             <p className="p-color"> Choisissez une couleur de sticker  et sélectionnez un point sur l'image</p>
+                            <p className="p-color">  Choisissez une couleur de sticker  et sélectionnez un point sur l'image </p>
+
                     <ColorPicker />
                         </div>
                     <Modal.Body className='modal-newMessage-body'>

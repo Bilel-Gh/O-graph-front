@@ -10,14 +10,14 @@ const ShowStickers = () => {
     const showAllStickers = () => {
         return (
             <div>
-                {imageState.listStickers.map(sticker=> {
+                {imageState.listStickers.map((sticker)=> {
 
                     const stateSticker = {
                         left:sticker.x + "%",
                         top:sticker.y + "%",
                         backgroundColor:sticker.stickerColor
                     }
-                    return <Stickers stickersList={true} stateStickerInObject={stateSticker}/>
+                    return <Stickers key={stateSticker.left} stickersList={true} stateStickerInObject={stateSticker}/>
                 })}
             </div>
 

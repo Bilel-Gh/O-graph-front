@@ -14,7 +14,7 @@ const Chat = () => {
                 {messages.listMessage.map((message, i) => {
 
                         return (
-                            <div classname="chat-master" key={i}>
+                            <div className="chat-master" key={i}>
                                 <MessageChat stateMessage={message} myMessage={false}/>
                             </div>
                         )

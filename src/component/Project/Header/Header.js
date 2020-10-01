@@ -5,7 +5,20 @@
 
         return (
             <div className="header">
-                Header
+                <nav className="nav-bar">
+                    <div className="logo">O'GRAPH</div>
+                    <ul className="nav-infos">
+                        <li> Accueil </li>
+                        <li> Contact </li>
+                        <li> About </li>
+                    </ul>
+                    <ul className="nav-logout">
+                        <li className="li-name" > Nom </li>
+                        <li className="li-lastname" > Prénom </li>
+                        <li> Déconnextion </li>
+                    </ul>
+                 </nav>
+                
             </div>
         )
 

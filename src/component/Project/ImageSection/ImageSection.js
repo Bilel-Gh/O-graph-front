@@ -1,18 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 import NewMessage from './newMessage/NewMessage'
 import ImageFeedBack from './imageFeedback/ImageFeedBack';
 import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage } from '../../../store/messageSlice';
+import {fetchSticker} from '../../../store/imageSlice';
 import './imageSection.css'
 
 const ImageSection = () => {
     const dispatch = useDispatch()
-
+    
     const handleModalOpen = () => {
        dispatch(IOModalFirstMessage(true))
     }
+
+    useEffect (()=>{
+       
+        dispatch(fetchSticker())
+    },[])
 
     return (
         <div className="imageSection">
@@ -21,9 +27,9 @@ const ImageSection = () => {
                 ajouter un commentaire sur l'image
             </Button>
             </div>
-            -
+            
             <ImageFeedBack />
-            +
+            
             <NewMessage/>
         </div>
     )
