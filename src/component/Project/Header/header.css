@@ -3,4 +3,61 @@
     width: 100%;
     height: 12vh;
     min-height: 80px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.nav-bar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #f3355b;
+    font-weight: 700;
+    margin: 0 7vh;
+}
+
+li {
+    margin: 0 5vh;
+}
+
+.li-name, li-lastname {
+    margin: 
+}
+
+.nav-infos {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    font-weight: 700;
+    list-style-type: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: #f3355b;
+    margin: 0 0 0 10vh;
+    padding: 0;
+    /* width: 100%;
+    height: 100%; */
+}
+
+.nav-logout {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin: 0 4vh;
+    font-weight: 700;
+    list-style-type: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    color: #f3355b;
+    /* width: 100%;
+    height: 100%; */
 }
