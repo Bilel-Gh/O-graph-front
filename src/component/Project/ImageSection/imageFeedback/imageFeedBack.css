@@ -7,10 +7,11 @@
 }
 
 .main-picture {
-    width: 125vh;
-    height: 100%;
+    /* width: 125vh;
+    height: 100%; */
+    width: auto;
+    height: auto;
     border-radius: 1%;
-    background-color: #E7E7E7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     flex-shrink: 0;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
     border-radius: 1vh;
