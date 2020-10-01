@@ -10,7 +10,7 @@
     display: flex;
     padding: 2%;
     /* margin: 2rem 1rem; */
-    box-shadow: -3px 2px 5px 1px rgba(119, 119, 119, 0.5);
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 .message-icon {

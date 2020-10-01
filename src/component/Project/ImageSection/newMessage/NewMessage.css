@@ -1,6 +1,27 @@
-
+div.fade.modal-newMessage.modal.show {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+}
 .modal-newMessage{
     /* width: 750px; */
+}
+
+.modal-header {
+    background-color: #E7E7E7;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+
+
+.modal-body {
+    padding: 2rem;
 }
 
 .modal-newMessage-body{
@@ -15,10 +36,12 @@
     width: 25%;
     display: flex;
     flex-wrap: wrap;
-    padding: 6vh;
+    padding: 2vh;
     padding-right: 0;
     padding-left: 0;
-    /* align-content: center; */
+    justify-content: center;
+    align-items: center;
+    background-color: #E7E7E7;
     align-content: space-between;
 }
 
@@ -35,4 +58,16 @@
 
 p.p-color{
     margin-top: 10px;
+}
+
+.form-group
+
+
+button.send-button.btn.btn-primary {
+    margin: 1vh
+}
+
+button.close-button.btn.btn-primary {
+    margin-left: 2vh;
+    margin-right: 2vh;
 }
