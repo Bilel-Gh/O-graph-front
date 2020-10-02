@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
@@ -65,9 +65,10 @@ const NewMessage = () => {
                 text : message.messageText
             }))
             dispatch(validateTitleMessage())
-            dispatch(fillListStickers())
+            // dispatch(fillListStickers())
             dispatch(createSticker(false))
             dispatch(postStickers(states))
+            // dispatch(postCommentList(states))
         }else{
             if(message.messageText){
 

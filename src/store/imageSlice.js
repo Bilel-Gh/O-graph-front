@@ -8,16 +8,12 @@ export const fetchSticker = createAsyncThunk(
         const source = { marcel: 1 }
         const objet = JSON.stringify(source);
         console.log(objet)
-        const response = await axios.get(`http://localhost:3001/findstickers`, { body: { "marcel": "1" } }, { headers: { 'Content-Type': 'application/json' } })
-            .then((response) => { console.log(response.data) })
-            .catch(function(error) { console.log(error) })
+        const response = await axios.get(`http://localhost:3001/findstickers/1`)
+          
 
         return response.data
     }
 )
-
-
-
 
 //import store from './index'
 // pour faire une requête vers la l'api/ le back
@@ -36,35 +32,11 @@ export const postStickers = createAsyncThunk(
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
         const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageId, "position_x": sticker.x, "position_y": sticker.y })
             //  .then(console.log(response.data))
-        console.log(response)
+        console.log(response.data)
             // return les données
         return response.data
     }
 )
-
-//// autre test
-// axios({
-//   method: 'get',
-//   url: 'http://localhost:3001/findstickers',
-//   data: { params:{"image_id": 1}  },
-//   headers : {'Content-Type': 'application/json'}
-// })
-//   .then(function (response) {
-//     console.log(response)
-//   });
-
-
-//// test avec try catch 
-// export const fetchSticker = createAsyncThunk(
-//   'imageSlice/fetchAllSticker',
-//   async () => {
-//     console.log('test fetch stickers')
-//     try {
-//       const response = await axios.get('http://localhost:3001/findstickers', {params:{"image_id": 1}});
-//       console.log(response);
-//     } catch (error) {console.error(error)}
-//   }
-// )
 
 
 
@@ -75,6 +47,14 @@ const imageSlice = createSlice({
         imageId: 1,
         stickerUsed: {
             id: null,
+            image_id: null,
+            position_x: "",
+            position_y: "",
+            visible: true,
+            stickerColor: ""
+        },
+        imageUsed: {
+            
         },
         sticker: {
             stickerColor: "",
@@ -110,6 +90,20 @@ const imageSlice = createSlice({
             return (
                 state
             )
+        }
+    },
+    extraReducers : {
+        [fetchSticker.fulfilled] : (state, action) => {
+            console.log("action.payload")
+            state.listStickers = action.payload
+           
+        },
+
+        [postStickers.fulfilled] : (state, action) => {
+            const newStateSticker = action.payload
+            state.stickerUsed= newStateSticker
+            state.listStickers = [...state.listStickers, newStateSticker]
+            return state
         }
     },
 })
