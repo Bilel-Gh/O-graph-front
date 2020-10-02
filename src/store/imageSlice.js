@@ -90,11 +90,16 @@ const imageSlice = createSlice({
             return (
                 state
             )
+        },
+        switchStickerSelect: (state, action) => {
+            console.log(action.payload)
+            state.stickerUsed= action.payload
+            return state
         }
     },
     extraReducers : {
         [fetchSticker.fulfilled] : (state, action) => {
-            console.log("action.payload")
+
             state.listStickers = action.payload
            
         },
@@ -108,5 +113,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker } = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect } = imageSlice.actions;
 export default imageSlice.reducer;

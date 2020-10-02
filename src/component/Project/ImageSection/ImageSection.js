@@ -4,12 +4,14 @@ import { Button, Modal } from 'react-bootstrap';
 import NewMessage from './newMessage/NewMessage'
 import ImageFeedBack from './imageFeedback/ImageFeedBack';
 import {useSelector, useDispatch} from 'react-redux';
-import { IOModalFirstMessage } from '../../../store/messageSlice';
+import { fetchCommentList, IOModalFirstMessage } from '../../../store/messageSlice';
 import {fetchSticker} from '../../../store/imageSlice';
+import store from '../../../store';
 import './imageSection.css'
 
 const ImageSection = () => {
     const dispatch = useDispatch()
+    const states = store.getState()
     
     const handleModalOpen = () => {
        dispatch(IOModalFirstMessage(true))
@@ -18,6 +20,7 @@ const ImageSection = () => {
     useEffect (()=>{
        
         dispatch(fetchSticker())
+        dispatch(fetchCommentList(states))
     },[])
 
     return (
