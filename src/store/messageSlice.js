@@ -11,7 +11,7 @@ const messageSlice = createSlice ({
         img:"B",
         titreMessage:"",
         newTitreMessage:"",
-        modalIOFirstMessage:true,
+        modalIOFirstMessage:false,
         listMessage : []
     },
     reducers  : {

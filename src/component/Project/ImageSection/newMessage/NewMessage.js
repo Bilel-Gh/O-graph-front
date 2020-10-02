@@ -105,10 +105,10 @@ const NewMessage = () => {
                         <Form.Control as="textarea" rows={rowTextArea}  className={message.errorText ? "input-text-new-comment formError" : "input-text-new-comment formTrue"}  placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button className="send-button" variant="primary" type="submit">
                         Envoyer
                         </Button>
-                        <Button  onClick={handleModalClose} variant="primary">
+                        <Button  className="close-button" onClick={handleModalClose} variant="primary">
                             Close Modal
                         </Button>
                     </Form>

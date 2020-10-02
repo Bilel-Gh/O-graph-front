@@ -6,16 +6,16 @@
         return (
             <div className="header">
                 <nav className="nav-bar">
-                    <div className="logo">O'GRAPH</div>
+                    <div className="logo"> <a href="#"> O'GRAPH </a></div>
                     <ul className="nav-infos">
-                        <li> Accueil </li>
-                        <li> Contact </li>
-                        <li> About </li>
+                        <li> <a href="#"> Accueil </a> </li>
+                        <li> <a href="#"> Contact </a> </li>
+                        <li> <a href="#"> About </a> </li>
                     </ul>
                     <ul className="nav-logout">
-                        <li className="li-name" > Nom </li>
-                        <li className="li-lastname" > Prénom </li>
-                        <li> Déconnextion </li>
+                        <li > <a className="li-name" href="#"> Nom </a> </li>
+                        <li > <a className="li-lastname" href="#"> Prénom </a> </li>
+                        <li> <a href="#"> Déconnextion </a> </li>
                     </ul>
                  </nav>
                 

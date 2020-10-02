@@ -14,10 +14,16 @@
 
 }
 
-.btn-primary{
-background-color: black;
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #FF0066 !important;
+  border-color: #FF0066 !important;
+  
 }
 
+.btn-primary {
+  margin: 1vh;
+  margin-left: 1vh;
+}
  /* .image-feedBack-contain{
     display:flex;
      width: 90%;
