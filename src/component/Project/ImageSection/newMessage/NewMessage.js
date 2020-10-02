@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
-import { IOModalFirstMessage, createTitleMessage, onMessageInput, sendMessage, validateTitleMessage } from '../../../../store/messageSlice';
+import { IOModalFirstMessage, createTitleMessage, onMessageInput,sendingNewComment, sendMessage, validateTitleMessage, fetchCommentList ,postcommentList ,fetchComment, postcomment} from '../../../../store/messageSlice';
 import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice'
 import MakeStickers from '../makeStickers/MakeStickers'
 import ColorPicker from './ColorPicker/ColorPicker'
@@ -13,6 +13,7 @@ import './NewMessage.css'
 
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
+    const imageState = useSelector(state=>state.imageSlice)
     const dispatch= useDispatch()
     const [rowTextArea, setRowTextArea] = useState(1)
     const states = store.getState()
@@ -56,16 +57,17 @@ const NewMessage = () => {
      const handleSubmitFirstMessage = (e) => {
         e.preventDefault()
 
-        if (message.messageText && message.newTitreMessage){
+        if (message.messageText && message.titreMessage){
 
-            dispatch(sendMessage({
-                id : message.idUser ,
-                name : message.name,
-                img : message.img,
-                text : message.messageText
-            }))
-            dispatch(validateTitleMessage())
+            // dispatch(sendMessage({
+            //     id : message.idUser ,
+            //     name : message.name,
+            //     img : message.img,
+            //     text : message.messageText
+            // }))
+            //dispatch(validateTitleMessage())
             // dispatch(fillListStickers())
+            dispatch(sendingNewComment(true))
             dispatch(createSticker(false))
             dispatch(postStickers(states))
             // dispatch(postCommentList(states))
@@ -80,7 +82,20 @@ const NewMessage = () => {
 
 
     }
+   
+    useEffect(()=>{
+       if(message.sendingNewComment){ 
+           dispatch(postcommentList(states))
+        }
+    },[imageState.stickerUsed.id])
 
+    useEffect(()=>{
+        if(message.sendingNewComment) {
+            dispatch(postcomment(states))
+            dispatch(sendingNewComment(false))
+        }
+    },[message.commentListUsed.id])
+  
 
 
     return (
@@ -99,7 +114,7 @@ const NewMessage = () => {
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>Titre message</Form.Label>
                         {message.errorTiltle && <div className='newComment-message-error'>Vous devez mettre un titre </div>}
-                        <Form.Control  type="text" className={message.errorTiltle ? "formError" : "formTrue"}   placeholder="Ecrire un commentaire" onChange= {handleTitleMessage} value={message.newTitreMessage} />
+                        <Form.Control  type="text" className={message.errorTiltle ? "formError" : "formTrue"}   placeholder="Ecrire un commentaire" onChange= {handleTitleMessage} value={message.titreMessage} />
                         <Form.Label>Texte</Form.Label>
 
                         {message.errorText && <div className='newComment-message-error'>Vous devez écrire un commentaire </div>}

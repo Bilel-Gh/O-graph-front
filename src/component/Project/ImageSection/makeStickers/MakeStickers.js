@@ -23,7 +23,7 @@ const MakeStickers = () => {
         // on doit mettre le stickers sur l image en top ou left en pourcentage par rapport à l image
         // pour celà on récupère avec imgRef.current le offsetWidth et offsetHeight de la div et on crée le pourcentage
 
-
+        
         const percentagePosition = {
           x:(e.nativeEvent.offsetX-8)/imgRef.current.offsetWidth,
           y:(e.nativeEvent.offsetY-7.3)/imgRef.current.offsetHeight
