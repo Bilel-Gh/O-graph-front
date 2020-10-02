@@ -13,11 +13,12 @@ const ShowStickers = () => {
                 {imageState.listStickers.map((sticker)=> {
 
                     const stateSticker = {
+                        id: 1,
                         left:sticker.x + "%",
                         top:sticker.y + "%",
                         backgroundColor:sticker.stickerColor
                     }
-                    return <Stickers key={stateSticker.left} stickersList={true} stateStickerInObject={stateSticker}/>
+                    return <Stickers  key={stateSticker.left} stickersList={true} stateStickerInObject={stateSticker}/>
                 })}
             </div>
 
