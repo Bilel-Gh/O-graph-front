@@ -3,10 +3,10 @@ import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
 import { IOModalFirstMessage, createTitleMessage, onMessageInput,sendingNewComment, sendMessage, validateTitleMessage, fetchCommentList ,postcommentList ,fetchComment, postcomment} from '../../../../store/messageSlice';
-import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice'
-import MakeStickers from '../makeStickers/MakeStickers'
-import ColorPicker from './ColorPicker/ColorPicker'
-import store from './../../../../store'
+import {createSticker, fillListStickers, postStickers} from '../../../../store/imageSlice';
+import MakeStickers from '../makeStickers/MakeStickers';
+import ColorPicker from './ColorPicker/ColorPicker';
+import store from './../../../../store';
 
 import './NewMessage.css'
 

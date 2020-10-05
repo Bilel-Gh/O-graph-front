@@ -8,7 +8,7 @@
         const message = useSelector(state => state.messageSlice);
         return (
             <div className="chatSection">
-                <header className="chatSection-header"> {message.titreMessage} </header>
+                <header className="chatSection-header"> {message.commentListUsed.name} </header>
                 <Chat/>
                 <InputChat/>
             </div>
