@@ -11,7 +11,7 @@ const MessageChat = ({myMessage, stateMessage}) => {
 
         <div className="messageChat" style={myMessage ? {order:1}: {order:2}}>
             <div className="messageChat-content" >
-                <div className="messageChat-name"> {stateMessage.name} </div>
+                <div className="messageChat-name"> {stateMessage.titreMessage} </div>
                 <hr className="line"></hr>
                 <div className="messageChat-text"> {stateMessage.text} </div>
             </div>

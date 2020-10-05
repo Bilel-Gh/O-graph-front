@@ -6,10 +6,10 @@
     justify-content: center;
     align-items: center;
     background-color: #E7E7E7;
-    background-image: url(./../../wave3.svg), url(./../../wave.svg);
+    /* background-image: url(./../../wave3.svg), url(./../../wave.svg);
     background-repeat: no-repeat, no-repeat;
     background-size: 150%, 270%;
-    background-position: bottom;
+    background-position: bottom; */
 }
 
 .loginDiv {
@@ -26,6 +26,22 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 135%;
     background-position: bottom;
+}
+
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 100%;
+    margin-left: 50%;
+    color: #E7E7E7;
+}
+
+.grey-text-change {
+    color: #FF0066 !important;
+}
+
+.md-form .active {
+    color: #FF0066 !important;
 }
 
 /* form {

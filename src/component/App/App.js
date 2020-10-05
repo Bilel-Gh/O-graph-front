@@ -1,6 +1,7 @@
 import React from 'react';
 import Project from '../Project/Project'
 import Login from '../Login/Login'
+import Admin from '../Admin/Admin'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,7 +16,8 @@ function App() {
       <div className="App">
         <Switch> 
           <Project path="/project"/>
-          <Login path="/"/>
+          <Login exact path="/"/>
+          <Admin path="/admin"/>
         </Switch>
       </div> 
     </Router>

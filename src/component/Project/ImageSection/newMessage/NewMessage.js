@@ -67,6 +67,7 @@ const NewMessage = () => {
             // }))
             //dispatch(validateTitleMessage())
             // dispatch(fillListStickers())
+            
             dispatch(sendingNewComment(true))
             dispatch(createSticker(false))
             dispatch(postStickers(states))
@@ -82,9 +83,9 @@ const NewMessage = () => {
 
 
     }
-   
+
     useEffect(()=>{
-       if(message.sendingNewComment){ 
+       if(message.sendingNewComment){
            dispatch(postcommentList(states))
         }
     },[imageState.stickerUsed.id])
@@ -95,7 +96,7 @@ const NewMessage = () => {
             dispatch(sendingNewComment(false))
         }
     },[message.commentListUsed.id])
-  
+
 
 
     return (

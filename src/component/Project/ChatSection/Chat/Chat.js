@@ -2,15 +2,17 @@ import React, {useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import MessageChat from './MessageChat/MessageChat'
 import InputChat from './InputChat/InputChat'
-import socketIOClient from "socket.io-client";
+import {fetchComment} from '../../../../store/messageSlice'
+import socket from '../../../socketIo/SocketIo'
+import store from '../../../../store';
 import './chat.css'
 
 const Chat = () => {
     const scrollChat = useRef(null);
-    const messages = useSelector(state => state.messageSlice)
-    const ENDPOINT = "http://localhost:3001/";
-    const socket = socketIOClient(ENDPOINT);
-    //console.log("rendu trop souvent")
+    const messages = useSelector(state => state.messageSlice);
+    const dispatch = useDispatch();
+    const states = store.getState();
+
     const fillMessage = () => {
         const messageList = [...messages.listMessage]
        
@@ -33,7 +35,10 @@ const Chat = () => {
 
     useEffect(()=>{
         socket.on('SendNewComment', (state)=>{
-            console.log(state, socket.id)
+            console.log(state, "state receinve")
+            if(messages.commentListUsed.id==state){
+                dispatch(fetchComment(states))
+            }
             })
         
 

@@ -1,10 +1,5 @@
 import React,{useEffect} from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import LoginInput from './LoginInput'
 import { Input } from 'semantic-ui-react';
 import {useSelector, useDispatch} from 'react-redux';
 import{onLoginInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
@@ -46,33 +41,9 @@ import './login.css'
 
         return (
             <div className="loginPage">
-                  <div className="loginDiv">
-
-                        <form className="login-Form" onSubmit={onSubmitLogin}>
-                            <Input
-                            className="login-Chat-User"
-                            type="text"
-                            placeholder=""
-                            onChange={handleLoginInput}
-                            value= {LoginState.login}
-                            >
-                            </Input>
-
-                            <Input
-                            className="login-Chat-Password"
-                            type="password"
-                            onChange={handlePasswordInput}
-                            value= {LoginState.password}
-                            >
-                            </Input>
-
-                            <Link to="/project">
-                                <button className="button-Login" type= "submit" > se connecter  </button>
-                            </Link>
-
-
-                        </form>
-                   </div>
+                <div className="loginDiv">
+                    <div className="input-container"> <LoginInput/> </div>
+                </div>
             </div>
         )
     };
