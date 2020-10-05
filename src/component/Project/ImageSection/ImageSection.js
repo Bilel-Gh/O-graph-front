@@ -26,7 +26,7 @@ const ImageSection = () => {
     return (
         <div className="imageSection">
             <div className="header-image-section">
-            <Button  onClick={handleModalOpen} className="btn-primary" variant="primary">
+            <Button  onClick={handleModalOpen} className="my-btn-primary" variant="primary">
                 ajouter un commentaire sur l'image
             </Button>
             </div>

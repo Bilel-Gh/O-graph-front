@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3001/";
-const socket = socketIOClient(ENDPOINT);
+// const ENDPOINT = "http://localhost:3001/";
+// const socket = socketIOClient(ENDPOINT);
+
+import socket from '../component/socketIo/SocketIo'
 //------------------- section data request comment list------------------
 
-// grace au GET on récupère tous les comment_list de la base de donnée. 
+// grace au GET on récupère tous les comment_list de la base de donnée.
 // on aura besoin de l id du sticker sélectionné qui se trouve dans le imageSlice
 // grace au states on va chercher l id et l envoyer dans l url
 
@@ -15,6 +17,7 @@ export const fetchCommentList = createAsyncThunk(
     async(states) => {
         const  {stickerUsed} = states.imageSlice
         const idSticker = stickerUsed.id
+        console.log(stickerUsed)
         const response = await axios.get(`http://localhost:3001/commentListByStickerId/${idSticker}`)
 
         return response.data[0]
@@ -26,17 +29,16 @@ export const fetchCommentList = createAsyncThunk(
 export const postcommentList = createAsyncThunk(
 
     'messageSlice/postCommentList',
- 
+
     async(states) => {
         const {titreMessage} = states.messageSlice
         const {stickerUsed} = states.imageSlice
-       
+
         const response = await axios.post(`http://localhost:3001/newCommentList`, {
                                                                                          "sticker_id": stickerUsed.id,
                                                                                           "name": titreMessage
-                                                                                    })  
-        console.log(response.data) 
-       
+                                                                                    })
+
         return response.data
     }
 )
@@ -46,9 +48,9 @@ export const fetchComment = createAsyncThunk(
     'messageSlice/fetchAllComment',
     async(states) => {
         const  {commentListUsed} = states.messageSlice
-        const idCommentLIst = commentListUsed.id
-        const response = await axios.get(`http://localhost:3001/comment/${idCommentLIst}`)
-
+        const idCommentList = commentListUsed.id
+        const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
+        console.log(response.data)
         return response.data
     }
 )
@@ -56,17 +58,16 @@ export const fetchComment = createAsyncThunk(
 // post un commentaire
 export const postcomment = createAsyncThunk(
     'messageSlice/postComment',
- 
+
     async(states) => {
-       
+
         const {messageText,commentListUsed} = states.messageSlice
         const {user}= states.userSlice
-        console.log("post comment", messageText, commentListUsed.id,  user.id )
-        const response = await axios.post(`http://localhost:3001/newComment`, { 
+        const response = await axios.post(`http://localhost:3001/newComment`, {
                                                                                 "text": messageText,
                                                                                 "list_comment_id": commentListUsed.id,
                                                                                 "user_id": user.id
-                                                                            })   
+                                                                            })
         console.log(response.data)
         return response.data
     }
@@ -144,10 +145,11 @@ const messageSlice = createSlice ({
     extraReducers : {
         [fetchCommentList.fulfilled] : (state, action) => {
             if (state.modalIOFirstMessage){
-                state.titreMessage=action.payload.name 
+                state.titreMessage=action.payload.name
+
             }
            state.commentListUsed = action.payload
-           
+
         },
 
         [postcommentList.fulfilled] : (state, action) => {
@@ -159,24 +161,23 @@ const messageSlice = createSlice ({
 
         [fetchComment.fulfilled] : (state, action) => {
             if (state.modalIOFirstMessage){
-                state.messageText=action.payload[0].text
-                console.log(action.payload[0])
+          
+               state.messageText=action.payload[0].text
             }
             state.listMessage = action.payload
-           
+
         },
 
         [postcomment.fulfilled] : (state, action) => {
             const newStateComment = action.payload
-            socket.emit("NewComment", newStateComment);
-            
+            socket.emit("NewComment", state.commentListUsed.id);
+
             state.messageText= "";
             state.titreMessage="";
-            // state.commentListUsed.id="";
             state.listMessage = [...state.listMessage, newStateComment]
             return state
         },
-        
+
 
     },
 })

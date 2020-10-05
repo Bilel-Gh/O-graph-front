@@ -4,10 +4,6 @@ import axios from 'axios'
 export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async() => {
-        console.log('test fetch stickers')
-        const source = { marcel: 1 }
-        const objet = JSON.stringify(source);
-        console.log(objet)
         const response = await axios.get(`http://localhost:3001/findstickers/1`)
         return response.data
     }
@@ -24,13 +20,12 @@ export const postStickers = createAsyncThunk(
     async(states) => {
         //créer une const state qui feras un getstate() pour nous permettre d'avoir accès à tous les states qu'on veut depuis le store
 
-        console.log(states)
+     
             // on séléctionne les propriétés du state que l'on veut et on les extrait de leurs slice pour y avoir accès
-        const { imageId, sticker } = states.imageSlice
+         const { imageId, sticker } = states.imageSlice
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
         const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageId, "position_x": sticker.x, "position_y": sticker.y })
-            //  .then(console.log(response.data))
-        console.log(response.data)
+          
             // return les données
         return response.data
     }
@@ -52,13 +47,13 @@ const imageSlice = createSlice({
             stickerColor: ""
         },
         imageUsed: {
-            
+
         },
         sticker: {
             stickerColor: "",
-            x: null,
+             x: null,
             y: null,
-        },
+               },
         creatingSticker: false,
         listStickers: []
     },
@@ -100,7 +95,7 @@ const imageSlice = createSlice({
         [fetchSticker.fulfilled] : (state, action) => {
 
             state.listStickers = action.payload
-           
+
         },
 
         [postStickers.fulfilled] : (state, action) => {
