@@ -1,25 +1,32 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import{onMessageInput, sendMessage} from '../../../../../store/messageSlice'
+import{onMessageInput, sendMessage, postcomment} from '../../../../../store/messageSlice';
+import store from '../../../../../store';
 import './inputChat.css'
 
 
 const InputChat = () => {
 const message = useSelector(state => state.messageSlice);
 const dispatch = useDispatch();
+const states = store.getState();
+
 const onSubmitMessage = (e) => {
     e.preventDefault()
-dispatch(sendMessage({
-    id : message.idUser ,
-    name : message.name,
-    img : message.img,
-    text : message.messageText
-}))
+    dispatch(postcomment(states))
+    
+    
+// dispatch(sendMessage({
+//     id : message.idUser ,
+//     name : message.name,
+//     img : message.img,
+//     text : message.messageText
+// }))
 }
 
  const handleMessageText= (e) =>{
     e.preventDefault()
     const text = e.target.value
+    
     dispatch(onMessageInput(
         text
     ))

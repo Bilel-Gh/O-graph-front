@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios'
+import axios from 'axios';
+import socketIOClient from "socket.io-client";
+
+const ENDPOINT = "http://localhost:3001/";
+const socket = socketIOClient(ENDPOINT);
 //------------------- section data request comment list------------------
 
 // grace au GET on récupère tous les comment_list de la base de donnée. 
@@ -13,7 +17,7 @@ export const fetchCommentList = createAsyncThunk(
         const idSticker = stickerUsed.id
         const response = await axios.get(`http://localhost:3001/commentListByStickerId/${idSticker}`)
 
-        return response.data
+        return response.data[0]
     }
 )
 
@@ -86,7 +90,7 @@ const messageSlice = createSlice ({
         titreMessage:"",
         newTitreMessage:"",
         modalIOFirstMessage:false,
-        listMessage : [],
+        listMessage : [].reverse(),
         allCommentList:[],
         sendingNewComment:false
 
@@ -130,30 +134,45 @@ const messageSlice = createSlice ({
         sendingNewComment: (state, action ) => {
             state.sendingNewComment = action.payload
             return state
+        },
+        cleaningTextAndTitre: (state, action) => {
+            state.messageText = "";
+            state.titreMessage= "";
         }
 
     },
     extraReducers : {
         [fetchCommentList.fulfilled] : (state, action) => {
-            state.allCommentList = action.payload
+            if (state.modalIOFirstMessage){
+                state.titreMessage=action.payload.name 
+            }
+           state.commentListUsed = action.payload
            
         },
 
         [postcommentList.fulfilled] : (state, action) => {
-            const newStateCommentList = action.payload
-            state.commentListUsed= newStateCommentList
-            state.allCommentList = [...state.allCommentList, newStateCommentList]
+            const newStateCommentList = action.payload;
+            state.commentListUsed= newStateCommentList;
+            state.allCommentList = [...state.allCommentList, newStateCommentList];
             return state
         },
 
         [fetchComment.fulfilled] : (state, action) => {
+            if (state.modalIOFirstMessage){
+                state.messageText=action.payload[0].text
+                console.log(action.payload[0])
+            }
             state.listMessage = action.payload
            
         },
 
         [postcomment.fulfilled] : (state, action) => {
             const newStateComment = action.payload
-            state.messageText= newStateComment
+            socket.emit("NewComment", newStateComment);
+            
+            state.messageText= "";
+            state.titreMessage="";
+            // state.commentListUsed.id="";
             state.listMessage = [...state.listMessage, newStateComment]
             return state
         },
@@ -161,5 +180,5 @@ const messageSlice = createSlice ({
 
     },
 })
-export const { onMessageInput, sendMessage, IOModalFirstMessage, createTitleMessage, validateTitleMessage, sendingNewComment} = messageSlice.actions;
+export const { onMessageInput, sendMessage, IOModalFirstMessage, createTitleMessage, validateTitleMessage, sendingNewComment, cleaningTextAndTitre} = messageSlice.actions;
 export default messageSlice.reducer;

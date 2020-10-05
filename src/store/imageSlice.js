@@ -9,8 +9,6 @@ export const fetchSticker = createAsyncThunk(
         const objet = JSON.stringify(source);
         console.log(objet)
         const response = await axios.get(`http://localhost:3001/findstickers/1`)
-          
-
         return response.data
     }
 )
@@ -70,6 +68,7 @@ const imageSlice = createSlice({
                 x: action.payload.x,
                 y: action.payload.y
             };
+            state.stickerUsed = "";
             return (
                 state
             )
@@ -92,7 +91,7 @@ const imageSlice = createSlice({
             )
         },
         switchStickerSelect: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.stickerUsed= action.payload
             return state
         }

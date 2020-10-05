@@ -2,16 +2,21 @@ import React, {useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import MessageChat from './MessageChat/MessageChat'
 import InputChat from './InputChat/InputChat'
+import socketIOClient from "socket.io-client";
 import './chat.css'
 
 const Chat = () => {
     const scrollChat = useRef(null);
     const messages = useSelector(state => state.messageSlice)
-
+    const ENDPOINT = "http://localhost:3001/";
+    const socket = socketIOClient(ENDPOINT);
+    //console.log("rendu trop souvent")
     const fillMessage = () => {
+        const messageList = [...messages.listMessage]
+       
         return(
             <div className="message-master">
-                {messages.listMessage.map((message, i) => {
+                {messageList.map((message, i) => {
 
                         return (
                             <div className="chat-master" key={i}>
@@ -25,6 +30,14 @@ const Chat = () => {
         )
     }
 
+
+    useEffect(()=>{
+        socket.on('SendNewComment', (state)=>{
+            console.log(state, socket.id)
+            })
+        
+
+    },[])
 
     useEffect(()=>{
         if (scrollChat.current){

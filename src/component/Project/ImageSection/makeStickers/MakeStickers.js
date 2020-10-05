@@ -2,11 +2,13 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Stickers from '../Stickers/Stickers';
 import { setMousePosition, createSticker } from '../../../../store/imageSlice';
+import {cleaningTextAndTitre} from '../../../../store/messageSlice'
 import './makeStickers.css';
 import ShowStickers from '../ShowStickers/ShowStickers'
 
 const MakeStickers = () => {
   const imageState = useSelector(state => state.imageSlice);
+  const messageState = useSelector(state => state.messageSlice)
     const dispatch = useDispatch()
     // le hook useRef permet de contenir les propriété d une div dans une constante comme un document.getElementById en plus simple
     // suffit de metre ref={la constante ref créé en amont} et s amuser avec la constante
@@ -22,8 +24,8 @@ const MakeStickers = () => {
 
         // on doit mettre le stickers sur l image en top ou left en pourcentage par rapport à l image
         // pour celà on récupère avec imgRef.current le offsetWidth et offsetHeight de la div et on crée le pourcentage
-
-        
+      
+        dispatch(cleaningTextAndTitre())
         const percentagePosition = {
           x:(e.nativeEvent.offsetX-8)/imgRef.current.offsetWidth,
           y:(e.nativeEvent.offsetY-7.3)/imgRef.current.offsetHeight
