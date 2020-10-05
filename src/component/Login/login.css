@@ -5,11 +5,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-image: url('../../Background/ripples/ripples.png'); */
     background-color: #E7E7E7;
-    /* background-image: url(./../../wave3.svg), url(./../../wave.svg);
+    background-image: url(./../../wave3.svg), url(./../../wave.svg);
     background-repeat: no-repeat, no-repeat;
     background-size: 150%, 270%;
-    background-position: bottom; */
+    background-position: bottom;
 }
 
 .loginDiv {
@@ -20,7 +21,7 @@
     justify-content: center;
     align-items: center;
     color: #E7E7E7;
-    width: 50%;
+    width: 40%;
     height: 60%;
     background-image: url(./../../wave.svg), url(./../../wave2.svg);
     background-repeat: no-repeat, no-repeat;
@@ -41,7 +42,20 @@
 }
 
 .md-form .active {
-    color: #FF0066 !important;
+    color: #E7E7E7 !important;
+}
+
+input.form-control {
+    border-bottom: none !important;
+    transition: none !important;
+    border-bottom: #FF0066 !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #E7E7E7 !important;
+}
+
+div input {
+    color:  #E7E7E7 !important;
+    font-weight: 700 !important;
 }
 
 /* form {
