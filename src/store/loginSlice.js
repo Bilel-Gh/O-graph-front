@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const loginSlice = createSlice ({
     name: "login",
     initialState: {
-        login : "",
+        email : "",
         password : ""
     },
     reducers: {
-        onLoginInput:(state, action) => {
-            state.login = action.payload
+        onEmailInput:(state, action) => {
+            state.email = action.payload
             return (
                 state
             )
@@ -21,8 +21,9 @@ const loginSlice = createSlice ({
         },
 
         sendLogin:(state, action) => {
-            state.login = ""
-            state.password = ""
+            state.email = action.payload.email
+            state.password = action.payload.password
+           
             return (
                 state
             )
@@ -31,4 +32,4 @@ const loginSlice = createSlice ({
 })
 
 export default loginSlice.reducer;
-export const {onLoginInput, onPasswordInput, sendLogin } = loginSlice.actions;
+export const {onEmailInput, onPasswordInput, sendLogin } = loginSlice.actions;
