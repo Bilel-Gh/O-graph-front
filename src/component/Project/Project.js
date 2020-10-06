@@ -2,6 +2,7 @@
     import Header from './Header/Header';
     import ImageSection from './ImageSection/ImageSection';
     import ChatSection from './ChatSection/ChatSection';
+    import Galerie from './ImageSection/galerie/Galerie'
     import './project.css'
 
 
@@ -10,8 +11,8 @@
             <div className="projectPage">
                 <Header/>
                 <div className ='main'>
-                    <ImageSection/>
-                    <ChatSection/> 
+                    {/* <ImageSection/>
+                    <ChatSection/>  */}
                 </div>     
             </div>
         )

@@ -35,14 +35,16 @@ const Chat = () => {
 
     useEffect(()=>{
         socket.on('SendNewComment', (state)=>{
-            console.log(state, "state receinve")
-            if(messages.commentListUsed.id==state){
-                dispatch(fetchComment(states))
+            console.log(socket)
+            console.log(states, "state receinve")
+            dispatch(fetchComment(states))
+            if(messages.commentListUsed.id===state){
             }
             })
         
 
     },[])
+
 
     useEffect(()=>{
         if (scrollChat.current){

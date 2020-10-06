@@ -14,8 +14,8 @@ import socket from '../component/socketIo/SocketIo'
 
 export const fetchCommentList = createAsyncThunk(
     'messageSlice/fetchAllCommentList',
-    async(states) => {
-        const  {stickerUsed} = states.imageSlice
+    async(states, {getState}) => {
+        const  {stickerUsed} = getState().imageSlice
         const idSticker = stickerUsed.id
         console.log(stickerUsed)
         const response = await axios.get(`http://localhost:3001/commentListByStickerId/${idSticker}`)
@@ -30,9 +30,9 @@ export const postcommentList = createAsyncThunk(
 
     'messageSlice/postCommentList',
 
-    async(states) => {
-        const {titreMessage} = states.messageSlice
-        const {stickerUsed} = states.imageSlice
+    async(states, {getState}) => {
+        const {titreMessage} = getState().messageSlice
+        const {stickerUsed} = getState().imageSlice
 
         const response = await axios.post(`http://localhost:3001/newCommentList`, {
                                                                                          "sticker_id": stickerUsed.id,
@@ -46,11 +46,12 @@ export const postcommentList = createAsyncThunk(
 // récupérer tous les commentaires d'une comment list
 export const fetchComment = createAsyncThunk(
     'messageSlice/fetchAllComment',
-    async(states) => {
-        const  {commentListUsed} = states.messageSlice
+    async(states, {getState}) => {
+       // const  {commentListUsed} = states.messageSlice
+        const  {commentListUsed} = getState().messageSlice
         const idCommentList = commentListUsed.id
+        console.log(idCommentList, "retour du scoketio")
         const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
-        console.log(response.data)
         return response.data
     }
 )
@@ -59,10 +60,10 @@ export const fetchComment = createAsyncThunk(
 export const postcomment = createAsyncThunk(
     'messageSlice/postComment',
 
-    async(states) => {
+    async(states, {getState}) => {
 
-        const {messageText,commentListUsed} = states.messageSlice
-        const {user}= states.userSlice
+        const {messageText,commentListUsed} = getState().messageSlice
+        const {user}= getState().userSlice
         const response = await axios.post(`http://localhost:3001/newComment`, {
                                                                                 "text": messageText,
                                                                                 "list_comment_id": commentListUsed.id,
@@ -91,7 +92,7 @@ const messageSlice = createSlice ({
         titreMessage:"",
         newTitreMessage:"",
         modalIOFirstMessage:false,
-        listMessage : [].reverse(),
+        listMessage : [],
         allCommentList:[],
         sendingNewComment:false
 
@@ -164,7 +165,7 @@ const messageSlice = createSlice ({
           
                state.messageText=action.payload[0].text
             }
-            state.listMessage = action.payload
+            state.listMessage = action.payload.reverse()
 
         },
 
