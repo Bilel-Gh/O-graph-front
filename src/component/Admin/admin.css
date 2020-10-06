@@ -9,7 +9,6 @@
 }
 
 .form-container {
-    
     background-color: grey;
     flex-direction: column;
     display: flex;
@@ -18,12 +17,11 @@
     margin: 3vh;
     justify-content: center;
     align-items: center;
-
 }
 
 div.container.test {
-    width:50vh !important;
-    background-color: violet;
+    width: 50vh !important;
+    background-color: #fefefe;
     margin: 0 !important;
     display: flex;
     justify-content: center;

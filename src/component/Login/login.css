@@ -1,11 +1,10 @@
-
 .loginPage {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-image: url('../../Background/ripples/ripples.png'); */
+    /* background-image: url('../../Background/'); */
     background-color: #E7E7E7;
     background-image: url(./../../wave3.svg), url(./../../wave.svg);
     background-repeat: no-repeat, no-repeat;
@@ -54,15 +53,6 @@ input.form-control {
 }
 
 div input {
-    color:  #E7E7E7 !important;
+    color: #E7E7E7 !important;
     font-weight: 700 !important;
 }
-
-/* form {
-    display: flex !important;
-    width: 100%!important;
-    height: 40%!important;
-    justify-content: space-around!important;
-    align-items: center!important;
-    flex-direction: column!important;
-} */

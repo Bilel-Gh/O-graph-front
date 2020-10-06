@@ -17,6 +17,10 @@ return (
         <p className="h3 text-center mb-4">Connexion</p>
         <div className="my-white-text">
         <MDBInput label="Email de l'utilisateur" icon="envelope" group type="email" 
+                type="email"
+                className="input-log"
+                onChange={console.log("salut")}
+                value= "test"
              />
           <MDBInput label="Mot de passe de l'utilisateur" icon="lock" group type="password" />
 
