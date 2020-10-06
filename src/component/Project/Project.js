@@ -11,6 +11,7 @@
             <div className="projectPage">
                 <Header/>
                 <div className ='main'>
+                    <Galerie />
                     {/* <ImageSection/>
                     <ChatSection/>  */}
                 </div>     

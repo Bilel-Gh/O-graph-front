@@ -11,6 +11,7 @@ const ShowStickers = () => {
         return (
             <div>
                 {imageState.listStickers.map((sticker, i)=> {
+                    console.log(sticker)
                             
                     const stateSticker = {
                         id: sticker.id,

@@ -3,8 +3,9 @@ import axios from 'axios'
 
 export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
-    async() => {
-        const response = await axios.get(`http://localhost:3001/findstickers/1`)
+    async({getState}) => {
+        const {imageUsed} = getState().imageSlice
+        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`)
         return response.data
     }
 )
@@ -17,14 +18,14 @@ export const postStickers = createAsyncThunk(
     // on met un type
     'imageSlice/postStickers',
     // dans une fonction async aller chercher le state du slice désiré grâce à getState()
-    async(states) => {
+    async(states,{getState}) => {
         //créer une const state qui feras un getstate() pour nous permettre d'avoir accès à tous les states qu'on veut depuis le store
 
      
             // on séléctionne les propriétés du state que l'on veut et on les extrait de leurs slice pour y avoir accès
-         const { imageId, sticker } = states.imageSlice
+         const { imageUsed, sticker } = getState().imageSlice
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
-        const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageId, "position_x": sticker.x, "position_y": sticker.y })
+        const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y })
           
             // return les données
         return response.data
@@ -32,6 +33,77 @@ export const postStickers = createAsyncThunk(
 )
 
 
+// ------------------------------------------------ Section creation liste image ---------------------------
+// get une list d image selon le feedBack utilisé
+export const fetchListImage = createAsyncThunk(
+    'imageSlice/fetchAllListImage',
+    async({getState}) => {
+       
+        
+        const {feedBackUsed} = getState().feedBackSlice
+        const response = await axios.get(`http://localhost:3001/imageListByFeedbackId/${feedBackUsed.id}`)
+        return response.data
+    }
+)
+
+// post une liste d image
+export const postListImage = createAsyncThunk(
+    'imageSlice/postListImage',
+
+    async({getState}) => {
+
+       
+        const {newNameListImage}= getState().imageSlice
+        const {feedBackUsed} = getState().feedBackSlice
+        const response = await axios.post(`http://localhost:3001/newImageList`, {
+                                                                                "feedback_id": feedBackUsed.id,
+                                                                                "name": newNameListImage
+                                                                            })
+        console.log(response.data)
+        return response.data
+    }
+)
+// ------------------------------------------------ Section creation image ---------------------------
+// get les images appartenant à une liste d image
+export const fetchImages = createAsyncThunk(
+    'imageSlice/fetchAllImage',
+    async({getState}) => {
+       
+        const {listImageUsed}= getState().imageSlice
+        
+        const response = await axios.get(`http://localhost:3001/imageByListImageId/${listImageUsed.id}`)
+        return response.data
+    }
+)
+
+
+// post upload l image dans le serveur pour recevoir une url
+export const uploadImage = createAsyncThunk(
+    'imageSlice/uploadImage',
+
+    async(formData,{getState}) => {
+       
+        const {newNameListImage,newImage}= getState().imageSlice
+       
+        const response = await axios.post(`http://localhost:3001/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} })
+        console.log(response.data)
+        return response.data
+    }
+)
+
+// post une liste d image avec l url obtenu
+export const postImage = createAsyncThunk(
+    'imageSlice/postImage',
+
+    async({getState}) => {
+       
+        const {newNameListImage,newImage}= getState().imageSlice
+       
+        const response = await axios.post(`http://localhost:3001/newImageList`, newImage)
+        console.log(response.data)
+        return response.data
+    }
+)
 
 
 const imageSlice = createSlice({
@@ -47,15 +119,37 @@ const imageSlice = createSlice({
             stickerColor: ""
         },
         imageUsed: {
+            image_url: "",
+            list_image_id: null,
+            default_height: null,
+            default_width: null,
+            id:null
 
         },
+        newImage: {
+            image_url: "",
+            list_image_id: null,
+            default_height: null,
+            default_width: null,
+
+        },
+        listImageUsed : {
+            feedback_id: 1,
+            name: "",
+            id:null
+         },
+         newNameListImage:"",
+         
         sticker: {
             stickerColor: "",
              x: null,
             y: null,
                },
+        modalIONewImage : false,
         creatingSticker: false,
-        listStickers: []
+        listStickers: [],
+        listImages:[],
+        listAllImages:[]
     },
     reducers: {
         setMousePosition: (state, action) => {
@@ -89,9 +183,16 @@ const imageSlice = createSlice({
             // console.log(action.payload)
             state.stickerUsed= action.payload
             return state
+        },
+        modalIONewImage : (state, action)=> {
+            state.modalIONewImage = action.payload;
+            return (
+                state
+            )
         }
     },
     extraReducers : {
+        // ----------------------------- post and get stickers -------------------------
         [fetchSticker.fulfilled] : (state, action) => {
 
             state.listStickers = action.payload
@@ -103,9 +204,35 @@ const imageSlice = createSlice({
             state.stickerUsed= newStateSticker
             state.listStickers = [...state.listStickers, newStateSticker]
             return state
+        },
+        // -------------------------------- post and get liste image --------------------------
+        [fetchListImage.fulfilled] : (state, action) => {
+
+            state.listImages = action.payload
+
+        },
+
+        [postListImage.fulfilled] : (state, action) => {
+            const newListImage = action.payload
+            state.listImageUsed= newListImage
+            state.listImages = [...state.listImages, newListImage]
+            return state
+        },
+         // -------------------------------- post and get upload image --------------------------
+         [fetchImages.fulfilled] : (state, action) => {
+
+            state.listAllImages = action.payload
+
+        },
+
+        [postImage.fulfilled] : (state, action) => {
+            // const newImage = action.payload
+            // state.listImageUsed= newListImage
+            // state.listImages = [...state.listImages, newListImage]
+            return state
         }
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect } = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage} = imageSlice.actions;
 export default imageSlice.reducer;
