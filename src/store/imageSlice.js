@@ -84,9 +84,9 @@ export const uploadImage = createAsyncThunk(
     async(formData,{getState}) => {
        
         const {newNameListImage,newImage}= getState().imageSlice
-       
+    //    console.log(formData)
         const response = await axios.post(`http://localhost:3001/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} })
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     }
 )
@@ -95,12 +95,19 @@ export const uploadImage = createAsyncThunk(
 export const postImage = createAsyncThunk(
     'imageSlice/postImage',
 
-    async({getState}) => {
-       
+    async(state, {getState}) => {
+      
         const {newNameListImage,newImage}= getState().imageSlice
-       
-        const response = await axios.post(`http://localhost:3001/newImageList`, newImage)
-        console.log(response.data)
+        const theState = getState()
+       console.log(newImage.image_url)
+        const response = await axios.post(`http://localhost:3001/newImage`, {
+                                                                            "image_url": newImage.image_url,
+                                                                            "list_image_id": newImage.list_image_id,
+                                                                            "default_height": 1,
+                                                                            "default_width": 1
+                                                                            })                                                                          
+                                                                            
+        // console.log(response.data)
         return response.data
     }
 )
@@ -129,14 +136,14 @@ const imageSlice = createSlice({
         newImage: {
             image_url: "",
             list_image_id: null,
-            default_height: null,
-            default_width: null,
+            default_height: 1,
+            default_width: 1,
 
         },
         listImageUsed : {
             feedback_id: 1,
             name: "",
-            id:null
+            id:1
          },
          newNameListImage:"",
          
@@ -225,10 +232,11 @@ const imageSlice = createSlice({
 
         },
 
-        [postImage.fulfilled] : (state, action) => {
-            // const newImage = action.payload
-            // state.listImageUsed= newListImage
-            // state.listImages = [...state.listImages, newListImage]
+        [uploadImage.fulfilled] : (state, action) => {
+           
+            state.newImage.image_url = action.payload.image_url;
+           
+             state.newImage.list_image_id = state.listImageUsed.id
             return state
         }
     },
