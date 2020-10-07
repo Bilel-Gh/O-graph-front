@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
-import {modalIONewImage, uploadImage} from '../../../../../store/imageSlice'
+import {modalIONewImage, uploadImage, postImage} from '../../../../../store/imageSlice';
+import './formNewImage.css'
 
 const FormNewImage = () => {
     const imageState = useSelector(state=>state.imageSlice)
@@ -18,7 +19,7 @@ const FormNewImage = () => {
 
     const makeUploadImage = async (e) => {
         const files = e.target.files;
-        console.log(e.target.files)
+        // console.log(e.target.files)
         loadImage(files[0])
 
       }
@@ -36,44 +37,41 @@ const FormNewImage = () => {
     // }
        
         let reader = new FileReader()
-        console.log(file)
         reader.readAsDataURL(file)
         const formData = new FormData();
         formData.append('file',file)
         dispatch(uploadImage(formData))
+        setTimeout(() => {
+            let empty
+            dispatch(postImage(empty))
+        }, 3000);
+       
         reader.onload = ()=>{
         let dataImage = [reader.result];
         
         }
     }
 
+    useEffect(()=> {
+
+    },[imageState.newImage.image_url])
+
     return(
         <div>
             <Modal show={imageState.modalIONewImage} onHide={handleModalClose} className='modal-newMessage'size='xl'>
-                    <Modal.Header>Créer un message</Modal.Header>
+                    <Modal.Header>Nouvlles images</Modal.Header>
                          <div className="colorPicker-Container">
-                            <p className="p-color">  Choisissez une couleur de sticker  et sélectionnez un point sur l'image </p>
+                           
 
 
                         </div>
-                    <Modal.Body className='modal-newMessage-body'>
+                    <Modal.Body className='modal-new-image-body'>
                     <input type="file" multiple name="file" onChange={makeUploadImage}/>
 
-                    <Form onSubmit={handleSubmitNewImage} className='modal-form-new-message'>
-                        <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Titre message</Form.Label>
 
-
-
-                        </Form.Group>
-
-                        <Button className="send-button" variant="primary" type="submit">
-                        Envoyer
-                        </Button>
                         <Button  className="close-button" onClick={handleModalClose} variant="primary">
                             Close Modal
                         </Button>
-                    </Form>
                     </Modal.Body>
 
             </Modal>
