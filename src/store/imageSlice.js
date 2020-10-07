@@ -86,7 +86,7 @@ export const uploadImage = createAsyncThunk(
         const {newNameListImage,newImage}= getState().imageSlice
     //    console.log(formData)
         const response = await axios.post(`http://localhost:3001/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} })
-        // console.log(response.data)
+        console.log(response.data)
         return response.data
     }
 )
@@ -99,7 +99,7 @@ export const postImage = createAsyncThunk(
       
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
-       console.log(newImage.image_url)
+       console.log(newImage)
         const response = await axios.post(`http://localhost:3001/newImage`, {
                                                                             "image_url": newImage.image_url,
                                                                             "list_image_id": newImage.list_image_id,
@@ -140,6 +140,11 @@ const imageSlice = createSlice({
             default_width: 1,
 
         },
+        newImageUpload: {
+            data:null,
+            imageFromServer:false
+            
+        },
         listImageUsed : {
             feedback_id: 1,
             name: "",
@@ -152,8 +157,11 @@ const imageSlice = createSlice({
              x: null,
             y: null,
                },
-        modalIONewImage : false,
+        listImageNewImage: [],
+        modalIONewImage: false,
+        modalIONewList:false,
         creatingSticker: false,
+        AllListProject:[],
         listStickers: [],
         listImages:[],
         listAllImages:[]
@@ -193,6 +201,20 @@ const imageSlice = createSlice({
         },
         modalIONewImage : (state, action)=> {
             state.modalIONewImage = action.payload;
+            return (
+                state
+            )
+        },
+        modalIONewList : (state, action)=> {
+            state.modalIONewList = action.payload;
+            return (
+                state
+            )
+        },
+        // remplir l array des nouvelles images qu'on upload du disque dure local
+        newImageUpload : (state, action) => {
+            state.newImageUpload = {...action.payload}
+            state.listImageNewImage = [...state.listImageNewImage, action.payload]
             return (
                 state
             )
@@ -242,5 +264,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList} = imageSlice.actions;
 export default imageSlice.reducer;

@@ -1,4 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+
+export const postLogine = createAsyncThunk(
+
+    'userSlice/postLogine',
+    async(empty, { getState }) => {
+        const { email, password } = getState().loginSlice
+        console.log(email, password)
+
+        const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
+        response ? console.log('connexion reussi', response) : console.log(`vous n'etes pas inscrit`)
+
+
+        return response.data
+
+    }
+)
 
 const loginSlice = createSlice ({
     name: "login",
@@ -29,6 +47,14 @@ const loginSlice = createSlice ({
             )
         },
     } ,
+    extraReducers: {
+
+        [postLogine.fulfilled]: (state, action) => {
+                const mailAndPassUser = action.payload
+                state.user = {...state.user, mailAndPassUser}
+                return state
+        },
+    },
 })
 
 export default loginSlice.reducer;

@@ -19,11 +19,6 @@
     align-items: center;
 }
 
-div.container.test {
-    width: 50vh !important;
-    background-color: #fefefe;
-    margin: 0 !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.contain-form {
+    background-color: teal;
 }
