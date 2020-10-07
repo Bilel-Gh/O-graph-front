@@ -1,0 +1,22 @@
+.vignette-image-upload{
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    height: auto;
+    max-height: 45%;
+    background-color:blue ;
+    margin: 0.5rem;
+}
+
+.contain-image{
+    width: auto;
+    height: auto;
+}
+
+.image-upload{
+  
+    max-width: 100%;
+    height: auto;
+
+    
+}

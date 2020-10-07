@@ -1,3 +1,21 @@
+.container-modal{
+    width: 100%;
+}
+
+.modal-newMessage {
+    width: 100% !important;
+    height: 100% !important;
+    /* background-color: black; */
+}
+
 .modal-new-image-body{
-    width: 100vw;
+    width: 70vw !important;
+    height: 80vh !important;
+}
+
+.bar-buton-new-image-upload{
+    display:flex;
+    width: 100%;
+    flex-direction: row;
+    background-color: red;
 }

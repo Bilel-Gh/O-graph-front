@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import {useSelector, useDispatch} from 'react-redux';
 import{onEmailInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
-import {fetchUser, postLogine, testLoginPost} from '../../store/userSlice'
+import {fetchUser} from '../../store/userSlice'
+import {postLogine} from '../../store/loginSlice'
 
 import {
   BrowserRouter as Router,
@@ -25,25 +26,9 @@ const LoginInput = () => {
 
   const onSubmitLogin = (e) => {
       e.preventDefault()
-
-      dispatch(sendLogin({
-
-          email : LoginState.email ,
-          password : LoginState.password,
-
-      }))
       let empty
       dispatch(postLogine(empty))
-      // console.log (LoginState.userToFind.email)
-      // console.log(UserState.allUsers[0].email)
-
-      // if (LoginState.onlog) {
-      //   UserState.allUsers.find(object => object.email === LoginState.userToFind.email ? console.log("BON MAIL") : null )
-      // }
-
-
-
-      console.log("envoyé")
+      console.log("dispatch reussi")
 
   }
 
@@ -53,12 +38,6 @@ const LoginInput = () => {
       dispatch(onEmailInput(
           emailInput
       ))
-      console.log("input email")
-
-
-
-
-
   }
 
   const handlePasswordInput= (e) =>{

@@ -18,7 +18,7 @@ import './../Project/Header/header.css'
             <div className="admin-page">
                 <Header/>
                 <div className="form-container">
-                    <div className="form-header"> Nouveau User</div>
+                    <h2 className="form-header"> CREATION D'UTILISATEUR </h2>
                     <AdminForm className="test"/>
                 </div>
                 
