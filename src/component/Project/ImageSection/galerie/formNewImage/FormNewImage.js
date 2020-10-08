@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
@@ -10,6 +10,7 @@ import './formNewImage.css'
 const FormNewImage = () => {
     const imageState = useSelector(state=>state.imageSlice)
     const dispatch = useDispatch()
+    const [fileImage, setFileImage] = useState([])
     const handleModalClose = (e) => {
         e.preventDefault();
         dispatch(modalIONewImage(false))
@@ -22,10 +23,11 @@ const FormNewImage = () => {
     const makeUploadImage = async (e) => {
         const files = e.target.files;
         // console.log(e.target.files)
+      
         loadImage(files[0])
 
       }
-    const loadImage =  (file)  => {
+    const loadImage =  async (file)  => {
 
     // for (let index = 0; index < files.length; index++) {
     //     const file = files[index];
@@ -39,21 +41,32 @@ const FormNewImage = () => {
     // }
        
         
-        const formData = new FormData();
-        formData.append('file',file)
-        // dispatch(uploadImage(formData))
-        // setTimeout(() => {
-            //     let empty
-            // }, 3000);
+            // const formData = new FormData();
+            // formData.append('file',file)
+            // console.log(file)
+        
+            // dispatch(uploadImage(formData))
             let state
-            // dispatch(postImage(state))
+            const formData = new FormData();
+            formData.append('file',file)
+            
+            //dispatch dans le post upload image dans le server
+            await dispatch(uploadImage(formData))
+            
+            // dispatch dans le post de la base de donnée
+            await dispatch(postImage(state))
+
             let reader = new FileReader()
+            // reader.readAsDataURL(file)
             reader.readAsDataURL(file)
-            console.log(file)
+          
             reader.onload = ()=>{
                 let dataImage = reader.result;
+
+
+                //dispat la preview dansla modal newiImages
                 dispatch(newImageUpload({
-                    file:file,
+                    // formData:formData,
                     data:dataImage,
                     imageFromServer:false
                 }))

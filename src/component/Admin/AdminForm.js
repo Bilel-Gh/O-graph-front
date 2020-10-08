@@ -1,22 +1,64 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './admin.css'
 import { onUserRoleChoice, onUserEmailInput, onUserPasswordInput, onUserFirstNameInput, onUserLastNameInput, onUserCompanyInput} from '../../store/userSlice'
 import {useSelector, useDispatch} from 'react-redux';
+import {postUser, fetchUser} from '../../store/userSlice'
+import { generateKey } from '../../store/localStorageSlice'
 
 import { MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import TextField from '@material-ui/core/TextField';
 
 
+// const useStateWithLocalStorage = localStorageKey => {
+//   const m
+ 
+//   React.useEffect(() => {
+//     localStorage.setItem(localStorageKey, user);
+//   }, [user]);
+ 
+//   return [user, setUser];
+// };
 
 
 const AdminForm = () => {
   const dispatch = useDispatch();
   const LoginState = useSelector(state => state.loginSlice);
   const UserState = useSelector(state => state.userSlice);
+  const LocalStorageState = useSelector(state => state.localStorageSlice);
+
+
+  useEffect(()=>{
+    //  console.log(fetchUser)
+    dispatch(fetchUser())
+},[])
+
+
+  useEffect(() => {
+    console.log("useEffect storage ok")
+    localStorage.setItem('myUserInLocalStorage', UserState.allUsers);
+  }, [UserState.allUsers]);
+
+  const handlegenerateKey = (e) => {
+    console.log("Entré dans handle generate Key")
+    localStorage.getItem('myUserInLocalStorage') ;
+    const storageKey = 'myUserInLocalStorage'
+    dispatch(generateKey(storageKey))
+  }
+
+  const onSubmitUser = (e) => {
+    e.preventDefault()
+    let empty
+    dispatch(postUser(empty))
+    console.log("postUser Ok")
+    handlegenerateKey()
+    console.log("handlegenerateKey Ok")
+    // localStorage.getItem('myUserInLocalStorage', UserState.user);
+    
+  }
+      
 
   const handleUserRoleChoice = (e) =>{
     e.preventDefault()
-    console.log(e.target.name)
     const role = e.target.name
 
     dispatch(onUserRoleChoice(
@@ -26,7 +68,6 @@ const AdminForm = () => {
 
   const handleUserEmailChoice = (e) =>{
     e.preventDefault()
-    console.log(e.target.value)
     const Email = e.target.value
 
     dispatch(onUserEmailInput(
@@ -34,10 +75,8 @@ const AdminForm = () => {
     ))
   }
 
-
   const handleUserPasswordInput = (e) =>{
     e.preventDefault()
-    console.log(e.target.value)
     const Password = e.target.value
 
     dispatch(onUserPasswordInput(
@@ -47,7 +86,6 @@ const AdminForm = () => {
 
   const handleUserFirstNameInput = (e) =>{
     e.preventDefault()
-    console.log(e.target.value)
     const FirstName = e.target.value
 
     dispatch(onUserFirstNameInput(
@@ -57,7 +95,6 @@ const AdminForm = () => {
 
   const handleUserLastNameInput = (e) =>{
     e.preventDefault()
-    console.log(e.target.value)
     const LastName = e.target.value
 
     dispatch(onUserLastNameInput(
@@ -67,7 +104,6 @@ const AdminForm = () => {
 
   const handleUserCompanyInput = (e) =>{
     e.preventDefault()
-    console.log(e.target.value)
     const Company = e.target.value
 
     dispatch(onUserCompanyInput(
@@ -75,14 +111,14 @@ const AdminForm = () => {
     ))
   }
 
-  // React.useEffect(() => {
-  //   localStorage.setItem('myRoleInLocalStorage', UserState.user.role);
-  // }, [UserState.user.role]);
+  
+
+  
 
 
 
 return (
- <form className="contain-form "> 
+ <form className="contain-form " onSubmit={onSubmitUser} > 
     <div className="champ-form">
       <div className="label"> Role </div>  
       <MDBBtn outline name="client" type="mail" onClick={handleUserRoleChoice} color="white">Client</MDBBtn>
@@ -90,14 +126,14 @@ return (
     </div>
     
 
-    <div className="champ-form"> Email </div><TextField  id="standard-basic" label="Email" onChange={handleUserEmailChoice} value= {UserState.user.email}/>  
-    <div className="champ-form"> Mot de passe </div> <TextField id="standard-basic" label="Mot de passe" onChange={handleUserPasswordInput} value= {UserState.user.password}/>  
-    <div className="champ-form"> Prénom </div> <TextField id="standard-basic" label="Prénom" onChange={handleUserFirstNameInput} value= {UserState.user.first_name}/>  
-    <div className="champ-form"> Nom </div><TextField id="standard-basic" label="Nom" onChange={handleUserLastNameInput} value= {UserState.user.last_name}/> 
+    <div className="champ-form"> Email </div><TextField required id="standard-basic" label="Email" onChange={handleUserEmailChoice} value= {UserState.user.email}/>  
+    <div className="champ-form"> Mot de passe </div> <TextField required id="standard-basic" label="Mot de passe" onChange={handleUserPasswordInput} value= {UserState.user.password}/>  
+    <div className="champ-form"> Prénom </div> <TextField required id="standard-basic" label="Prénom" onChange={handleUserFirstNameInput} value= {UserState.user.first_name}/>  
+    <div className="champ-form"> Nom </div><TextField required id="standard-basic" label="Nom" onChange={handleUserLastNameInput} value= {UserState.user.last_name}/> 
     <div className="champ-form"> Nom d'entreprise </div> <TextField id="standard-basic" label="Nom d'entreprise" onChange={handleUserCompanyInput} value= {UserState.user.company_name}/>  
     <div className="div-button">
     <MDBBtn type="submit" outline color="white">
-              Se connecter
+              Créer un Utilisateur
               <MDBIcon far icon="paper-plane" className="ml-1" />
     </MDBBtn> 
     </div>

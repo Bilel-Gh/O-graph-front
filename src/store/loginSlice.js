@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 
 export const postLogine = createAsyncThunk(
@@ -7,12 +13,20 @@ export const postLogine = createAsyncThunk(
     'userSlice/postLogine',
     async(empty, { getState }) => {
         const { email, password } = getState().loginSlice
+        const userExist = true
         console.log(email, password)
 
         const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
-        response ? console.log('connexion reussi', response) : console.log(`vous n'etes pas inscrit`)
+        console.log(response.headers)
+        // const youCanPass = response ? userExist : !userExist
 
-
+        // if (youCanPass) {
+        //     console.log("vous pouvez passer")
+        // }
+        // else {
+        //     console.log("Identifiant ou mot de passe incorrect")
+        // }
+        
         return response.data
 
     }
