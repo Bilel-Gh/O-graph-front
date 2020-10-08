@@ -16,8 +16,8 @@ const NewImageUpload = ({state}) => {
 
         <div className="vignette-image-upload">
             <div className='contain-image'> 
-                <img className='image-upload' src={"https://live.staticflickr.com/5297/5478740508_cbe096faff_b.jpg"}/>
-                {/* <img className='image-upload' src={state.data}/> */}
+                {/* <img className='image-upload' src={"https://live.staticflickr.com/5297/5478740508_cbe096faff_b.jpg"}/> */}
+                <img className='image-upload' src={state.data}/>
             </div>
             <Button  className="close-button" onClick={handleModalClose} variant="primary">
                                 liste de l'image

@@ -157,7 +157,8 @@ const imageSlice = createSlice({
              x: null,
             y: null,
                },
-        listImageNewImage: [],
+        listNewImageUpload:[],
+        listImageNewImage: [{checked:true,used:true, name:"jokari"},{checked:false,used:false, name:"jokarmarceli"}, {checked:false,used:false, name:"lucettetos"}],
         modalIONewImage: false,
         modalIONewList:false,
         creatingSticker: false,
@@ -211,10 +212,17 @@ const imageSlice = createSlice({
                 state
             )
         },
+        switchCheckBox : (state, action)=> {
+            
+            
+            return (
+                state
+            )
+        },
         // remplir l array des nouvelles images qu'on upload du disque dure local
         newImageUpload : (state, action) => {
             state.newImageUpload = {...action.payload}
-            state.listImageNewImage = [...state.listImageNewImage, action.payload]
+            state.listNewImageUpload = [...state.listNewImageUpload, action.payload]
             return (
                 state
             )
@@ -264,5 +272,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox} = imageSlice.actions;
 export default imageSlice.reducer;
