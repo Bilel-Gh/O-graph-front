@@ -268,6 +268,10 @@ const imageSlice = createSlice({
            
              state.newImage.list_image_id = state.listImageUsed.id
             return state
+        },
+        [postImage.fulfilled] : (state, action) => {
+            state.listAllImages = [...state.listAllImages, action.payload]
+            return state
         }
     },
 })

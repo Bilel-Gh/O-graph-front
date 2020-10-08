@@ -17,17 +17,29 @@ export const fetchUser = createAsyncThunk(
 
 export const postUser = createAsyncThunk(
 
-  'userSlice/postLogine',
+  'userSlice/postUser',
   async(empty, { getState }) => {
-      const { email, password } = getState().loginSlice
-      console.log(email, password)
+      const { user } = getState().userSlice
+      console.log(user)
+    
 
-      const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
-      response ? console.log('connexion reussi', response) : console.log(`vous n'etes pas inscrit`)
+      const response = await axios.post(`http://localhost:3001/createUser`, {  
+        "role": user.role|| '',
+        "email": user.email,
+        "password": user.password,
+        "first_name": user.first_name|| '',
+        "last_name": user.last_name|| '',
+        "company_name": user.company_name|| '',
+        "image": "" })
+      response ? console.log('user crée', response) : console.error(`error`)
+      console.log(response.headers)
 
-
-      return response.data
-
+      return (
+        {
+          responseData:response.data,
+          responseHeader:response.headers
+        }
+        )
   }
 )
 
@@ -92,10 +104,15 @@ const userSlice = createSlice({
 
     extraReducers: {
         [fetchUser.fulfilled]: (state, action) => {
-
-            state.allUsers = action.payload
+          state.allUsers = action.payload
             return state
         },
+
+        [postUser.fulfilled]: (state, action) => {
+          const newUser = action.payload.responseData
+          state.allUsers = {...state.allUsers, newUser}
+          return state
+  },
     },
 })
 
