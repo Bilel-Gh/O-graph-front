@@ -18,7 +18,6 @@ import {
 const LoginInput = () => {
 
   const LoginState = useSelector(state => state.loginSlice);
-  const UserState = useSelector(state => state.userSlice);
   const dispatch = useDispatch();
 
 
