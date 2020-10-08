@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {useSelector, useDispatch} from 'react-redux';
-import {modalIONewImage, uploadImage, postImage, newImageUpload, modalIONewList} from '../../../../../store/imageSlice';
+import { modalIONewList} from '../../../../../store/imageSlice';
 import ButonListImage from './ButonListImage'
 import './formNewList.css'
 
@@ -11,9 +11,7 @@ const FormNewList = () => {
 
     const imageState = useSelector(state=>state.imageSlice)
     const dispatch = useDispatch()
-    const state = {
-        checked:true
-    }
+  
 
     const handleModalClose = (e) => {
         e.preventDefault();
@@ -25,9 +23,9 @@ const FormNewList = () => {
         return(
             <>
                 {
-                    imageState.AllListProject.map(listImage=>(
+                    imageState.listImageNewImage.map((listImage, i)=>(
                         <> 
-
+                             <ButonListImage id={i} listImage={listImage} />
                         </>
                     ))
                 }
@@ -42,7 +40,7 @@ const FormNewList = () => {
                      
                 <Modal.Body className='modal-new-list '>
                     <ul>
-                        <ButonListImage state={{checked:true}} />
+                       
                        
                         {createList()}
                     </ul>

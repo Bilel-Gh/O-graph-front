@@ -12,7 +12,7 @@ const ShowNewImageUpload = () => {
         return (
             <> 
             {
-                imageState.listImageNewImage.map(newImage => (
+                imageState.listNewImageUpload.map(newImage => (
                     <NewImageUpload state={newImage} />
                 ))
             }
@@ -23,14 +23,14 @@ const ShowNewImageUpload = () => {
     return (
         <div className="container-new-image-upload">
             {createImageUpload()}
+            {/* <NewImageUpload  />
             <NewImageUpload  />
             <NewImageUpload  />
             <NewImageUpload  />
             <NewImageUpload  />
             <NewImageUpload  />
             <NewImageUpload  />
-            <NewImageUpload  />
-            <NewImageUpload  />
+            <NewImageUpload  /> */}
         </div>
     )
 }

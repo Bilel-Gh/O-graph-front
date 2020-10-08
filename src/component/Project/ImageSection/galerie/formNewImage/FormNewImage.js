@@ -38,8 +38,7 @@ const FormNewImage = () => {
     //     };
     // }
        
-        let reader = new FileReader()
-        reader.readAsDataURL(file)
+        
         const formData = new FormData();
         formData.append('file',file)
         // dispatch(uploadImage(formData))
@@ -48,12 +47,13 @@ const FormNewImage = () => {
             // }, 3000);
             let state
             // dispatch(postImage(state))
-            
+            let reader = new FileReader()
+            reader.readAsDataURL(file)
+            console.log(file)
             reader.onload = ()=>{
                 let dataImage = reader.result;
-                console.log(dataImage)
-                console.log(file)
                 dispatch(newImageUpload({
+                    file:file,
                     data:dataImage,
                     imageFromServer:false
                 }))
@@ -74,7 +74,10 @@ const FormNewImage = () => {
                         <div className="bar-buton-new-image-upload"> 
                             <input type="file" multiple name="file" onChange={makeUploadImage}/>
                             <Button  className="close-button" onClick={handleModalClose} variant="primary">
-                                Close Modal
+                                Fermer
+                            </Button>
+                            <Button  className="close-button" onClick={handleModalClose} variant="primary">
+                                Valider et fermer
                             </Button>
                         </div>
                         <ShowNewImageUpload />
