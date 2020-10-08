@@ -15,6 +15,22 @@ export const fetchUser = createAsyncThunk(
     }
 );
 
+export const postUser = createAsyncThunk(
+
+  'userSlice/postLogine',
+  async(empty, { getState }) => {
+      const { email, password } = getState().loginSlice
+      console.log(email, password)
+
+      const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
+      response ? console.log('connexion reussi', response) : console.log(`vous n'etes pas inscrit`)
+
+
+      return response.data
+
+  }
+)
+
 
 const userSlice = createSlice({
     name: "user",
