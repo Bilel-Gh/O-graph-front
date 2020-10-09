@@ -6,10 +6,9 @@ import imageSlice from './imageSlice';
 import loginSlice from './loginSlice';
 import userSlice from './userSlice';
 import feedBackSlice from './feedBackSlice';
-import localStorageSlice from './localStorageSlice'
 
 const reducer = combineReducers({
-    messageSlice, imageSlice, loginSlice, userSlice, feedBackSlice, localStorageSlice 
+    messageSlice, imageSlice, loginSlice, userSlice, feedBackSlice
 })
 
 const store = configureStore({

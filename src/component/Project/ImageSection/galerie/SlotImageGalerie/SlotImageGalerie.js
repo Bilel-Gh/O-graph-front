@@ -8,7 +8,7 @@ const SlotImageGalerie = ({image}) => {
     const selectImage = (e) => {
         e.preventDefault()
         dispatch(galerieIO(false))
-        console.log(image)
+       
     }
     return (
         <> 

@@ -23,15 +23,15 @@ const LoginInput = () => {
   let history = useHistory();
 
   const FindRoleUser = () => {
-    
+
   }
 
   const onSubmitLogin = (e) => {
       e.preventDefault()
       let empty
       dispatch(postLogine(empty))
-      console.log("dispatch reussi")
-      history.push("/project");
+      
+      // history.push("/project");
   }
 
   const handleEmailInput= (e) =>{

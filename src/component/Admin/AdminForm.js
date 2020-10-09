@@ -3,28 +3,17 @@ import './admin.css'
 import { onUserRoleChoice, onUserEmailInput, onUserPasswordInput, onUserFirstNameInput, onUserLastNameInput, onUserCompanyInput} from '../../store/userSlice'
 import {useSelector, useDispatch} from 'react-redux';
 import {postUser, fetchUser} from '../../store/userSlice'
-import { generateKey } from '../../store/localStorageSlice'
+
 
 import { MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import TextField from '@material-ui/core/TextField';
 
-
-// const useStateWithLocalStorage = localStorageKey => {
-//   const m
- 
-//   React.useEffect(() => {
-//     localStorage.setItem(localStorageKey, user);
-//   }, [user]);
- 
-//   return [user, setUser];
-// };
 
 
 const AdminForm = () => {
   const dispatch = useDispatch();
   const LoginState = useSelector(state => state.loginSlice);
   const UserState = useSelector(state => state.userSlice);
-  const LocalStorageState = useSelector(state => state.localStorageSlice);
 
 
   useEffect(()=>{
@@ -33,25 +22,11 @@ const AdminForm = () => {
 },[])
 
 
-  useEffect(() => {
-    console.log("useEffect storage ok")
-    localStorage.setItem('myUserInLocalStorage', UserState.allUsers);
-  }, [UserState.allUsers]);
-
-  const handlegenerateKey = (e) => {
-    console.log("Entré dans handle generate Key")
-    localStorage.getItem('myUserInLocalStorage') ;
-    const storageKey = 'myUserInLocalStorage'
-    dispatch(generateKey(storageKey))
-  }
-
   const onSubmitUser = (e) => {
     e.preventDefault()
     let empty
     dispatch(postUser(empty))
     console.log("postUser Ok")
-    handlegenerateKey()
-    console.log("handlegenerateKey Ok")
     // localStorage.getItem('myUserInLocalStorage', UserState.user);
     
   }

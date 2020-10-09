@@ -86,11 +86,11 @@ const FormNewImage = () => {
                     <Modal.Body className='modal-new-image-body '>
                         <div className="bar-buton-new-image-upload"> 
                             <input type="file" multiple name="file" onChange={makeUploadImage}/>
-                            <Button  className="close-button" onClick={handleModalClose} variant="primary">
-                                Fermer
+                            <Button  className="close-valide-button" onClick={handleModalClose} variant="primary">
+                                Valider et fermer
                             </Button>
                             <Button  className="close-button" onClick={handleModalClose} variant="primary">
-                                Valider et fermer
+                                Fermer
                             </Button>
                         </div>
                         <ShowNewImageUpload />

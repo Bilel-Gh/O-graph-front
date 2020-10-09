@@ -5,7 +5,7 @@ export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async({getState}) => {
         const {imageUsed} = getState().imageSlice
-        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`)
+        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
 )
@@ -26,7 +26,7 @@ export const postStickers = createAsyncThunk(
          const { imageUsed, sticker } = getState().imageSlice
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
         const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y })
-          
+           
             // return les données
         return response.data
     }
@@ -233,6 +233,10 @@ const imageSlice = createSlice({
             return (
                 state
             )
+        },
+        switchImageUsed : (state, action) => {
+            state.imageUsed = action.payload
+            return state
         }
     },
     extraReducers : {
@@ -283,5 +287,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed} = imageSlice.actions;
 export default imageSlice.reducer;
