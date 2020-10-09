@@ -80,7 +80,7 @@ const FormNewImage = () => {
 
     return(
         <div className="container-modal">
-            <Modal show={imageState.modalIONewImage} onHide={handleModalClose} className='modal-newMessage ' size='xl'>
+            <Modal show={imageState.modalIONewImage}  className='modal-newMessage ' size='xl'>
                     <Modal.Header>Nouvlles images</Modal.Header>
                          
                     <Modal.Body className='modal-new-image-body '>

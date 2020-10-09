@@ -17,7 +17,7 @@ export const postLogine = createAsyncThunk(
         console.log(email, password)
 
         const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
-        console.log(response.headers)
+        console.log(response)
         // const youCanPass = response ? userExist : !userExist
 
         // if (youCanPass) {

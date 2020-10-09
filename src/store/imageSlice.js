@@ -67,10 +67,10 @@ export const postListImage = createAsyncThunk(
 // get les images appartenant à une liste d image
 export const fetchImages = createAsyncThunk(
     'imageSlice/fetchAllImage',
-    async({getState}) => {
+    async(state ,{getState}) => {
+        console.log("list image used")
        
         const {listImageUsed}= getState().imageSlice
-        
         const response = await axios.get(`http://localhost:3001/imageByListImageId/${listImageUsed.id}`)
         return response.data
     }
@@ -157,6 +157,7 @@ const imageSlice = createSlice({
              x: null,
             y: null,
                },
+        galerieIO:true,
         listNewImageUpload:[],
         listImageNewImage: [{checked:true,used:true, name:"jokari"},{checked:false,used:false, name:"jokarmarceli"}, {checked:false,used:false, name:"lucettetos"}],
         modalIONewImage: false,
@@ -208,6 +209,12 @@ const imageSlice = createSlice({
         },
         modalIONewList : (state, action)=> {
             state.modalIONewList = action.payload;
+            return (
+                state
+            )
+        },
+        galerieIO : (state, action)=> {
+            state.galerieIO = action.payload;
             return (
                 state
             )
@@ -276,5 +283,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO} = imageSlice.actions;
 export default imageSlice.reducer;

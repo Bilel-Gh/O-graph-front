@@ -17,10 +17,13 @@ import './../Project/Header/header.css'
         return (
             <div className="admin-page">
                 <Header/>
-                <div className="form-container">
-                    <h2 className="form-header"> CREATION D'UTILISATEUR </h2>
+                <div className="form-page">
+                    <div className="form-container">
+                    <h2 className="form-header"> Créer un utilisateur </h2>
                     <AdminForm className="test"/>
+                    </div> 
                 </div>
+                
                 
                   
             </div>

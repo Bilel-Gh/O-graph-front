@@ -19,8 +19,8 @@ const ImageSection = () => {
 
     useEffect (()=>{
        
-        dispatch(fetchSticker())
-        dispatch(fetchCommentList(states))
+        // dispatch(fetchSticker())
+        // dispatch(fetchCommentList(states))
     },[])
 
     return (

@@ -7,12 +7,14 @@ import {createSticker, fillListStickers, postStickers} from '../../../../store/i
 import MakeStickers from '../makeStickers/MakeStickers';
 import ColorPicker from './ColorPicker/ColorPicker';
 import store from './../../../../store';
+import TextField from "@material-ui/core/TextField";
 
 import './NewMessage.css'
 
 
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
+    console.log(message)
     const imageState = useSelector(state=>state.imageSlice)
     const dispatch= useDispatch()
     const [rowTextArea, setRowTextArea] = useState(1)
@@ -23,6 +25,7 @@ const NewMessage = () => {
         dispatch(onMessageInput(""))
         dispatch(createTitleMessage(""))
         dispatch(IOModalFirstMessage(false))
+        console.log("sending postcomment")
         };
 
     // récupérer la valeur du titre du message qui est en train d"être tapper
@@ -87,6 +90,7 @@ const NewMessage = () => {
     useEffect(()=>{
        if(message.sendingNewComment){
            dispatch(postcommentList(states))
+           
         }
     },[imageState.stickerUsed.id])
 
@@ -95,6 +99,7 @@ const NewMessage = () => {
             dispatch(postcomment(states))
             dispatch(sendingNewComment(false))
         }
+      
     },[message.commentListUsed.id])
 
 
@@ -117,7 +122,7 @@ const NewMessage = () => {
                         {message.errorTiltle && <div className='newComment-message-error'>Vous devez mettre un titre </div>}
                         <Form.Control  type="text" className={message.errorTiltle ? "formError" : "formTrue"}   placeholder="Ecrire un commentaire" onChange= {handleTitleMessage} value={message.titreMessage} />
                         <Form.Label>Texte</Form.Label>
-
+                        {/* <TextField id="outlined-basic" onChange= {handleTitleMessage} value={message.titreMessage} label="Titre du message" variant="outlined" /> */}
                         {message.errorText && <div className='newComment-message-error'>Vous devez écrire un commentaire </div>}
                         <Form.Control as="textarea" rows={rowTextArea}  className={message.errorText ? "input-text-new-comment formError" : "input-text-new-comment formTrue"}  placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
                         </Form.Group>
