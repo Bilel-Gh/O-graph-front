@@ -49,7 +49,7 @@ const MakeStickers = () => {
           <div className='container-stickers-image'  ref={imgRef} >
             {imageState.creatingSticker ? <Stickers stickersList={false}/> : null}
             <ShowStickers />
-            <img className='image-comment' onLoad={handleImageLoaded}  src="https://www.muralswallpaper.com/app/uploads/Blue-Illustrated-Landscape-Mountains-Wallpaper-Mural-820x532.jpg" onClick={saveStickers} onContextMenu={(e)=>e.preventDefault()} />
+            <img className='image-comment' onLoad={handleImageLoaded}  src={imageState.imageUsed.image_url} onClick={saveStickers} onContextMenu={(e)=>e.preventDefault()} />
 
         </div>
        </div>

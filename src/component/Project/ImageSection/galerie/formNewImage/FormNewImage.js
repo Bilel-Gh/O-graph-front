@@ -80,17 +80,17 @@ const FormNewImage = () => {
 
     return(
         <div className="container-modal">
-            <Modal show={imageState.modalIONewImage} onHide={handleModalClose} className='modal-newMessage ' size='xl'>
+            <Modal show={imageState.modalIONewImage}  className='modal-newMessage ' size='xl'>
                     <Modal.Header>Nouvlles images</Modal.Header>
                          
                     <Modal.Body className='modal-new-image-body '>
                         <div className="bar-buton-new-image-upload"> 
                             <input type="file" multiple name="file" onChange={makeUploadImage}/>
-                            <Button  className="close-button" onClick={handleModalClose} variant="primary">
-                                Fermer
+                            <Button  className="close-valide-button" onClick={handleModalClose} variant="primary">
+                                Valider et fermer
                             </Button>
                             <Button  className="close-button" onClick={handleModalClose} variant="primary">
-                                Valider et fermer
+                                Fermer
                             </Button>
                         </div>
                         <ShowNewImageUpload />

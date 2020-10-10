@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import{onEmailInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
 import {fetchUser} from '../../store/userSlice'
 import {postLogine} from '../../store/loginSlice'
+import { useHistory } from "react-router-dom";
 
 import {
   BrowserRouter as Router,
@@ -19,14 +20,18 @@ const LoginInput = () => {
 
   const LoginState = useSelector(state => state.loginSlice);
   const dispatch = useDispatch();
+  let history = useHistory();
 
+  const FindRoleUser = () => {
+
+  }
 
   const onSubmitLogin = (e) => {
       e.preventDefault()
       let empty
       dispatch(postLogine(empty))
-      console.log("dispatch reussi")
-
+      
+      // history.push("/project");
   }
 
   const handleEmailInput= (e) =>{

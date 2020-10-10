@@ -7,12 +7,14 @@ import {createSticker, fillListStickers, postStickers} from '../../../../store/i
 import MakeStickers from '../makeStickers/MakeStickers';
 import ColorPicker from './ColorPicker/ColorPicker';
 import store from './../../../../store';
+import TextField from "@material-ui/core/TextField";
 
 import './NewMessage.css'
 
 
 const NewMessage = () => {
     const message = useSelector(state => state.messageSlice)
+  
     const imageState = useSelector(state=>state.imageSlice)
     const dispatch= useDispatch()
     const [rowTextArea, setRowTextArea] = useState(1)
@@ -23,6 +25,7 @@ const NewMessage = () => {
         dispatch(onMessageInput(""))
         dispatch(createTitleMessage(""))
         dispatch(IOModalFirstMessage(false))
+        console.log("sending postcomment")
         };
 
     // récupérer la valeur du titre du message qui est en train d"être tapper
@@ -87,6 +90,7 @@ const NewMessage = () => {
     useEffect(()=>{
        if(message.sendingNewComment){
            dispatch(postcommentList(states))
+           
         }
     },[imageState.stickerUsed.id])
 
@@ -95,6 +99,7 @@ const NewMessage = () => {
             dispatch(postcomment(states))
             dispatch(sendingNewComment(false))
         }
+      
     },[message.commentListUsed.id])
 
 
@@ -112,20 +117,15 @@ const NewMessage = () => {
                     <Modal.Body className='modal-newMessage-body'>
                     <MakeStickers/>
                     <Form onSubmit={handleSubmitFirstMessage} className='modal-form-new-message'>
-                        <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Titre message</Form.Label>
-                        {message.errorTiltle && <div className='newComment-message-error'>Vous devez mettre un titre </div>}
-                        <Form.Control  type="text" className={message.errorTiltle ? "formError" : "formTrue"}   placeholder="Ecrire un commentaire" onChange= {handleTitleMessage} value={message.titreMessage} />
-                        <Form.Label>Texte</Form.Label>
-
-                        {message.errorText && <div className='newComment-message-error'>Vous devez écrire un commentaire </div>}
-                        <Form.Control as="textarea" rows={rowTextArea}  className={message.errorText ? "input-text-new-comment formError" : "input-text-new-comment formTrue"}  placeholder="Votre message" onChange= {handleMessageText} value={message.messageText} />
+                        <Form.Group className="modal-input-container">
+                        <TextField  className="modal-input" onChange= {handleTitleMessage} value={message.titreMessage} label="Titre du message" variant="outlined" />
+                        <TextField  className="modal-input" onChange= {handleMessageText} value={message.messageText} label="Message" variant="outlined" />
                         </Form.Group>
 
-                        <Button className="send-button" variant="primary" type="submit">
+                        <Button className="send-button-modal" variant="primary" type="submit">
                         Envoyer
                         </Button>
-                        <Button  className="close-button" onClick={handleModalClose} variant="primary">
+                        <Button  className="close-button-modal" onClick={handleModalClose} variant="primary">
                             Close Modal
                         </Button>
                     </Form>

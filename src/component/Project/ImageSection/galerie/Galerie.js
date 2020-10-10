@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import ImageGalerie from './ImageGalerie';
 import {useSelector, useDispatch} from 'react-redux';
-import {modalIONewImage} from '../../../../store/imageSlice';
+import {modalIONewImage, fetchImages} from '../../../../store/imageSlice';
 import FormNewImage from './formNewImage/FormNewImage';
 
 
@@ -11,6 +11,12 @@ const Galerie = () => {
     const handleIONewImage = () => {
         dispatch(modalIONewImage(true))
     };
+
+    useEffect (()=> {
+        let state
+        dispatch(fetchImages(state))
+        
+    },[])
 
     return (
         <div className="galerie-section">

@@ -15,6 +15,20 @@ export const fetchUser = createAsyncThunk(
     }
 );
 
+export const fetchUserById = createAsyncThunk(
+  'user/fetchUserById',
+  async(id,{getState}) => {
+      const response = await axios.get(`http://localhost:3000/userById/${id}`)
+      console.log(response.data)
+          // const emailFInd = response.data.find(e => e.email === "bobby@gmail.com")
+          // console.log(emailFind.email)
+
+      //console.log(response.data.map( e => { console.log(e.email) }))
+
+      return response.data
+  }
+);
+
 export const postUser = createAsyncThunk(
 
   'userSlice/postUser',
@@ -56,6 +70,10 @@ const userSlice = createSlice({
             last_name: "",
             company_name: "",
             image: "",
+        },
+        userChat: {
+            name: "",
+            image: "B"
         },
         allUsers: []
     },
@@ -112,7 +130,13 @@ const userSlice = createSlice({
           const newUser = action.payload.responseData
           state.allUsers = {...state.allUsers, newUser}
           return state
-  },
+        },
+
+        // [fetchUserById.fulfilled]: (state, action) => {
+        //   const newUserChat = action.payload
+        //   state.allUsers = {...state.allUsers, newUser}
+        //   return state
+        // },
     },
 })
 

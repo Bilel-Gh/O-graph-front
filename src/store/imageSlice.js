@@ -5,7 +5,7 @@ export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async({getState}) => {
         const {imageUsed} = getState().imageSlice
-        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`)
+        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
 )
@@ -26,7 +26,7 @@ export const postStickers = createAsyncThunk(
          const { imageUsed, sticker } = getState().imageSlice
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
         const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y })
-          
+           
             // return les données
         return response.data
     }
@@ -67,10 +67,10 @@ export const postListImage = createAsyncThunk(
 // get les images appartenant à une liste d image
 export const fetchImages = createAsyncThunk(
     'imageSlice/fetchAllImage',
-    async({getState}) => {
+    async(state ,{getState}) => {
+        console.log("list image used")
        
         const {listImageUsed}= getState().imageSlice
-        
         const response = await axios.get(`http://localhost:3001/imageByListImageId/${listImageUsed.id}`)
         return response.data
     }
@@ -157,6 +157,7 @@ const imageSlice = createSlice({
              x: null,
             y: null,
                },
+        galerieIO:true,
         listNewImageUpload:[],
         listImageNewImage: [{checked:true,used:true, name:"jokari"},{checked:false,used:false, name:"jokarmarceli"}, {checked:false,used:false, name:"lucettetos"}],
         modalIONewImage: false,
@@ -212,6 +213,12 @@ const imageSlice = createSlice({
                 state
             )
         },
+        galerieIO : (state, action)=> {
+            state.galerieIO = action.payload;
+            return (
+                state
+            )
+        },
         switchCheckBox : (state, action)=> {
             
             
@@ -226,6 +233,10 @@ const imageSlice = createSlice({
             return (
                 state
             )
+        },
+        switchImageUsed : (state, action) => {
+            state.imageUsed = action.payload
+            return state
         }
     },
     extraReducers : {
@@ -276,5 +287,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed} = imageSlice.actions;
 export default imageSlice.reducer;

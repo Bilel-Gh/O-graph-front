@@ -18,8 +18,8 @@ const Chat = () => {
        
         return(
             <div className="message-master">
-                {messageList.map((message, i) => {
-
+                {messages.listMessage.map((message, i) => {
+                  console.log(messages.listMessage)
                         return (
                             <div className="chat-master" key={i}>
                                 <MessageChat stateMessage={message} myMessage={false}/>
@@ -35,8 +35,8 @@ const Chat = () => {
 
     useEffect(()=>{
         socket.on('SendNewComment', (state)=>{
-            console.log(socket)
-            console.log(states, "state receinve")
+            // console.log(socket)
+            // console.log(states, "state receinve")
             dispatch(fetchComment(states))
             if(messages.commentListUsed.id===state){
             }

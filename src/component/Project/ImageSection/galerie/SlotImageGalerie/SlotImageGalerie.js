@@ -1,13 +1,19 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {galerieIO} from '../../../../../store/imageSlice';
 
 const SlotImageGalerie = ({image}) => {
     console.log(image.image_url)
-
-
+    const dispatch = useDispatch()
+    const selectImage = (e) => {
+        e.preventDefault()
+        dispatch(galerieIO(false))
+       
+    }
     return (
         <> 
             <div class="mb-3 pics animation all 2">
-                <img class="img-fluid" src="localhost:3001/public/images/image-1602158591575.jpg" alt="Card image cap"/>
+                <img className="img-fluid" src={image.image_url} alt="Card image cap" onClick={selectImage}/>
             </div>
 
         

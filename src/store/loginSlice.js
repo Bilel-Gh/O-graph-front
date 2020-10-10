@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -16,18 +18,16 @@ export const postLogine = createAsyncThunk(
         const userExist = true
         console.log(email, password)
 
-        const response = await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
-        console.log(response.headers)
-        // const youCanPass = response ? userExist : !userExist
-
-        // if (youCanPass) {
-        //     console.log("vous pouvez passer")
-        // }
-        // else {
-        //     console.log("Identifiant ou mot de passe incorrect")
-        // }
+        const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
         
-        return response.data
+        console.log(response.headers)
+        return (
+            {
+                data : response.data,
+                headers : response.headers
+            }
+        )
+        
 
     }
 )
@@ -38,6 +38,7 @@ const loginSlice = createSlice ({
         email : "",
         password : ""
     },
+    role:"",
     reducers: {
         onEmailInput:(state, action) => {
             state.email = action.payload
@@ -64,7 +65,10 @@ const loginSlice = createSlice ({
     extraReducers: {
 
         [postLogine.fulfilled]: (state, action) => {
-                const mailAndPassUser = action.payload
+                const mailAndPassUser = action.payload.data
+                localStorage.setItem("userToken", action.payload.headers.authtoken);
+                console.log()
+                state.role= action.payload.headers.role
                 state.user = {...state.user, mailAndPassUser}
                 return state
         },

@@ -1,3 +1,8 @@
+.galerie-section{
+    width:100%;
+    margin: 1rem;
+}
+
 .gallery {
     -webkit-column-count: 3;
     -moz-column-count: 3;

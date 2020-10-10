@@ -11,16 +11,16 @@ const ImageFeedBack = () => {
            
           
       <MDBCarousel
-      activeItem={1}
-      length={3}
+      activeItem={0}
+      length={10}
       showControls={true}
       showIndicators={true}
       className="z-depth-1"
     interval={false}
+   
     >
-      <MDBCarouselInner>
-     < CreateShowImage />
-
+      <MDBCarouselInner  onChange={console.log("index")}>
+       < CreateShowImage />
       </MDBCarouselInner>
     </MDBCarousel>
     

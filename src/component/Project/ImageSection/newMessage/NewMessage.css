@@ -1,5 +1,7 @@
 div.fade.modal-newMessage.modal.show {
     display: flex !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 1.1em;
     justify-content: center;
     align-items: center;
     padding-left: 0px;
@@ -21,7 +23,12 @@ div.fade.modal-newMessage.modal.show {
 
 
 .modal-body {
-    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1.5rem;
 }
 
 .modal-newMessage-body{
@@ -33,7 +40,7 @@ div.fade.modal-newMessage.modal.show {
 }
 
 .modal-form-new-message{
-    width: 25%;
+    width: 29%;
     display: flex;
     flex-wrap: wrap;
     padding: 2vh;
@@ -41,8 +48,9 @@ div.fade.modal-newMessage.modal.show {
     padding-left: 0;
     justify-content: center;
     align-items: center;
-    background-color: #E7E7E7;
-    align-content: space-between;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
+    font-family: 'Source Sans Pro', sans-serif !important;
 }
 
 .input-text-new-comment{
@@ -63,11 +71,23 @@ p.p-color{
 .form-group
 
 
-button.send-button.btn.btn-primary {
-    margin: 1vh
+button.send-button-modal.btn.btn-primary {
+    margin: 1vh;
 }
 
-button.close-button.btn.btn-primary {
-    margin-left: 2vh;
-    margin-right: 2vh;
+button.close-button-modal.btn.btn-primary {
+    margin-left: 1vh;
+    margin-right: 1vh;
+
+}
+
+.modal-input-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-input {
+    width: 100%;
 }

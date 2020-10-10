@@ -17,7 +17,7 @@ export const fetchCommentList = createAsyncThunk(
     async(states, {getState}) => {
         const  {stickerUsed} = getState().imageSlice
         const idSticker = stickerUsed.id
-        console.log(stickerUsed)
+        // console.log(stickerUsed)
         const response = await axios.get(`http://localhost:3001/commentListByStickerId/${idSticker}`)
 
         return response.data[0]
@@ -38,7 +38,7 @@ export const postcommentList = createAsyncThunk(
                                                                                          "sticker_id": stickerUsed.id,
                                                                                           "name": titreMessage
                                                                                     })
-
+    // console.log(response.data)
         return response.data
     }
 )
@@ -50,7 +50,7 @@ export const fetchComment = createAsyncThunk(
        // const  {commentListUsed} = states.messageSlice
         const  {commentListUsed} = getState().messageSlice
         const idCommentList = commentListUsed.id
-        console.log(idCommentList, "retour du scoketio")
+        // console.log(idCommentList, "retour du scoketio")
         const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
         return response.data
     }
@@ -64,13 +64,17 @@ export const postcomment = createAsyncThunk(
 
         const {messageText,commentListUsed} = getState().messageSlice
         const {user}= getState().userSlice
+        // console.log(messageText,commentListUsed.id, user.id )
         const response = await axios.post(`http://localhost:3001/newComment`, {
                                                                                 "text": messageText,
                                                                                 "list_comment_id": commentListUsed.id,
                                                                                 "user_id": user.id
                                                                             })
-        console.log(response.data)
-        return response.data
+       
+        return ({
+            data : response.data,
+            userChatName : user.first_name
+        })
     }
 )
 
@@ -170,8 +174,9 @@ const messageSlice = createSlice ({
         },
 
         [postcomment.fulfilled] : (state, action) => {
-            const newStateComment = action.payload
-            socket.emit("NewComment", state.commentListUsed.id);
+            const newStateComment = {...action.payload.data, userChatName:action.payload.userChatName}
+            console.log(newStateComment)
+            // socket.emit("NewComment", state.commentListUsed.id);
 
             state.messageText= "";
             state.titreMessage="";
