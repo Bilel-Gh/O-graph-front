@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import Project from '../Project/Project'
 import Login from '../Login/Login'
 import Admin from '../Admin/Admin'
@@ -6,19 +7,29 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, 
+  Redirect
 } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 function App() {
+  const LoginState = useSelector(state => state.loginSlice);
+  const isAuthenticated = () => {
+    if (LoginState.isloged === "OK") {
+      return true
+    }
+    else return false
+  }
   return (
     <Router>
       <div className="App">
         <Switch> 
-          <Project path="/project"/>
           <Login exact path="/"/>
-          <Admin path="/admin"/>
+          {isAuthenticated() ? <Project path="/project"/> : <Redirect to="/" />
+ }
+          {isAuthenticated() ? <Admin path="/admin"/> : <Redirect to="/" />
+ }
         </Switch>
       </div> 
     </Router>

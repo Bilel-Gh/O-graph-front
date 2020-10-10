@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 
 export const fetchUser = createAsyncThunk(
@@ -28,12 +29,12 @@ export const fetchUserById = createAsyncThunk(
       return response.data
   }
 );
-
 export const postUser = createAsyncThunk(
-
+  
   'userSlice/postUser',
   async(empty, { getState }) => {
       const { user } = getState().userSlice
+      
       console.log(user)
     
 
@@ -45,15 +46,33 @@ export const postUser = createAsyncThunk(
         "last_name": user.last_name|| '',
         "company_name": user.company_name|| '',
         "image": "" })
-      response ? console.log('user crée', response) : console.error(`error`)
-      console.log(response.headers)
+        // .then((respone) => {
+        //   return (
+        //     {
+        //       responseData:response.data,
+        //       responseHeader:response.headers
+        //     }
+        //     ) 
+        // }).catch((error) => {console.log(error)})
 
-      return (
-        {
-          responseData:response.data,
-          responseHeader:response.headers
-        }
-        )
+        // }
+
+      console.log(response.headers)
+      response ? console.log('user crée', response) : console.error()
+      if (response) {
+        console.log('user crée', response) 
+        return (
+          {
+            responseData:response.data,
+            responseHeader:response.headers
+          }
+          )
+      }
+      else {
+        const dispatch = useDispatch();
+        dispatch(onUserError())
+      }
+
   }
 )
 
@@ -71,6 +90,8 @@ const userSlice = createSlice({
             company_name: "",
             image: "",
         },
+        userCreated: "",
+        userError: "",
         userChat: {
             name: "",
             image: "B"
@@ -79,6 +100,14 @@ const userSlice = createSlice({
     },
 
     reducers: {
+      onUserError :(state, action) => {
+        console.log("dispatch ok error")
+        state.userError = "YES"
+        return (
+          state
+      ) 
+      },
+
       onUserRoleChoice:(state, action) => {
         state.user.role = action.payload
         return (
@@ -127,8 +156,10 @@ const userSlice = createSlice({
         },
 
         [postUser.fulfilled]: (state, action) => {
+          console.log("ok fullfilled")
           const newUser = action.payload.responseData
           state.allUsers = {...state.allUsers, newUser}
+          state.userCreated = "YES"
           return state
         },
 
@@ -141,4 +172,4 @@ const userSlice = createSlice({
 })
 
 export default userSlice.reducer;
-export const { onUserRoleChoice, onUserEmailInput, onUserPasswordInput, onUserFirstNameInput, onUserLastNameInput, onUserCompanyInput} = userSlice.actions;
+export const { onUserRoleChoice, onUserEmailInput, onUserPasswordInput, onUserFirstNameInput, onUserLastNameInput, onUserCompanyInput, onUserError} = userSlice.actions;

@@ -10,10 +10,16 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 150%, 270%;
     background-position: bottom;
+    flex-direction: column;
+}
+
+.logo-ograph {
+    margin-bottom: -5vh;
 }
 
 .loginDiv {
     background-color: #1D344C;
+    flex-direction: column;
     display: flex;
     border-radius: 1em;
     box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
@@ -26,6 +32,7 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 135%;
     background-position: bottom;
+    margin-bottom: 12%;
 }
 
 .input-container {
@@ -34,6 +41,7 @@
     min-width: 100%;
     margin-left: 50%;
     color: #E7E7E7;
+    margin-bottom: 10%;
 }
 
 .grey-text-change {
