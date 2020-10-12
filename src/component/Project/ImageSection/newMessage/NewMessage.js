@@ -83,8 +83,6 @@ const NewMessage = () => {
 
             }
         }
-
-
     }
 
     useEffect(()=>{

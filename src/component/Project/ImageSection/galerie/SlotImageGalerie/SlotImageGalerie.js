@@ -1,12 +1,14 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {galerieIO} from '../../../../../store/imageSlice';
+import {galerieIO, switchImageUsed} from '../../../../../store/imageSlice';
 
 const SlotImageGalerie = ({image}) => {
     console.log(image.image_url)
     const dispatch = useDispatch()
     const selectImage = (e) => {
         e.preventDefault()
+        console.log(image)
+        dispatch(switchImageUsed(image))
         dispatch(galerieIO(false))
        
     }

@@ -11,7 +11,7 @@ import store from './../../../../store';
 
 
 const Stickers = ({stickersList, stateStickerInObject, keyId}) => {
-    const states = store.getState()
+    // const states = store.getState()
     const stickerRef = useRef(null);
     const imageState = useSelector(state => state.imageSlice);
     const messageState = useSelector(state => state.messageSlice)
@@ -23,13 +23,13 @@ const Stickers = ({stickersList, stateStickerInObject, keyId}) => {
         backgroundColor: imageState.sticker.stickerColor
     }
 
-    const selectSticker = (e) => {
+    const selectSticker = async (e) => {
         e.preventDefault()
      
 
         if (stateStickerInObject){
-
-            dispatch(switchStickerSelect({
+            let states
+           await dispatch(switchStickerSelect({
                 id: stateStickerInObject.id,
                 image_id: stateStickerInObject.image_id,
                 position_x: stateStickerInObject.left,
@@ -37,7 +37,7 @@ const Stickers = ({stickersList, stateStickerInObject, keyId}) => {
                 visible: true,
                 stickerColor: stateStickerInObject.backgroundColor
             }))
-            dispatch(fetchCommentList(states))
+           await dispatch(fetchCommentList(states))
             dispatch(fetchComment(states))
         }
 
