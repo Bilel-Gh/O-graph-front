@@ -8,7 +8,8 @@
     background-color: #E7E7E7;
     background-image: url(./../../wave3.svg), url(./../../wave.svg);
     background-repeat: no-repeat, no-repeat;
-    background-size: 150%, 270%;
+    /* background-size: 150%, 270%; */
+    background-size: 100%, 115%;
     background-position: bottom;
     flex-direction: column;
 }
@@ -27,12 +28,12 @@
     align-items: center;
     color: #E7E7E7;
     width: 40%;
-    height: 60%;
+    height: 51.5%;
     background-image: url(./../../wave.svg), url(./../../wave2.svg);
     background-repeat: no-repeat, no-repeat;
     background-size: 135%;
     background-position: bottom;
-    margin-bottom: 12%;
+    margin-bottom: 15%;
 }
 
 .input-container {
