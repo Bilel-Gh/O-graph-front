@@ -2,24 +2,29 @@ import React from 'react';
 import ShowImage from './ShowImage'
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from "mdbreact";
 import CreateShowImage from './CreateShowImage'
+import {useSelector} from 'react-redux'
 import './imageFeedBack.css'
 
 const ImageFeedBack = () => {
 
+  const imageState = useSelector(state =>state.imageSlice);
+  const lengthCarrousel = imageState.listAllImages.length;
+  const imageListUsed = imageState.listAllImages.findIndex(image => image.id===imageState.imageUsed.id);
     return (
         <div className="main-image-FeedBack">
+
            
           
       <MDBCarousel
-      activeItem={0}
-      length={10}
+      activeItem={imageListUsed+1}
+      length={lengthCarrousel}
       showControls={true}
       showIndicators={true}
       className="z-depth-1"
     interval={false}
    
     >
-      <MDBCarouselInner  onChange={console.log("index")}>
+      <MDBCarouselInner >
        < CreateShowImage />
       </MDBCarouselInner>
     </MDBCarousel>

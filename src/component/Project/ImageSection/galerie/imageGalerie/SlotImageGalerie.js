@@ -2,7 +2,7 @@ import React from 'react';
 import '../imageGalerie.css'
 
 const SlotImageGalerie = () => {
-
+// fichier js à supprimer. Il a été dupliquer lors d un renomage du dossier et a créé un bug de duplication
     return (
         <> 
         <div class="mb-3 pics animation all 2">

@@ -3,8 +3,9 @@ import axios from 'axios'
 
 export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
-    async({getState}) => {
+    async(state,{getState}) => {
         const {imageUsed} = getState().imageSlice
+        console.log(imageUsed)
         const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
@@ -100,14 +101,15 @@ export const postImage = createAsyncThunk(
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
        console.log(newImage)
+       console.log(localStorage.getItem("userToken"))
         const response = await axios.post(`http://localhost:3001/newImage`, {
                                                                             "image_url": newImage.image_url,
                                                                             "list_image_id": newImage.list_image_id,
                                                                             "default_height": 1,
                                                                             "default_width": 1
-                                                                            })                                                                          
+                                                                            }, {headers: {authtoken:localStorage.getItem("userToken")}})                                                                          
                                                                             
-        // console.log(response.data)
+        console.log(response.data,"image")
         return response.data
     }
 )
@@ -146,7 +148,7 @@ const imageSlice = createSlice({
             
         },
         listImageUsed : {
-            feedback_id: 1,
+            feedback_id: 5,
             name: "",
             id:1
          },
@@ -242,7 +244,8 @@ const imageSlice = createSlice({
     extraReducers : {
         // ----------------------------- post and get stickers -------------------------
         [fetchSticker.fulfilled] : (state, action) => {
-
+            console.log("yo")
+            state.listStickers = []
             state.listStickers = action.payload
 
         },

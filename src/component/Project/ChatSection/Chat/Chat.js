@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import MessageChat from './MessageChat/MessageChat'
 import InputChat from './InputChat/InputChat'
 import {fetchComment} from '../../../../store/messageSlice'
+import {fetchUserById} from '../../../..//store/userSlice'
 import socket from '../../../socketIo/SocketIo'
 import store from '../../../../store';
 import './chat.css'
@@ -10,19 +11,23 @@ import './chat.css'
 const Chat = () => {
     const scrollChat = useRef(null);
     const messages = useSelector(state => state.messageSlice);
+    const userState = useSelector(state => state.userSlice)
     const dispatch = useDispatch();
     const states = store.getState();
 
     const fillMessage = () => {
-        const messageList = [...messages.listMessage]
+        // const messageList = [...messages.listMessage]
+        console.log(messages.listMessage)
        
         return(
             <div className="message-master">
-                {messages.listMessage.map((message, i) => {
-                  console.log(messages.listMessage)
+                { messages.listMessage.map(async (message, i) => {
+                  //console.log(messages.listMessage)
+                    await dispatch(fetchUserById(message.user_id))
+
                         return (
                             <div className="chat-master" key={i}>
-                                <MessageChat stateMessage={message} myMessage={false}/>
+                                <MessageChat stateMessage={message} myMessage={false} userMessage ={userState.first_name}/>
                             </div>
                         )
                     })

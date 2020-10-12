@@ -47,11 +47,13 @@ export const postcommentList = createAsyncThunk(
 export const fetchComment = createAsyncThunk(
     'messageSlice/fetchAllComment',
     async(states, {getState}) => {
-       // const  {commentListUsed} = states.messageSlice
-        const  {commentListUsed} = getState().messageSlice
+       const  {commentListUsed} = getState().messageSlice
+       console.log(commentListUsed)
         const idCommentList = commentListUsed.id
-        // console.log(idCommentList, "retour du scoketio")
+        
         const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
+        
+
         return response.data
     }
 )
@@ -169,7 +171,10 @@ const messageSlice = createSlice ({
           
                state.messageText=action.payload[0].text
             }
-            state.listMessage = action.payload.reverse()
+            
+            //.reverse()
+            state.listMessage = action.payload
+            console.log(action.payload)
 
         },
 
