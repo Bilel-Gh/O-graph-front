@@ -17,17 +17,17 @@ const Chat = () => {
 
     const fillMessage = () => {
         // const messageList = [...messages.listMessage]
-        console.log(messages.listMessage)
+       
        
         return(
             <div className="message-master">
-                { messages.listMessage.map(async (message, i) => {
+                { messages.listMessage.map( (message, i) => {
                   //console.log(messages.listMessage)
-                    await dispatch(fetchUserById(message.user_id))
+                    //  dispatch(fetchUserById(message.user_id))
 
                         return (
                             <div className="chat-master" key={i}>
-                                <MessageChat stateMessage={message} myMessage={false} userMessage ={userState.first_name}/>
+                                <MessageChat stateMessage={message} myMessage={false} />
                             </div>
                         )
                     })

@@ -1,11 +1,11 @@
 import React from 'react';
 import './messageChat.css'
 
-const MessageChat = ({myMessage, stateMessage, userMessage}) => {
-
+const MessageChat = ({myMessage, stateMessage}) => {
+    
     const letterName = () => {
-        return "a"
-        return stateMessage.userChatName.slice(0, 1).toUpperCase()
+       
+        return stateMessage.first_name.slice(0, 1).toUpperCase()
     }
 
     return (
@@ -21,7 +21,7 @@ const MessageChat = ({myMessage, stateMessage, userMessage}) => {
             </div> */}
             
             <div className="messageChat-content" >
-                <div className="messageChat-name"> {userMessage} </div>
+                <div className="messageChat-name"> {stateMessage.first_name} </div>
                 <hr className="line"></hr>
                 <div className="messageChat-text"> {stateMessage.text} </div>
             </div>

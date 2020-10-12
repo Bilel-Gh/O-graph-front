@@ -13,7 +13,7 @@ const ImageFeedBack = () => {
     return (
         <div className="main-image-FeedBack">
 
-           
+      
           
       <MDBCarousel
       activeItem={imageListUsed+1}
@@ -22,7 +22,7 @@ const ImageFeedBack = () => {
       showIndicators={true}
       className="z-depth-1"
     interval={false}
-   
+      
     >
       <MDBCarouselInner >
        < CreateShowImage />

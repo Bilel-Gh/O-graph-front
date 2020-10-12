@@ -33,6 +33,7 @@ export const postcommentList = createAsyncThunk(
     async(states, {getState}) => {
         const {titreMessage} = getState().messageSlice
         const {stickerUsed} = getState().imageSlice
+        
 
         const response = await axios.post(`http://localhost:3001/newCommentList`, {
                                                                                          "sticker_id": stickerUsed.id,
@@ -53,7 +54,7 @@ export const fetchComment = createAsyncThunk(
         
         const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
         
-
+        console.log(response.data)
         return response.data
     }
 )
@@ -75,7 +76,7 @@ export const postcomment = createAsyncThunk(
        
         return ({
             data : response.data,
-            userChatName : user.first_name
+            first_name : user.first_name
         })
     }
 )
@@ -179,9 +180,16 @@ const messageSlice = createSlice ({
         },
 
         [postcomment.fulfilled] : (state, action) => {
-            const newStateComment = {...action.payload.data, userChatName:action.payload.userChatName}
+            const newStateComment = {...action.payload.data, first_name:action.payload.first_name}
             console.log(newStateComment)
             // socket.emit("NewComment", state.commentListUsed.id);
+            if (state.modalIOFirstMessage){
+          
+                state.messageText= "";
+                state.titreMessage="";
+                state.listMessage = [newStateComment]
+                return state
+             }
 
             state.messageText= "";
             state.titreMessage="";

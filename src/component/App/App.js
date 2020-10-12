@@ -19,7 +19,8 @@ function App() {
     if (LoginState.isloged === "OK") {
       return true
     }
-    else return false
+    // Changer à false pour limiter l'accès au page le true est temporaire
+    else return true
   }
   return (
     <Router>

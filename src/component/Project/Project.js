@@ -1,5 +1,6 @@
     import React from 'react';
     import Header from './Header/Header';
+    import Footer from './Footer/Footer';
     import ImageSection from './ImageSection/ImageSection';
     import ChatSection from './ChatSection/ChatSection';
     import Galerie from './ImageSection/galerie/Galerie'
@@ -14,10 +15,10 @@
                 <Header/>
                 <div className ='main'>
                     {imageState.galerieIO ? <Galerie /> : <>  <ImageSection/> <ChatSection/> </>  }
-                    
-                  
-                   
-                </div>     
+
+                </div>
+                    <Footer/>
+               
             </div>
         )
     };

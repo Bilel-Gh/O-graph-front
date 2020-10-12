@@ -1,0 +1,16 @@
+.footer {
+    background-color: #e7e7e7;
+    display: flex;
+    /* position: fixed;
+    bottom: 0; */
+    position: sticky;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    align-items: center;
+    height: 9vh;
+    min-height: 80px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+
