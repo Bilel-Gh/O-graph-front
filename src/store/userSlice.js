@@ -35,25 +35,32 @@ export const postUser = createAsyncThunk(
       
       console.log(user)
     
+    try { const response = await axios.post(`http://localhost:3001/createUser`, {  
+          "role": user.role|| '',
+          "email": user.email,
+          "password": user.password,
+          "first_name": user.first_name|| '',
+          "last_name": user.last_name|| '',
+          "company_name": user.company_name|| '',
+          "image": "" })
 
-      const response = await axios.post(`http://localhost:3001/createUser`, {  
-        "role": user.role|| '',
-        "email": user.email,
-        "password": user.password,
-        "first_name": user.first_name|| '',
-        "last_name": user.last_name|| '',
-        "company_name": user.company_name|| '',
-        "image": "" })
 
-      console.log(response.headers)
-      response ? console.log('user crée', response) : console.error()
-      
+          console.log(response.headers)
+          response ? console.log('user crée', response) : console.error()
+          
+          return (
+            {
+              responseData:response.data,
+              responseHeader:response.headers
+            }
+            )
+    }catch(err){
+      console.log(err.response.data)
       return (
-        {
-          responseData:response.data,
-          responseHeader:response.headers
-        }
-        )
+              {errorInfo : err.response.data[0],
+               error : "YES", }
+              )
+  }
 
   }
 )
@@ -138,11 +145,20 @@ const userSlice = createSlice({
         },
 
         [postUser.fulfilled]: (state, action) => {
-          console.log("ok fullfilled")
+          // console.log(action.payload.error)
+          // console.log("ok fullfilled")
+          if(action.payload.error === "YES") {
+            state.userCreated = "NO"
+            state.userError = "YES"
+            return state 
+          } else {
             const newUser = action.payload.responseData
             state.allUsers = {...state.allUsers, newUser}
             state.userCreated = "YES"
+            state.userError = "NO"
             return state 
+          }
+            
         },
 
         [fetchUserById.fulfilled]: (state, action) => {

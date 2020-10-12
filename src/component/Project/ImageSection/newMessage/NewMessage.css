@@ -22,7 +22,7 @@ div.fade.modal-newMessage.modal.show {
 }
 
 
-.modal-body {
+.modal-newMessage-body {
     display: flex;
     justify-content: center;
     flex-direction: row;

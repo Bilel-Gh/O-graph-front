@@ -1,13 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
 
   export const postLogine = createAsyncThunk(
       
@@ -17,21 +10,31 @@ import {
           const userExist = true
         
         console.log(email, password)
-
-        const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
+        
+        try {
+            const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
+       
         console.log(response)
         console.log(response.headers)
         if (response.headers.role === "Admin") {
             console.log("c'est bien un admin")
         }
         
+        console.log(response.data)
         return (
             {
+                error: false,
                 data : response.data,
                 status : response.statusText,
                 headers : response.headers
             }
         )
+        }catch(err){
+            console.log(err,"error response")
+            return ( {
+                error: true
+            })
+        }
 
     }
 )
@@ -74,6 +77,10 @@ const loginSlice = createSlice ({
     extraReducers: {
 
         [postLogine.fulfilled]: (state, action) => {
+            console.log("fullfiled")
+            if (action.payload.error) {
+                console.log("error id")
+            }
                 const mailAndPassUser = action.payload.data
                 localStorage.setItem("userToken", action.payload.headers.authtoken);
                 state.isloged = action.payload.status

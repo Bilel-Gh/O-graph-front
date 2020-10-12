@@ -36,6 +36,7 @@ const AdminForm = () => {
   const handleUserRoleChoice = (e) =>{
     e.preventDefault()
     const role = e.target.name
+    console.log(role)
 
     dispatch(onUserRoleChoice(
       role
@@ -91,19 +92,39 @@ const AdminForm = () => {
     if (UserState.userCreated === "YES") {
         return true
     }
-    if (LoginState.isloged === "" ) {
-        return false
+    if (UserState.Error === "NO" ) {
+      return true
+  }
+    else return false
+  }
+
+  const isUserError = (e) => {
+    if (UserState.userCreated === "NO") {
+        return true
+    }
+    if (UserState.Error === "YES" ) {
+        return true
     }
     else return false
   }
   
-  const roleSelected = () => {
-    if (UserState.role === "graphiste") {
+  const isrolegraphiste = () => {
+    if (UserState.user.role === "graphiste") {
+      return true
+    }
+    else return false
+  }
+
+  const isroleClient = () => {
+    if (UserState.user.role === "client") {
       return true
     }
     else return false
   }
   
+  // const buttonSelected = () => {
+  //   return 
+  // }
 
 
 
@@ -111,10 +132,10 @@ return (
  <form className="contain-form " autoComplete="off" onSubmit={onSubmitUser} > 
     <div className="label-role"> Role de l'utilisateur </div>
     {isUserCreated() ? <div className="alert alert-success" role="alert"> Utilisateur bien crée </div> : null }
-    {/* <div className="alert alert-danger" role="alert"> Email ou mot de passe incorrecte </div> */}
+    {isUserError() ? <div className="alert alert-danger" role="alert"> Email ou mot de passe incorrecte </div> : null}
     <section className="champ-form">
-      <MDBBtn outline name="client" type="mail" onClick={handleUserRoleChoice} color="blue" >Client</MDBBtn>
-      <MDBBtn outline onClick={handleUserRoleChoice} name="graphiste" color="blue" >Graphiste</MDBBtn>
+      <MDBBtn outline class={isroleClient() ? "btn btn-pink" : "btn-blue btn-outline-blue btn Ripple-parent"} name="client" type="mail" onClick={handleUserRoleChoice} color="blue" >Client</MDBBtn>
+      <MDBBtn outline class={isrolegraphiste() ? "btn btn-pink" : "btn-blue btn-outline-blue btn Ripple-parent"} onClick={handleUserRoleChoice} name="graphiste" color="blue" >Graphiste</MDBBtn>
     </section>
     
     <TextField autoComplete="false" required color="primary" label="Email" onChange={handleUserEmailChoice} value= {UserState.user.email}/>  

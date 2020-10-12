@@ -5,7 +5,7 @@ export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async(state,{getState}) => {
         const {imageUsed} = getState().imageSlice
-        console.log(imageUsed)
+       
         const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
@@ -60,7 +60,7 @@ export const postListImage = createAsyncThunk(
                                                                                 "feedback_id": feedBackUsed.id,
                                                                                 "name": newNameListImage
                                                                             })
-        console.log(response.data)
+        
         return response.data
     }
 )
@@ -87,7 +87,7 @@ export const uploadImage = createAsyncThunk(
         const {newNameListImage,newImage}= getState().imageSlice
     //    console.log(formData)
         const response = await axios.post(`http://localhost:3001/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} })
-        console.log(response.data)
+       
         return response.data
     }
 )
@@ -100,8 +100,7 @@ export const postImage = createAsyncThunk(
       
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
-       console.log(newImage)
-       console.log(localStorage.getItem("userToken"))
+     
         const response = await axios.post(`http://localhost:3001/newImage`, {
                                                                             "image_url": newImage.image_url,
                                                                             "list_image_id": newImage.list_image_id,
@@ -109,7 +108,7 @@ export const postImage = createAsyncThunk(
                                                                             "default_width": 1
                                                                             }, {headers: {authtoken:localStorage.getItem("userToken")}})                                                                          
                                                                             
-        console.log(response.data,"image")
+      
         return response.data
     }
 )
@@ -160,6 +159,7 @@ const imageSlice = createSlice({
             y: null,
                },
         galerieIO:true,
+        indexCarrousel:null,
         listNewImageUpload:[],
         listImageNewImage: [{checked:true,used:true, name:"jokari"},{checked:false,used:false, name:"jokarmarceli"}, {checked:false,used:false, name:"lucettetos"}],
         modalIONewImage: false,
@@ -239,13 +239,18 @@ const imageSlice = createSlice({
         switchImageUsed : (state, action) => {
             state.imageUsed = action.payload
             return state
+        },
+        switchImageCarrousel : (state, action) => {
+            state.indexCarrousel = action.payload;
+            return state
         }
     },
     extraReducers : {
         // ----------------------------- post and get stickers -------------------------
         [fetchSticker.fulfilled] : (state, action) => {
-            console.log("yo")
+           
             state.listStickers = []
+            // state.stickerUsed = action.payload[0]
             state.listStickers = action.payload
 
         },
@@ -290,5 +295,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed, switchImageCarrousel} = imageSlice.actions;
 export default imageSlice.reducer;
