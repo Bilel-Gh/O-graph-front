@@ -19,11 +19,10 @@
 }
 
 .form-container {
-    background-color: E7E7E7;
     flex-direction: column;
     display: flex;
-    width: 60vh;
-    height: 80vh;
+    width: 30%;
+    height: 90%;
     margin: 3vh;
     justify-content: center;
     align-items: center;
@@ -44,7 +43,7 @@
     border: 2px solid rgba(70, 31, 31, 0.098);
     width: 85%;
     height: 90%;
-    padding: 5vh;
+    padding: 2vh;
 }
 
 .champ-form {
@@ -58,15 +57,14 @@
 }
 
 .Mui.FormLabel-root.Mui-focused {
-    color: 1D344C !important;
+    color: #1D344C !important;
 }
 
 .MuiFormControl-root {
     border: 0;
     margin: 15px 30px !important;
     display: inline-flex;
-    padding: 0;
-    position: relative;
+    padding: 0;    
     min-width: 0;
     flex-direction: column;
     vertical-align: top;

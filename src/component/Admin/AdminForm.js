@@ -27,6 +27,7 @@ const AdminForm = () => {
     let empty
     dispatch(postUser(empty))
     console.log("postUser Ok")
+    console.log(UserState)
     // localStorage.getItem('myUserInLocalStorage', UserState.user);
     
   }
@@ -86,26 +87,41 @@ const AdminForm = () => {
     ))
   }
 
+  const isUserCreated = (e) => {
+    if (UserState.userCreated === "YES") {
+        return true
+    }
+    if (LoginState.isloged === "" ) {
+        return false
+    }
+    else return false
+  }
   
-
+  const roleSelected = () => {
+    if (UserState.role === "graphiste") {
+      return true
+    }
+    else return false
+  }
   
 
 
 
 return (
- <form className="contain-form " autocomplete="off" onSubmit={onSubmitUser} > 
+ <form className="contain-form " autoComplete="off" onSubmit={onSubmitUser} > 
     <div className="label-role"> Role de l'utilisateur </div>
+    {isUserCreated() ? <div className="alert alert-success" role="alert"> Utilisateur bien crée </div> : null }
+    {/* <div className="alert alert-danger" role="alert"> Email ou mot de passe incorrecte </div> */}
     <section className="champ-form">
       <MDBBtn outline name="client" type="mail" onClick={handleUserRoleChoice} color="blue" >Client</MDBBtn>
       <MDBBtn outline onClick={handleUserRoleChoice} name="graphiste" color="blue" >Graphiste</MDBBtn>
     </section>
     
-
-    <TextField autocomplete="false" required id="standard-basic" color="primary" label="Email" onChange={handleUserEmailChoice} value= {UserState.user.email}/>  
-    <TextField autocomplete="false" required id="standard-basic" color="primary" type="password" label="Password" onChange={handleUserPasswordInput} value= {UserState.user.password}/>
-    <TextField required id="standard-basic" label="Prénom" color="primary" onChange={handleUserFirstNameInput} value= {UserState.user.first_name}/>  
-    <TextField required id="standard-basic" color="primary" label="Nom" onChange={handleUserLastNameInput} value= {UserState.user.last_name}/> 
-    <TextField id="standard-basic" color="primary" label="Nom d'entreprise" onChange={handleUserCompanyInput} value= {UserState.user.company_name}/>  
+    <TextField autoComplete="false" required color="primary" label="Email" onChange={handleUserEmailChoice} value= {UserState.user.email}/>  
+    <TextField autoComplete="false" required color="primary" type="password" label="Password" onChange={handleUserPasswordInput} value= {UserState.user.password}/>
+    <TextField required label="Prénom" color="primary" onChange={handleUserFirstNameInput} value= {UserState.user.first_name}/>  
+    <TextField required color="primary" label="Nom" onChange={handleUserLastNameInput} value= {UserState.user.last_name}/> 
+    <TextField color="primary" label="Nom d'entreprise" onChange={handleUserCompanyInput} value= {UserState.user.company_name}/>  
     <div className="div-button">
     <MDBBtn type="submit" outline color="blue">
               Créer un Utilisateur

@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import {useSelector, useDispatch} from 'react-redux';
-import{onEmailInput, onPasswordInput, sendLogin} from '../../store/loginSlice'
+import{onEmailInput, onPasswordInput, sendLogin, onErroLoged} from '../../store/loginSlice'
 import {fetchUser} from '../../store/userSlice'
 import {postLogine} from '../../store/loginSlice'
 import { useHistory } from "react-router-dom";
+import store from './../../store'
 
 import {
   BrowserRouter as Router,
@@ -22,15 +23,29 @@ const LoginInput = () => {
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const FindRoleUser = () => {
-
+  useEffect(()=>{
+    console.log(LoginState.isloged)
+    if (LoginState.isloged === "OK" && LoginState.role === "Admin" ) {
+        history.push("/admin");
+    }
+    if (LoginState.isloged === "OK" && LoginState.role === "client") {
+        history.push("/project");
+    }
+    if (LoginState.isloged === "OK" && LoginState.role === "graphiste") {
+      history.push("/project");
   }
+},[LoginState.isloged])
+
+  
 
   const onSubmitLogin = (e) => {
       e.preventDefault()
       let empty
       dispatch(postLogine(empty))
-      
+      if (LoginState.isloged !== "OK") {
+        dispatch(onErroLoged())
+      }
+      // onLoginAccept()
       // history.push("/project");
   }
 
