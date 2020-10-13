@@ -15,7 +15,7 @@ const ShowImage = ({state, indexCarrousel}) => {
     
     if (refMainPicture.current.parentNode.parentNode.className==="carousel-item active"){
       
-      console.log(indexCarrousel)
+      //console.log(indexCarrousel)
       dispatch(switchImageCarrousel(indexCarrousel))
     }
   })
@@ -29,8 +29,9 @@ const ShowImage = ({state, indexCarrousel}) => {
   },[imageState.indexCarrousel])
 
   useEffect(()=> {
-
+    
     if (imageState.imageUsed.id===state.id){
+     
 
        dispatch(fetchSticker(state))
     }

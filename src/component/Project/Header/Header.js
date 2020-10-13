@@ -16,6 +16,13 @@
             history.push("/");
           }
 
+        function isdisconected() {
+            if (LoginState.isloged !== "OK") {
+                return true
+            }
+            else return false
+        }
+
         return (
 
             <div className = "header" >
@@ -31,7 +38,7 @@
             <ul className = "nav-logout" >
                 <li > <a className = "li-name" href = "/" > {UserState.userUsed.last_name} </a> </li >
                 <li > <a className = "li-lastname" href = "/" > {UserState.userUsed.first_name} </a> </li >
-                <li > <a href = "/" onClick={handleClick} > Déconnexion </a> </li >
+                <li > <a href = "/" onClick={handleClick} > {isdisconected() ? "Se reconnecter" : "Déconnexion" } </a> </li >
             </ul> </nav>
 
             </div>

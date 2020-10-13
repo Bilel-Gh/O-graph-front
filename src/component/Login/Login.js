@@ -10,7 +10,7 @@ import './login.css'
 
     const Login = () => {
         const LoginState = useSelector(state => state.loginSlice);
-          
+        
         const isErrorLogin = () => {
             
             if (LoginState.isloged === "NO" ) {

@@ -23,6 +23,7 @@ export const fetchUser = createAsyncThunk(
 export const fetchUserById = createAsyncThunk(
   'user/fetchUserById',
   async(id,{getState}) => {
+    console.log({authtoken:localStorage.getItem("userToken")})
       const response = await axios.get(`${urlServer}/userById/${id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
       console.log(response.data)
          
