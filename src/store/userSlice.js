@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
+require('dotenv').config();
+
+const urlServer = process.env.REACT_APP_URL_SERVER;
 
 export const fetchUser = createAsyncThunk(
     'user/fetchAllUser',
     async() => {
-        const response = await axios.get('http://localhost:3001/users')
+      
+        const response = await axios.get(`${urlServer}/users`, {headers: {authtoken:localStorage.getItem("userToken")}})
         console.log(response.data)
             // const emailFInd = response.data.find(e => e.email === "bobby@gmail.com")
             // console.log(emailFind.email)
@@ -19,7 +23,7 @@ export const fetchUser = createAsyncThunk(
 export const fetchUserById = createAsyncThunk(
   'user/fetchUserById',
   async(id,{getState}) => {
-      const response = await axios.get(`http://localhost:3001/userById/${id}`)
+      const response = await axios.get(`${urlServer}/userById/${id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
       console.log(response.data)
          
 
@@ -35,14 +39,14 @@ export const postUser = createAsyncThunk(
       
       console.log(user)
     
-    try { const response = await axios.post(`http://localhost:3001/createUser`, {  
+    try { const response = await axios.post(`${urlServer}/createUser`, {  
           "role": user.role|| '',
           "email": user.email,
           "password": user.password,
           "first_name": user.first_name|| '',
           "last_name": user.last_name|| '',
           "company_name": user.company_name|| '',
-          "image": "" })
+          "image": "" }, {headers: {authtoken:localStorage.getItem("userToken")}})
 
 
           console.log(response.headers)
@@ -70,14 +74,23 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         user: {
-            id: 1,
             role: "",
             email: "",
             password: "",
-            first_name: "bradoul",
+            first_name: "",
             last_name: "",
             company_name: "",
             image: "",
+        },
+        userUsed:{
+          user_id: null,
+            role: "",
+            email: "",
+            password: "",
+            first_name: "",
+            last_name: "",
+            company_name: "",
+            image: ""
         },
         userCreated: "",
         userError: "",
@@ -163,8 +176,10 @@ const userSlice = createSlice({
 
         [fetchUserById.fulfilled]: (state, action) => {
           const newUserChat = action.payload;
-          state.userChat.name = action.payload.first_name
-          state.allUsers = [...state.allUsers, newUserChat]
+          // state.userChat.name = action.payload.first_name
+          // state.allUsers = [...state.allUsers, newUserChat]
+          state.userUsed=action.payload
+          
           return state
         },
     },

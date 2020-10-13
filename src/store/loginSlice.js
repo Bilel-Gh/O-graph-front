@@ -1,25 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+require('dotenv').config();
 
+const urlServer = process.env.REACT_APP_URL_SERVER
 
   export const postLogine = createAsyncThunk(
-      
-      'userSlice/postLogine',
+
+      'loginSlice/postLogine',
       async(empty, { getState }) => {
           const { email, password } = getState().loginSlice
           const userExist = true
-        
+
         console.log(email, password)
-        
+
         try {
-            const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password })
-       
-        console.log(response)
-        console.log(response.headers)
-        if (response.headers.role === "Admin") {
+            const response =  await axios.post(`${urlServer}/login`, { "email": email, "password": password } )
+
+        console.log(response.headers.user_id)
+        
+        if (response.headers.role === "admin") {
             console.log("c'est bien un admin")
         }
-        
+
         console.log(response.data)
         return (
             {
@@ -30,9 +32,10 @@ import axios from 'axios';
             }
         )
         }catch(err){
-            console.log(err,"error response")
+            console.log(err.response,"error response")
             return ( {
-                error: true
+                error: true,
+                logError : err.response
             })
         }
 
@@ -47,11 +50,19 @@ const loginSlice = createSlice ({
         role:"",
         isloged : "",
         token : "",
+        userId:null
     },
     reducers: {
         onErroLoged:(state, action) => {
             state.isloged = "NO"
         },
+        onUserDisconnect :(state, action) => {
+            console.log("action pour se déco")
+            state.isloged = "NOMORE"
+            return (
+              state
+          ) 
+          },
         onEmailInput:(state, action) => {
             state.email = action.payload
             return (
@@ -68,7 +79,7 @@ const loginSlice = createSlice ({
         sendLogin:(state, action) => {
             state.email = action.payload.email
             state.password = action.payload.password
-           
+
             return (
                 state
             )
@@ -77,20 +88,23 @@ const loginSlice = createSlice ({
     extraReducers: {
 
         [postLogine.fulfilled]: (state, action) => {
-            console.log("fullfiled")
+           
             if (action.payload.error) {
-                console.log("error id")
+              
+                return "error id"
             }
-                const mailAndPassUser = action.payload.data
+                
                 localStorage.setItem("userToken", action.payload.headers.authtoken);
                 state.isloged = action.payload.status
-                state.token = action.payload.headers.authtoken
+                // state.token = action.payload.headers.authtoken
                 state.role= action.payload.headers.role
-                state.user = {...state.user, mailAndPassUser}
+                state.userId = action.payload.headers.user_id
+                // state.user = {...state.user, mailAndPassUser}
+                
                 return state
         },
     },
 })
 
 export default loginSlice.reducer;
-export const {onEmailInput, onPasswordInput, sendLogin, onLoginAccept, onErroLoged } = loginSlice.actions;
+export const {onEmailInput, onPasswordInput, sendLogin, onLoginAccept, onErroLoged, onUserDisconnect } = loginSlice.actions;

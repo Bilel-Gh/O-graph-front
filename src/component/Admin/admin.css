@@ -41,8 +41,8 @@
     flex-direction: column;
     box-shadow: 3px 3px 3px 3px rgba(70, 31, 31, 0.098);
     border: 2px solid rgba(70, 31, 31, 0.098);
-    width: 85%;
-    height: 90%;
+    min-width: 85%;
+    min-height: 90%;
     padding: 2vh;
 }
 

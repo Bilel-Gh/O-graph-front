@@ -6,13 +6,16 @@ import {
     Link
   } from "react-router-dom";
 
-  import Header from './../Project/Header/Header'
-  import AdminForm from './AdminForm'
+  import Header from './../Project/Header/Header';
+  import AdminForm from './AdminForm';
 
-import './admin.css'
-import './../Project/Header/header.css'
+import './admin.css';
+import './../Project/Header/header.css';
+
+
 
     const Admin = () => {
+        
        
         return (
             <div className="admin-page">
@@ -20,6 +23,7 @@ import './../Project/Header/header.css'
                 <div className="form-page">
                     <div className="form-container">
                     <h2 className="form-header"> Créer un utilisateur </h2>
+                
                     <AdminForm className="test"/>
                     </div> 
                 </div>
