@@ -8,8 +8,9 @@ export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async(state,{getState}) => {
         const {imageUsed} = getState().imageSlice
-       console.log(urlServer)
-        const response = await axios.get(`${urlServer}/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
+       
+        const response = await axios.get(`${urlServer}/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
+        console.log(response.data)
         return response.data
     }
 )

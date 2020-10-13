@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 require('dotenv').config();
 
-const urlServer = process.env.REACT_APP_URL_SERVER
+
 
   export const postLogine = createAsyncThunk(
 
@@ -14,7 +14,7 @@ const urlServer = process.env.REACT_APP_URL_SERVER
         console.log(email, password)
 
         try {
-            const response =  await axios.post(`${urlServer}/login`, { "email": email, "password": password } )
+            const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password } )
 
         console.log(response.headers.user_id)
         
@@ -49,13 +49,15 @@ const loginSlice = createSlice ({
         password : "",
         role:"",
         isloged : "",
+        MessageError: "",
         token : "",
         userId:null
     },
     reducers: {
-        onErroLoged:(state, action) => {
-            state.isloged = "NO"
-        },
+        // onErrorLoged:(state, action) => {
+        //     console.log("on error loged")
+        //     state.isloged = "NO"
+        // },
         onUserDisconnect :(state, action) => {
             console.log("action pour se déco")
             state.isloged = "NOMORE"
@@ -90,21 +92,24 @@ const loginSlice = createSlice ({
         [postLogine.fulfilled]: (state, action) => {
            
             if (action.payload.error) {
-              
-                return "error id"
-            }
-                
-                localStorage.setItem("userToken", action.payload.headers.authtoken);
-                state.isloged = action.payload.status
-                // state.token = action.payload.headers.authtoken
-                state.role= action.payload.headers.role
-                state.userId = action.payload.headers.user_id
-                // state.user = {...state.user, mailAndPassUser}
-                
+                console.log(action.payload.error)
+                state.isloged = "NO"
+                state.MessageError = action.payload.error.data
                 return state
+            }
+            else { 
+            localStorage.setItem("userToken", action.payload.headers.authtoken);
+            state.isloged = action.payload.status
+            // state.token = action.payload.headers.authtoken
+            state.role= action.payload.headers.role
+            state.userId = action.payload.headers.user_id
+            // state.user = {...state.user, mailAndPassUser}
+            
+            return state } 
+            
         },
     },
 })
 
 export default loginSlice.reducer;
-export const {onEmailInput, onPasswordInput, sendLogin, onLoginAccept, onErroLoged, onUserDisconnect } = loginSlice.actions;
+export const {onEmailInput, onPasswordInput, sendLogin, onLoginAccept, onErrorLoged, onUserDisconnect } = loginSlice.actions;

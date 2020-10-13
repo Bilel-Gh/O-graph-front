@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import {useSelector, useDispatch} from 'react-redux';
-import{onEmailInput, onPasswordInput, sendLogin, onErroLoged} from '../../store/loginSlice'
+import{onEmailInput, onPasswordInput, sendLogin, onErrorLoged} from '../../store/loginSlice'
 import {fetchUser, fetchUserById} from '../../store/userSlice'
 import {postLogine} from '../../store/loginSlice'
 import { useHistory } from "react-router-dom";
@@ -43,9 +43,9 @@ const LoginInput = () => {
       e.preventDefault()
       let empty
       dispatch(postLogine(empty))
-      if (LoginState.isloged !== "OK") {
-        dispatch(onErroLoged())
-      }
+      // if (LoginState.isloged !== "OK") {
+      //   dispatch(onErrorLoged())
+      // }
       // onLoginAccept()
       // history.push("/project");
   }

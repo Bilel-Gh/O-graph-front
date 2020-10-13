@@ -70,17 +70,17 @@ export const postcomment = createAsyncThunk(
     async(states, {getState}) => {
 
         const {messageText,commentListUsed} = getState().messageSlice
-        const {user}= getState().userSlice
+        const {userUsed}= getState().userSlice
         // console.log(messageText,commentListUsed.id, user.id )
         const response = await axios.post(`${urlServer}/newComment`, {
                                                                                 "text": messageText,
                                                                                 "list_comment_id": commentListUsed.id,
-                                                                                "user_id": user.id
+                                                                                "user_id": userUsed.user_id
                                                                             }, {headers: {authtoken:localStorage.getItem("userToken")}})
        
         return ({
             data : response.data,
-            first_name : user.first_name
+            first_name : userUsed.first_name
         })
     }
 )
@@ -90,7 +90,7 @@ const messageSlice = createSlice ({
     name: 'Chat',
     initialState: {
         idUser : 1,
-        name: "Bradou",
+        name: "",
         commentListUsed: {
             sticker_id: null,
             name:null,
