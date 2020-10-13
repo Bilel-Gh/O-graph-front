@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import {useSelector, useDispatch} from 'react-redux';
 import{onEmailInput, onPasswordInput, sendLogin, onErroLoged} from '../../store/loginSlice'
-import {fetchUser} from '../../store/userSlice'
+import {fetchUser, fetchUserById} from '../../store/userSlice'
 import {postLogine} from '../../store/loginSlice'
 import { useHistory } from "react-router-dom";
 import store from './../../store'
@@ -25,7 +25,7 @@ const LoginInput = () => {
 
   useEffect(()=>{
     console.log(LoginState.isloged)
-    if (LoginState.isloged === "OK" && LoginState.role === "Admin" ) {
+    if (LoginState.isloged === "OK" && LoginState.role === "admin" ) {
         history.push("/admin");
     }
     if (LoginState.isloged === "OK" && LoginState.role === "client") {
@@ -33,7 +33,8 @@ const LoginInput = () => {
     }
     if (LoginState.isloged === "OK" && LoginState.role === "graphiste") {
       history.push("/project");
-  }
+    };
+    dispatch(fetchUserById(LoginState.userId))
 },[LoginState.isloged])
 
   

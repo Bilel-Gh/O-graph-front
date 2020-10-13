@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios'
+require('dotenv').config();
+
+const urlServer = process.env.REACT_APP_URL_SERVER;
 
 export const fetchSticker = createAsyncThunk(
     'imageSlice/fetchAllSticker',
     async(state,{getState}) => {
         const {imageUsed} = getState().imageSlice
-       
-        const response = await axios.get(`http://localhost:3001/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
+       console.log(urlServer)
+        const response = await axios.get(`${urlServer}/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
 )
@@ -26,7 +29,7 @@ export const postStickers = createAsyncThunk(
             // on séléctionne les propriétés du state que l'on veut et on les extrait de leurs slice pour y avoir accès
          const { imageUsed, sticker } = getState().imageSlice
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
-        const response = await axios.post(`http://localhost:3001/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y })
+        const response = await axios.post(`${urlServer}/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y }, {headers: {authtoken:localStorage.getItem("userToken")}})
            
             // return les données
         return response.data
@@ -42,7 +45,7 @@ export const fetchListImage = createAsyncThunk(
        
         
         const {feedBackUsed} = getState().feedBackSlice
-        const response = await axios.get(`http://localhost:3001/imageListByFeedbackId/${feedBackUsed.id}`)
+        const response = await axios.get(`${urlServer}/imageListByFeedbackId/${feedBackUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         return response.data
     }
 )
@@ -56,10 +59,11 @@ export const postListImage = createAsyncThunk(
        
         const {newNameListImage}= getState().imageSlice
         const {feedBackUsed} = getState().feedBackSlice
-        const response = await axios.post(`http://localhost:3001/newImageList`, {
+        const response = await axios.post(`${urlServer}/newImageList`, {
                                                                                 "feedback_id": feedBackUsed.id,
                                                                                 "name": newNameListImage
-                                                                            })
+                                                                            }, {headers: {authtoken:localStorage.getItem("userToken")}}
+                                                                            )
         
         return response.data
     }
@@ -72,7 +76,7 @@ export const fetchImages = createAsyncThunk(
         console.log("list image used")
        
         const {listImageUsed}= getState().imageSlice
-        const response = await axios.get(`http://localhost:3001/imageByListImageId/${listImageUsed.id}`)
+        const response = await axios.get(`${urlServer}/imageByListImageId/${listImageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}} )
         return response.data
     }
 )
@@ -86,7 +90,7 @@ export const uploadImage = createAsyncThunk(
        
         const {newNameListImage,newImage}= getState().imageSlice
     //    console.log(formData)
-        const response = await axios.post(`http://localhost:3001/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} })
+        const response = await axios.post(`${urlServer}/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} }, {headers: {authtoken:localStorage.getItem("userToken")}})
        
         return response.data
     }
@@ -101,7 +105,7 @@ export const postImage = createAsyncThunk(
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
      
-        const response = await axios.post(`http://localhost:3001/newImage`, {
+        const response = await axios.post(`${urlServer}/newImage`, {
                                                                             "image_url": newImage.image_url,
                                                                             "list_image_id": newImage.list_image_id,
                                                                             "default_height": 1,

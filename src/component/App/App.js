@@ -1,17 +1,21 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import Project from '../Project/Project'
-import Login from '../Login/Login'
-import Admin from '../Admin/Admin'
+import Project from '../Project/Project';
+import Login from '../Login/Login';
+import Admin from '../Admin/Admin';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link, 
+  Link,
   Redirect
 } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
+
+require('dotenv').config();
+
+
 
 function App() {
   const LoginState = useSelector(state => state.loginSlice);
@@ -25,16 +29,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch> 
+        <Switch>
           <Login exact path="/"/>
           {isAuthenticated() ? <Project path="/project"/> : <Redirect to="/" />
  }
           {isAuthenticated() ? <Admin path="/admin"/> : <Redirect to="/" />
  }
         </Switch>
-      </div> 
+      </div>
     </Router>
-    
+
   );
 }
 

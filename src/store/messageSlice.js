@@ -12,13 +12,17 @@ import socket from '../component/socketIo/SocketIo'
 // on aura besoin de l id du sticker sélectionné qui se trouve dans le imageSlice
 // grace au states on va chercher l id et l envoyer dans l url
 
+require('dotenv').config();
+
+const urlServer = process.env.REACT_APP_URL_SERVER
+
 export const fetchCommentList = createAsyncThunk(
     'messageSlice/fetchAllCommentList',
     async(states, {getState}) => {
         const  {stickerUsed} = getState().imageSlice
         const idSticker = stickerUsed.id
         // console.log(stickerUsed)
-        const response = await axios.get(`http://localhost:3001/commentListByStickerId/${idSticker}`)
+        const response = await axios.get(`${urlServer}/commentListByStickerId/${idSticker}`, {headers: {authtoken:localStorage.getItem("userToken")}})
 
         return response.data[0]
     }
@@ -35,10 +39,10 @@ export const postcommentList = createAsyncThunk(
         const {stickerUsed} = getState().imageSlice
         
 
-        const response = await axios.post(`http://localhost:3001/newCommentList`, {
+        const response = await axios.post(`${urlServer}/newCommentList`, {
                                                                                          "sticker_id": stickerUsed.id,
                                                                                           "name": titreMessage
-                                                                                    })
+                                                                                    }, {headers: {authtoken:localStorage.getItem("userToken")}})
     // console.log(response.data)
         return response.data
     }
@@ -52,7 +56,7 @@ export const fetchComment = createAsyncThunk(
        console.log(commentListUsed)
         const idCommentList = commentListUsed.id
         
-        const response = await axios.get(`http://localhost:3001/comment/${idCommentList}`)
+        const response = await axios.get(`${urlServer}/comment/${idCommentList}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         
         console.log(response.data)
         return response.data
@@ -68,11 +72,11 @@ export const postcomment = createAsyncThunk(
         const {messageText,commentListUsed} = getState().messageSlice
         const {user}= getState().userSlice
         // console.log(messageText,commentListUsed.id, user.id )
-        const response = await axios.post(`http://localhost:3001/newComment`, {
+        const response = await axios.post(`${urlServer}/newComment`, {
                                                                                 "text": messageText,
                                                                                 "list_comment_id": commentListUsed.id,
                                                                                 "user_id": user.id
-                                                                            })
+                                                                            }, {headers: {authtoken:localStorage.getItem("userToken")}})
        
         return ({
             data : response.data,
