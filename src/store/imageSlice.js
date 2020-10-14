@@ -124,6 +124,8 @@ const imageSlice = createSlice({
     name: 'Image',
     initialState: {
         imageId: 1,
+        width: "",
+        height: "",
         stickerUsed: {
             id: null,
             image_id: null,
@@ -145,7 +147,6 @@ const imageSlice = createSlice({
             list_image_id: 3,
             default_height: 1,
             default_width: 1,
-
         },
         newImageUpload: {
             data:null,
@@ -187,6 +188,16 @@ const imageSlice = createSlice({
                 state
             )
         },
+
+        getSizeImage: (state, action) => {
+            console.log(action.payload)
+            state.width = action.payload.widthImage;
+            state.height = action.payload.heightImage;
+            return (
+                state
+            )
+        },
+        
         createSticker: (state, action) => {
             state.creatingSticker = action.payload
             return (
@@ -301,5 +312,5 @@ const imageSlice = createSlice({
     },
 })
 
-export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed, switchImageCarrousel} = imageSlice.actions;
+export const { setMousePosition, createSticker, fillListStickers, setColorSticker, switchStickerSelect, modalIONewImage, newImageUpload, modalIONewList, switchCheckBox,galerieIO, switchImageUsed, switchImageCarrousel, getSizeImage} = imageSlice.actions;
 export default imageSlice.reducer;

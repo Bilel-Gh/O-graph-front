@@ -8,6 +8,7 @@ import { fetchCommentList, IOModalFirstMessage } from '../../../store/messageSli
 import {fetchSticker} from '../../../store/imageSlice';
 import store from '../../../store';
 import './imageSection.css'
+import { useHistory } from "react-router-dom";
 
 const ImageSection = () => {
     const dispatch = useDispatch()
@@ -23,11 +24,19 @@ const ImageSection = () => {
         // dispatch(fetchCommentList(states))
     },[])
 
+    let history = useHistory();
+    const redirectGalerie = () => {
+        history.goBack("/project");
+    }
+
     return (
         <div className="imageSection">
             <div className="header-image-section">
             <Button  onClick={handleModalOpen} className="my-btn-primary" variant="primary">
                 ajouter un commentaire sur l'image
+            </Button>
+            <Button  onClick={redirectGalerie} className="my-btn-primary" variant="primary">
+                Galerie d'image
             </Button>
             </div>
             
