@@ -39,19 +39,18 @@ const Chat = () => {
 
 
     useEffect(()=>{
-        // socket.on('SendNewComment', (state)=>{
+        socket.on('SendNewComment', (state)=>{
            
+            dispatch(fetchComment(states))
+            // if(messages.commentListUsed.id===state){
+            //     console.log(socket)
+            //     console.log(states, "state receinve")
 
-            
-        //     if(messages.commentListUsed.id===state){
-        //         console.log(socket)
-        //         console.log(states, "state receinve")
-        //         dispatch(fetchComment(states))
-        //     }
-        //     })
-        
+            // }
+            })
 
-    })
+
+    },[])
 
 
     useEffect(()=>{
