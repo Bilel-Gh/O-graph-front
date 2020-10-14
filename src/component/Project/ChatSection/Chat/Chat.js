@@ -27,7 +27,7 @@ const Chat = () => {
 
                         return (
                             <div className="chat-master" key={i}>
-                                <MessageChat stateMessage={message} myMessage={false} />
+                                <MessageChat stateMessage={message} />
                             </div>
                         )
                     })

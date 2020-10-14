@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Project from '../Project/Project';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
+import DOMPurify from 'dompurify';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +19,7 @@ require('dotenv').config();
 
 
 function App() {
+  const clean = DOMPurify.sanitize();
   const LoginState = useSelector(state => state.loginSlice);
   const isAuthenticated = () => {
     if (LoginState.isloged === "OK") {

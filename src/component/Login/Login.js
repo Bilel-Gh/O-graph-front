@@ -26,7 +26,7 @@ import './login.css'
             <div className="loginPage">
                 <div className="logo-ograph"> <img src={logo} alt="Logo" /> </div>
                 <div className="loginDiv">
-                    {isErrorLogin() ? <div className="alert alert-danger" role="alert"> Email ou mot de passe incorrecte </div> : <div></div> }
+                    {isErrorLogin() ? <div className="alert alert-danger" role="alert"> Email ou mot de passe incorrect </div> : <div></div> }
                     <div className="input-container"> <LoginInput/> </div>
                 </div>
             </div>

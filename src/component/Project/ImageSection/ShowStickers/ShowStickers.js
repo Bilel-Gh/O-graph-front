@@ -32,7 +32,7 @@ const ShowStickers = () => {
                         left:sticker.position_x + "%",
                         top:sticker.position_y + "%",
                         visible: true,
-                        backgroundColor:sticker.stickerColor
+                        backgroundColor:sticker.color
                     }
                     //  if(i===0){
                     //      dispatch(switchStickerSelect(stateSticker))

@@ -29,8 +29,9 @@ export const postStickers = createAsyncThunk(
      
             // on séléctionne les propriétés du state que l'on veut et on les extrait de leurs slice pour y avoir accès
          const { imageUsed, sticker } = getState().imageSlice
+         console.log(sticker.stickerColor)
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
-        const response = await axios.post(`${urlServer}/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y }, {headers: {authtoken:localStorage.getItem("userToken")}})
+        const response = await axios.post(`${urlServer}/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y, "color":sticker.stickerColor }, {headers: {authtoken:localStorage.getItem("userToken")}})
            
             // return les données
         return response.data
@@ -90,7 +91,7 @@ export const uploadImage = createAsyncThunk(
     async(formData,{getState}) => {
        
         const {newNameListImage,newImage}= getState().imageSlice
-    //    console.log(formData)
+    console.log("formData")
         const response = await axios.post(`${urlServer}/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} }, {headers: {authtoken:localStorage.getItem("userToken")}})
        
         return response.data
@@ -105,10 +106,10 @@ export const postImage = createAsyncThunk(
       
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
-     
+        console.log(newImage.image_url)
         const response = await axios.post(`${urlServer}/newImage`, {
                                                                             "image_url": newImage.image_url,
-                                                                            "list_image_id": newImage.list_image_id,
+                                                                            "list_image_id": 3,
                                                                             "default_height": 1,
                                                                             "default_width": 1
                                                                             }, {headers: {authtoken:localStorage.getItem("userToken")}})                                                                          
@@ -141,7 +142,7 @@ const imageSlice = createSlice({
         },
         newImage: {
             image_url: "",
-            list_image_id: null,
+            list_image_id: 3,
             default_height: 1,
             default_width: 1,
 
@@ -152,9 +153,9 @@ const imageSlice = createSlice({
             
         },
         listImageUsed : {
-            feedback_id: 5,
+            feedback_id: 4,
             name: "",
-            id:1
+            id:3
          },
          newNameListImage:"",
          
