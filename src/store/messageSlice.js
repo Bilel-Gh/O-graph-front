@@ -177,7 +177,7 @@ const messageSlice = createSlice ({
                state.messageText=action.payload[0].text
             }
             
-            //.reverse()
+            
             state.listMessage = action.payload
             console.log(action.payload)
 
@@ -186,7 +186,7 @@ const messageSlice = createSlice ({
         [postcomment.fulfilled] : (state, action) => {
             const newStateComment = {...action.payload.data, first_name:action.payload.first_name}
             console.log(newStateComment)
-            // socket.emit("NewComment", state.commentListUsed.id);
+            socket.emit("NewComment", state.commentListUsed.id);
             if (state.modalIOFirstMessage){
           
                 state.messageText= "";

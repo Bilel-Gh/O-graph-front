@@ -6,9 +6,14 @@
 
     const ChatSection = () => {
         const message = useSelector(state => state.messageSlice);
+        const imageState = useSelector(state => state.imageSlice);
+
+        const styleHeader = {
+            borderBottom: "solid 0.5rem"+ imageState.stickerUsed.stickerColor
+        }
         return (
             <div className="chatSection">
-                <header className="chatSection-header"> {message.commentListUsed.name} </header>
+                <header className="chatSection-header chatSection-header-border" style={styleHeader}>  {message.commentListUsed.name} </header>
                 <Chat/>
                 <InputChat/>
             </div>
