@@ -55,6 +55,7 @@ export const fetchComment = createAsyncThunk(
        const  {commentListUsed} = getState().messageSlice
        console.log(commentListUsed)
         const idCommentList = commentListUsed.id
+
         
         const response = await axios.get(`${urlServer}/comment/${idCommentList}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         

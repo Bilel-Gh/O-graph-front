@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ShowStickers from '../ShowStickers/ShowStickers';
-import {switchImageUsed, fetchSticker, switchImageCarrousel} from '../../../../store/imageSlice'
+import {switchImageUsed, fetchSticker, switchImageCarrousel, getSizeImage} from '../../../../store/imageSlice'
 
 
 
@@ -23,7 +23,11 @@ const ShowImage = ({state, indexCarrousel}) => {
   useEffect (()=>{
     if (refMainPicture.current.parentNode.parentNode.className==="carousel-item active"){
       
-    
+      
+      console.log(refMainPicture.current.offsetHeight, refMainPicture.current.offsetWidth)
+      dispatch(getSizeImage({widthImage : refMainPicture.current.offsetWidth,
+                             heightImage : refMainPicture.current.offsetHeight}))
+
       dispatch(switchImageUsed(state))
     }
   },[imageState.indexCarrousel])
@@ -36,11 +40,39 @@ const ShowImage = ({state, indexCarrousel}) => {
        dispatch(fetchSticker(state))
     }
   },[imageState.imageUsed.id])
+
+
+
+  // useEffect(()=> {
+
+  //   const img = new Image();
+  //   img.onload = function() {
+  //   console.log(this.width + 'x' + this.height);
+  //   return {
+  //     widthImage : this.width,
+  //     heightImage : this.height
+  //   }
+  // }
+
+  //   img.src = state.image_url
+
+  //   dispatch(getSizeImage(img.onload()))
+    
+  // },[imageState.imageUsed.image_url])
+
+  const controlSize = () => {
+    if (imageState.height > 660){
+      return true
+    }
+
+  }
+
     return (
+
         <div className="main-picture" ref={refMainPicture}>
           <div className='container-stickers-picture' >
             {imageState.imageUsed.id===state.id ? <ShowStickers /> : null}
-            <img className='self-picture'  src={state.image_url} />
+            <img class={controlSize() ? 'picture-portrait' : 'self-picture'} src={state.image_url} />
 
         </div>
        </div>

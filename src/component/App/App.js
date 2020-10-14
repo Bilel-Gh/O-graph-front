@@ -19,14 +19,14 @@ require('dotenv').config();
 
 
 function App() {
-  const clean = DOMPurify.sanitize();
+  const clean = DOMPurify.sanitize(App);
   const LoginState = useSelector(state => state.loginSlice);
   const isAuthenticated = () => {
     if (LoginState.isloged === "OK") {
       return true
     }
     // Changer à false pour limiter l'accès au page le true est temporaire
-    else return true
+    else return false
   }
   return (
     <Router>
