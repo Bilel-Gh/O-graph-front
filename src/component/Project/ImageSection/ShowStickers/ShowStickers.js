@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {switchStickerSelect} from '../../../../store/imageSlice'
-import Stickers from '../Stickers/Stickers'
+import {switchStickerSelect, fetchSticker} from '../../../../store/imageSlice';
+import Stickers from '../Stickers/Stickers';
+import socket from '../../../socketIo/SocketIo';
+
 
 
 
 const ShowStickers = () => {
     const imageState = useSelector(state => state.imageSlice);
     const dispatch = useDispatch()
-    console.log(imageState.listStickers)
+    // console.log(imageState.listStickers)
     useEffect(()=>{
 
         if(imageState.listStickers.map[0]){
@@ -43,6 +45,12 @@ const ShowStickers = () => {
 
         )
     }
+
+    useEffect(()=>{
+        socket.on('SendNewSticker', (state)=>{
+            dispatch(fetchSticker(state))
+            })
+    },[])
 
     return (
         <div >

@@ -5,7 +5,7 @@ import NewMessage from './newMessage/NewMessage'
 import ImageFeedBack from './imageFeedback/ImageFeedBack';
 import {useSelector, useDispatch} from 'react-redux';
 import { fetchCommentList, IOModalFirstMessage } from '../../../store/messageSlice';
-import {fetchSticker} from '../../../store/imageSlice';
+import {fetchSticker, galerieIO} from '../../../store/imageSlice';
 import store from '../../../store';
 import './imageSection.css'
 import { useHistory } from "react-router-dom";
@@ -27,6 +27,7 @@ const ImageSection = () => {
     let history = useHistory();
     const redirectGalerie = () => {
         history.goBack("/project");
+        dispatch(galerieIO(true))
     }
 
     return (

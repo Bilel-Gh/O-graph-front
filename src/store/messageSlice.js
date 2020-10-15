@@ -53,13 +53,13 @@ export const fetchComment = createAsyncThunk(
     'messageSlice/fetchAllComment',
     async(states, {getState}) => {
        const  {commentListUsed} = getState().messageSlice
-       console.log(commentListUsed)
+    //    console.log(commentListUsed)
         const idCommentList = commentListUsed.id
 
         
         const response = await axios.get(`${urlServer}/comment/${idCommentList}`, {headers: {authtoken:localStorage.getItem("userToken")}})
         
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     }
 )
@@ -180,20 +180,24 @@ const messageSlice = createSlice ({
             
             
             state.listMessage = action.payload
-            console.log(action.payload)
+            // console.log(action.payload)
 
         },
 
         [postcomment.fulfilled] : (state, action) => {
             const newStateComment = {...action.payload.data, first_name:action.payload.first_name}
-            console.log(newStateComment)
-            socket.emit("NewComment", state.commentListUsed.id);
+            // console.log(newStateComment)
+
             if (state.modalIOFirstMessage){
-          
+
                 state.messageText= "";
                 state.titreMessage="";
-                state.listMessage = [newStateComment]
+                state.listMessage = [newStateComment];
+                // console.log ("send new sticker")
+                socket.emit("NewSticker", [newStateComment]);
                 return state
+             }else{
+                socket.emit("NewComment", state.commentListUsed.id);
              }
 
             state.messageText= "";

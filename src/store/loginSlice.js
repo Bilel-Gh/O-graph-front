@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 require('dotenv').config();
-
+const urlServer = process.env.REACT_APP_URL_SERVER
 
 
   export const postLogine = createAsyncThunk(
@@ -11,18 +11,18 @@ require('dotenv').config();
           const { email, password } = getState().loginSlice
           const userExist = true
 
-        console.log(email, password)
+        // console.log(email, password)
 
         try {
-            const response =  await axios.post(`http://localhost:3001/login`, { "email": email, "password": password } )
+            const response =  await axios.post(`${urlServer}/login`, { "email": email, "password": password } )
 
-        console.log(response.headers.user_id)
+        // console.log(response.headers.user_id)
         
         if (response.headers.role === "admin") {
-            console.log("c'est bien un admin")
+            // console.log("c'est bien un admin")
         }
 
-        console.log(response.data)
+        // console.log(response.data)
         return (
             {
                 error: false,
@@ -32,7 +32,7 @@ require('dotenv').config();
             }
         )
         }catch(err){
-            console.log(err.response,"error response")
+            // console.log(err.response,"error response")
             return ( {
                 error: true,
                 logError : err.response
@@ -59,7 +59,7 @@ const loginSlice = createSlice ({
         //     state.isloged = "NO"
         // },
         onUserDisconnect :(state, action) => {
-            console.log("action pour se déco")
+            // console.log("action pour se déco")
             state.isloged = "NOMORE"
             return (
               state
@@ -92,7 +92,7 @@ const loginSlice = createSlice ({
         [postLogine.fulfilled]: (state, action) => {
            
             if (action.payload.error) {
-                console.log(action.payload.error)
+                // console.log(action.payload.error)
                 state.isloged = "NO"
                 state.MessageError = action.payload.error.data
                 return state

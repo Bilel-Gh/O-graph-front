@@ -10,7 +10,7 @@ export const fetchUser = createAsyncThunk(
     async() => {
       
         const response = await axios.get(`${urlServer}/users`, {headers: {authtoken:localStorage.getItem("userToken")}})
-        console.log(response.data)
+        // console.log(response.data)
             // const emailFInd = response.data.find(e => e.email === "bobby@gmail.com")
             // console.log(emailFind.email)
 
@@ -23,9 +23,9 @@ export const fetchUser = createAsyncThunk(
 export const fetchUserById = createAsyncThunk(
   'user/fetchUserById',
   async(id,{getState}) => {
-    console.log({authtoken:localStorage.getItem("userToken")})
+    // console.log({authtoken:localStorage.getItem("userToken")})
       const response = await axios.get(`${urlServer}/userById/${id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
-      console.log(response.data)
+      // console.log(response.data)
          
 
       return response.data
@@ -38,7 +38,7 @@ export const postUser = createAsyncThunk(
   async(empty, { getState }) => {
       const { user } = getState().userSlice
       
-      console.log(user)
+      // console.log(user)
     
     try { const response = await axios.post(`${urlServer}/createUser`, {  
           "role": user.role|| '',
@@ -50,8 +50,8 @@ export const postUser = createAsyncThunk(
           "image": "" }, {headers: {authtoken:localStorage.getItem("userToken")}})
 
 
-          console.log(response.headers)
-          response ? console.log('user crée', response) : console.error()
+          // console.log(response.headers)
+          // response ? console.log('user crée', response) : console.error()
           
           return (
             {
@@ -60,7 +60,7 @@ export const postUser = createAsyncThunk(
             }
             )
     }catch(err){
-      console.log(err.response.data)
+      // console.log(err.response.data)
       return (
               {errorInfo : err.response.data[0],
                error : "YES", }
@@ -104,7 +104,7 @@ const userSlice = createSlice({
 
     reducers: {
       onUserError :(state, action) => {
-        console.log("dispatch ok error")
+        // console.log("dispatch ok error")
         state.userError = "YES"
         return (
           state

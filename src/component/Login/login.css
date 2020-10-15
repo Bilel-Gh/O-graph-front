@@ -6,14 +6,13 @@
     align-items: center;
     /* background-image: url('../../Background/'); */
     background-color: #E7E7E7;
-    background-image: url(./../../wave3.svg), url(./../../wave.svg);
-    background-repeat: no-repeat, no-repeat;
+    /* background-image: url(./../../wave3.svg), url(./../../wave.svg);
+    background-repeat: no-repeat, no-repeat; */
     /* background-size: 150%, 270%; */
-    background-size: 100%, 115%;
-    background-position: bottom;
+    /* background-size: 100%, 115%;
+    background-position: bottom; */
     flex-direction: column;
 }
-
 .logo-ograph {
     margin-bottom: -5vh;
 }
@@ -33,7 +32,7 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 135%;
     background-position: bottom;
-    margin-bottom: 15%;
+    margin-bottom: 17%;
 }
 
 .input-container {

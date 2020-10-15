@@ -2,6 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ShowStickers from '../ShowStickers/ShowStickers';
 import {switchImageUsed, fetchSticker, switchImageCarrousel, getSizeImage} from '../../../../store/imageSlice'
+import socket from '../../../socketIo/SocketIo';
 
 
 
@@ -24,7 +25,7 @@ const ShowImage = ({state, indexCarrousel}) => {
     if (refMainPicture.current.parentNode.parentNode.className==="carousel-item active"){
       
       
-      console.log(refMainPicture.current.offsetHeight, refMainPicture.current.offsetWidth)
+      // console.log(refMainPicture.current.offsetHeight, refMainPicture.current.offsetWidth)
       dispatch(getSizeImage({widthImage : refMainPicture.current.offsetWidth,
                              heightImage : refMainPicture.current.offsetHeight}))
 
@@ -72,7 +73,8 @@ const ShowImage = ({state, indexCarrousel}) => {
         <div className="main-picture" ref={refMainPicture}>
           <div className='container-stickers-picture' >
             {imageState.imageUsed.id===state.id ? <ShowStickers /> : null}
-            <img class={controlSize() ? 'picture-portrait' : 'self-picture'} src={state.image_url} />
+            {/* <img class={controlSize() ? 'picture-portrait' : 'self-picture'} src={state.image_url} /> */}
+            <img className='imageCarrousel' src={state.image_url} />
 
         </div>
        </div>

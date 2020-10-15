@@ -8,7 +8,7 @@ const SlotImageGalerie = ({image}) => {
     const dispatch = useDispatch()
     const selectImage = (e) => {
         e.preventDefault()
-        console.log(image)
+        // console.log(image)
         dispatch(switchImageUsed(image))
         dispatch(galerieIO(false))
 

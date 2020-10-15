@@ -13,7 +13,7 @@ const ShowNewImageUpload = () => {
     useEffect (()=> {
         let state
         dispatch(fetchImages(state))
-        console.log("image")
+        // console.log("image")
         
     },[])
 

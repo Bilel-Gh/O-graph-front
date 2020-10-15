@@ -27,7 +27,7 @@ const ButonListImage = ({id, listImage}) => {
         )
     }
     const newArrayImageList = () => {
-     console.log(filterImageList())   
+    //  console.log(filterImageList())   
     }
     const  checkBoxClick =  (e) => {
          e.preventDefault()

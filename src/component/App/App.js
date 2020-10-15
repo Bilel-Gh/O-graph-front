@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Project from '../Project/Project';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
+import About from '../About/About';
 import DOMPurify from 'dompurify';
 import {
   BrowserRouter as Router,
@@ -33,10 +34,9 @@ function App() {
       <div className="App">
         <Switch>
           <Login exact path="/"/>
-          {isAuthenticated() ? <Project path="/project"/> : <Redirect to="/" />
- }
-          {isAuthenticated() ? <Admin path="/admin"/> : <Redirect to="/" />
- }
+          <About path="/about"/>  
+          {isAuthenticated() ? <Project path="/project"/> : <Redirect to="/" />}
+          {isAuthenticated() ? <Admin path="/admin"/> : <Redirect to="/" /> } 
         </Switch>
       </div>
     </Router>

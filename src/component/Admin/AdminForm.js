@@ -26,8 +26,8 @@ const AdminForm = () => {
     e.preventDefault()
     let empty
     dispatch(postUser(empty))
-    console.log("postUser Ok")
-    console.log(UserState)
+    // console.log("postUser Ok")
+    // console.log(UserState)
     // localStorage.getItem('myUserInLocalStorage', UserState.user);
     
   }
@@ -36,7 +36,7 @@ const AdminForm = () => {
   const handleUserRoleChoice = (e) =>{
     e.preventDefault()
     const role = e.target.name
-    console.log(role)
+    // console.log(role)
 
     dispatch(onUserRoleChoice(
       role
