@@ -16,6 +16,10 @@
             history.push("/");
           }
 
+          const goToAbout = () => {
+            history.push("/about");
+          }
+
         function isdisconected() {
             if (LoginState.isloged !== "OK") {
                 return true
@@ -32,7 +36,7 @@
             < ul className = "nav-infos" >
                 <li > <a href = "/" onClick={handleClick} > Accueil </a> </li >
                 <li > <a href = "/" > Contact </a> </li >
-                <li > <a href = "/" > à propos </a> </li >
+                <li > <a onClick={goToAbout} > à propos </a> </li >
             </ul>
 
             <ul className = "nav-logout" >

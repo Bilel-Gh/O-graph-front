@@ -25,7 +25,7 @@ const NewMessage = () => {
         dispatch(onMessageInput(""))
         dispatch(createTitleMessage(""))
         dispatch(IOModalFirstMessage(false))
-        console.log("sending postcomment")
+        // console.log("sending postcomment")
         };
 
     // récupérer la valeur du titre du message qui est en train d"être tapper

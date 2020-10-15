@@ -1,0 +1,61 @@
+.logo-ograph-about {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 90vh;
+}
+
+.logo-ograph-about button.my-btn-primary.btn.my-btn-primary {
+  margin: 1vh;
+  margin-left: 1vh;
+  width: 11vh;
+  height: 3vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF0066 !important;
+  border-color: #FF0066 !important;
+}
+
+.about-page{
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.wave-container {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    color: #FFF;
+    text-align: center;
+    overflow: hidden;
+  }
+@keyframes animateWave {
+    0% {
+      transform: scale(1,0);
+    }
+    100% {
+      transform: scale(1,1);
+    }
+  }
+
+  .wave-container > svg {
+    display: block;
+    transform-origin: bottom;
+    animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  .blue-wave {
+    height: 106%;
+    position: absolute;
+    top: 0;
+    Z-INDEX: 10;
+    left: 0;
+  }

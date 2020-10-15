@@ -24,7 +24,7 @@ const LoginInput = () => {
   let history = useHistory();
 
   useEffect(()=>{
-    console.log(LoginState.isloged)
+    // console.log(LoginState.isloged)
     if (LoginState.isloged === "OK" && LoginState.role === "admin" ) {
         history.push("/admin");
     }

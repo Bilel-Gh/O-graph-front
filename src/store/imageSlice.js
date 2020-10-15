@@ -10,7 +10,7 @@ export const fetchSticker = createAsyncThunk(
         const {imageUsed} = getState().imageSlice
        
         const response = await axios.get(`${urlServer}/findstickers/${imageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}})
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     }
 )
@@ -29,7 +29,7 @@ export const postStickers = createAsyncThunk(
      
             // on séléctionne les propriétés du state que l'on veut et on les extrait de leurs slice pour y avoir accès
          const { imageUsed, sticker } = getState().imageSlice
-         console.log(sticker.stickerColor)
+        //  console.log(sticker.stickerColor)
             // faire la requete axios et integrer les valeurs de notre BDD sans les propriété du state choisit juste avant
         const response = await axios.post(`${urlServer}/createnewsticker`, { "image_id": imageUsed.id, "position_x": sticker.x, "position_y": sticker.y, "color":sticker.stickerColor }, {headers: {authtoken:localStorage.getItem("userToken")}})
            
@@ -75,7 +75,7 @@ export const postListImage = createAsyncThunk(
 export const fetchImages = createAsyncThunk(
     'imageSlice/fetchAllImage',
     async(state ,{getState}) => {
-        console.log("list image used")
+        // console.log("list image used")
        
         const {listImageUsed}= getState().imageSlice
         const response = await axios.get(`${urlServer}/imageByListImageId/${listImageUsed.id}`, {headers: {authtoken:localStorage.getItem("userToken")}} )
@@ -91,7 +91,7 @@ export const uploadImage = createAsyncThunk(
     async(formData,{getState}) => {
        
         const {newNameListImage,newImage}= getState().imageSlice
-    console.log("formData")
+    // console.log("formData")
         const response = await axios.post(`${urlServer}/uploadImage`,formData, { headers: {'Content-Type': 'multipart/form-data'} }, {headers: {authtoken:localStorage.getItem("userToken")}})
        
         return response.data
@@ -106,7 +106,7 @@ export const postImage = createAsyncThunk(
       
         const {newNameListImage,newImage}= getState().imageSlice
         const theState = getState()
-        console.log(newImage.image_url)
+        // console.log(newImage.image_url)
         const response = await axios.post(`${urlServer}/newImage`, {
                                                                             "image_url": newImage.image_url,
                                                                             "list_image_id": 3,
@@ -190,7 +190,7 @@ const imageSlice = createSlice({
         },
 
         getSizeImage: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.width = action.payload.widthImage;
             state.height = action.payload.heightImage;
             return (
